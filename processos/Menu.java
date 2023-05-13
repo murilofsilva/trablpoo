@@ -53,7 +53,8 @@ public class Menu {
                 04 - Auxiliar
                 05 - Jogador
                 06 - Coach/Tecnico
-                07 - Fornecedor
+                07 - Time
+                08 - Fornecedor
                 00 - Voltar""";
         System.out.println(menu);
     }
