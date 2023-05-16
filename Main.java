@@ -1,10 +1,18 @@
-import processos.Menu;
+import modelos.Campeonato;
+import modelos.Pessoa;
+import modelos.Time;
+import processos.MenuService;
 
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        new Menu().switchOpcao(sc.nextInt());
+        MenuService menuService = new MenuService();
+
+        ArrayList<Pessoa> pessoas = new ArrayList<>();
+        ArrayList<Campeonato> campeonatos = new ArrayList<>();
+        ArrayList<Time> times = new ArrayList<>();
+
+        menuService.processaMenu();
     }
 }

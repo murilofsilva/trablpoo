@@ -1,4 +1,4 @@
-package modelos;
-
-public class Jogador extends Pessoa{
-}
+//package modelos;
+//
+//public class Jogador extends Pessoa{
+//}

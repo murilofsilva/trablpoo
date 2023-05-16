@@ -1,30 +1,52 @@
 package processos;
 
-public class Menu {
+import java.util.Scanner;
+
+public class MenuService {
     private static final String DEFAULT_FINISH_MESSAGE = "Obrigado, volte sempre!";
     private static final String DEFAULT_ERROR_MESSAGE = "Favor digitar uma opção válida!";
+    private static final String QUEBRA_DE_LINHA = "\n";
 
-    public Menu() {
-        String menu = """
-                BEM VINDO AO MENU!
-                Escolha a funcionalidade que deseja:
-                01 - Visualizar
-                02 - Cadastrar
-                03 - Editar
-                04 - Remover
-                00 - Sair""";
+    public void showMenu() {
+        String menu = QUEBRA_DE_LINHA +
+                """
+                        BEM VINDO AO MENU!
+                        Escolha a funcionalidade que deseja:
+                        01 - Visualizar
+                        02 - Cadastrar
+                        03 - Editar
+                        04 - Remover
+                        00 - Sair""";
         System.out.println(menu);
     }
 
-    public void switchOpcao(int op) {
+    public void processaMenu() {
+        int op = this.readOpcao();
         switch (op) {
             case 1 -> loadMenuVisualizacao();
             case 2 -> loadMenuCadastro();
             case 3 -> loadMenuEdicao();
             case 4 -> loadMenuRemocao();
-            case 0 -> System.out.println(DEFAULT_FINISH_MESSAGE);
-            default -> System.out.println(DEFAULT_ERROR_MESSAGE);
+            case 0 -> System.out.println(QUEBRA_DE_LINHA + DEFAULT_FINISH_MESSAGE);
+            default -> {
+                System.out.println(QUEBRA_DE_LINHA + DEFAULT_ERROR_MESSAGE);
+                processaMenu();
+            }
         }
+    }
+
+    private int readOpcao() {
+        Scanner sc = new Scanner(System.in);
+        MenuService menu = new MenuService();
+        int opcao = 0;
+        try {
+            menu.showMenu();
+            opcao = sc.nextInt();
+        } catch (Exception e) {
+            System.out.println(DEFAULT_ERROR_MESSAGE);
+            readOpcao();
+        }
+        return opcao;
     }
 
     private void loadMenuVisualizacao() {
