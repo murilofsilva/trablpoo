@@ -2,11 +2,10 @@ package processos.menu;
 
 import processos.menu.enumerators.EntidadeMenuEnum;
 import processos.organizador.OrganizadorService;
-import util.ConsoleResources;
 
 import java.util.Scanner;
 
-public class MenuVisualizacaoService {
+public class MenuCadastroService {
     private static final Scanner sc = new Scanner(System.in);
     private static final String EXIBICAO_ENTIDADES_MENU = """
             01 - Organizador
@@ -17,11 +16,12 @@ public class MenuVisualizacaoService {
             06 - Coach/Técnico
             07 - Time
             08 - Fornecedor
+            00 - Voltar
             """;
 
-    public static void processaMenuVisualizacao() {
+    public static void processaMenuCadastro() {
         while (true) {
-            exibeMenuVisualizacao();
+            exibeMenuCadastro();
             int opcaoVisualizacao = readOpcao();
 
             if (opcaoVisualizacao == 0) return;
@@ -30,16 +30,11 @@ public class MenuVisualizacaoService {
         }
     }
 
-    private static void exibeMenuVisualizacao() {
+    private static void exibeMenuCadastro() {
         String menu = """
-                ========= VISUALIZAÇÃO ==========
+                ========= CADASTRO ==========
                 """
-                + EXIBICAO_ENTIDADES_MENU +
-                """
-                        09 - Visualização completa
-                        00 - Voltar
-                        =================================
-                        """;
+                + EXIBICAO_ENTIDADES_MENU;
         System.out.print(menu);
     }
 
@@ -61,7 +56,7 @@ public class MenuVisualizacaoService {
         EntidadeMenuEnum opcaoEscolhidaEnum = EntidadeMenuEnum.obterEntidadePorValor(opcaoEscolhida);
 
         switch (opcaoEscolhidaEnum) {
-            case ORGANIZADOR -> exibirBuscaOrganizador();
+            case ORGANIZADOR -> OrganizadorService.cadastra();
             case GERENTE -> System.out.print("organizador");
             case EVENTO -> System.out.print("organizador");
             case AUXILIAR -> System.out.print("organizador");
@@ -71,23 +66,5 @@ public class MenuVisualizacaoService {
             case FORNECEDOR -> System.out.print("organizador");
             default -> System.out.print("nada");
         }
-    }
-
-    private static void exibirBuscaOrganizador() {
-        System.out.println("========= VISUALIZAÇÃO DO ORGANIZADOR ==========");
-        System.out.print("Informe o nome do organizador para busca: ");
-
-        String nome = sc.nextLine();
-        boolean encontrouResultados = OrganizadorService.imprimirOrganizadoresPorNome(nome);
-
-        if (!encontrouResultados) {
-            System.out.println("Organizador não encontrado!");
-            ConsoleResources.pausarConsole();
-            return;
-        }
-
-        System.out.print("Informe o código do organizador para visualização completa: ");
-        String codigoOrganizador = sc.nextLine();
-        OrganizadorService.imprimirInformacoesOrganizador(codigoOrganizador);
     }
 }

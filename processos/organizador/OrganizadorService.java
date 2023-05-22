@@ -2,21 +2,23 @@ package processos.organizador;
 
 import modelos.Organizador;
 import util.ConsoleResources;
+import util.DataResources;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class OrganizadorService {
-    private static ArrayList<Organizador> organizadores = new ArrayList<Organizador>() {
-        {
-            add(new Organizador("Emerson", "06369196177", LocalDate.now()));
-        }
-    };
+    static Scanner sc = new Scanner(System.in);
+
+    private static ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
 
     public static boolean imprimirOrganizadoresPorNome(String nome) {
         boolean encontrouResultados = false;
-        for (Organizador organizador: organizadores) {
-            if (!organizador.getNome().contains(nome))
+        for (Organizador organizador : organizadores) {
+            if (!organizador.getNome().toLowerCase().contains(nome.toLowerCase()))
                 continue;
             System.out.println(organizador.getCodigoOrganizador() + " - " + organizador.getNome());
             encontrouResultados = true;
@@ -26,7 +28,7 @@ public class OrganizadorService {
     }
 
     public static boolean imprimirInformacoesOrganizador(String codigoOrganizador) {
-        for (Organizador organizador: organizadores) {
+        for (Organizador organizador : organizadores) {
             if (!organizador.getCodigoOrganizador().equals(codigoOrganizador))
                 continue;
             System.out.println("========= ORGANIZADOR " + organizador.getCodigoOrganizador() + " ==========");
@@ -38,5 +40,29 @@ public class OrganizadorService {
         }
 
         return true;
+    }
+
+    //CADASTRO
+
+    public static void cadastra() {
+        try {
+            System.out.println("========= CADASTRO DE ORGANIZADOR ==========");
+            System.out.print("Informe o nome do organizador: ");
+            String nome = sc.nextLine();
+            System.out.print("Informe o cpf ou cnpj do organizador: ");
+            String cpfCnpj = sc.nextLine();
+            LocalDate dataNascimento = DataResources.getAndValidateDate("organizador");
+            System.out.print("Informe o país do organizador: ");
+            String pais = sc.nextLine();
+            System.out.print("Informe o estado do organizador: ");
+            String estado = sc.nextLine();
+            System.out.print("Informe o municipio do organizador: ");
+            String municipio = sc.nextLine();
+
+            Organizador organizador = new Organizador(nome, cpfCnpj, dataNascimento, pais, municipio, estado);
+            organizadores.add(organizador);
+        } catch (Exception e) {
+            System.out.println("Ocorreram erros ao cadastrar um organizador. Entre em contato com o suporte.");
+        }
     }
 }
