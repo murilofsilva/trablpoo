@@ -1,12 +1,16 @@
 package processos.menu;
 
-import processos.menu.enumerators.EntidadeMenuEnum;
+import modelos.enumerators.EntidadeMenuEnum;
+import processos.jogador.JogadorService;
 import processos.organizador.OrganizadorService;
+import util.ConsoleResources;
 
 import java.util.Scanner;
 
 public class MenuCadastroService {
     private static final Scanner sc = new Scanner(System.in);
+    private static ConsoleResources consoleResources = new ConsoleResources();
+
     private static final String EXIBICAO_ENTIDADES_MENU = """
             01 - Organizador
             02 - Gerente
@@ -22,7 +26,7 @@ public class MenuCadastroService {
     public static void processaMenuCadastro() {
         while (true) {
             exibeMenuCadastro();
-            int opcaoVisualizacao = readOpcao();
+            int opcaoVisualizacao = consoleResources.getNumberFromConsole();
 
             if (opcaoVisualizacao == 0) return;
 
@@ -38,20 +42,6 @@ public class MenuCadastroService {
         System.out.print(menu);
     }
 
-    private static int readOpcao() {
-        int opcao;
-        try {
-            System.out.print("Informe a opção: ");
-            opcao = Integer.parseInt(sc.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("A opcão escolhida deve ser um número!");
-            return readOpcao();
-        }
-
-        return opcao;
-    }
-
-
     private static void processaOpcaoEscolhida(int opcaoEscolhida) {
         EntidadeMenuEnum opcaoEscolhidaEnum = EntidadeMenuEnum.obterEntidadePorValor(opcaoEscolhida);
 
@@ -60,7 +50,7 @@ public class MenuCadastroService {
             case GERENTE -> System.out.print("organizador");
             case EVENTO -> System.out.print("organizador");
             case AUXILIAR -> System.out.print("organizador");
-            case JOGADOR -> System.out.print("organizador");
+            case JOGADOR -> JogadorService.cadastra();
             case TECNICO -> System.out.print("organizador");
             case TIME -> System.out.print("organizador");
             case FORNECEDOR -> System.out.print("organizador");

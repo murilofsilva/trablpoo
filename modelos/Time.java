@@ -1,18 +1,19 @@
 package modelos;
 
 public class Time {
-    protected String nome;
-    protected int numeroIntegrantes;
-    protected String coach;
-    protected Fiscal fiscal;
-    protected Localidade pais;
+    private Long id;
+    private String nome;
+    private Integer numeroIntegrantes;
+    private String coach;
+    private Fiscal fiscal;
+    private Localidade localidade;
 
-    public Time(String nome, int numeroIntegrantes, String coach, Fiscal fiscal, Localidade pais){
+    public Time(String nome, int numeroIntegrantes, String coach, Fiscal fiscal, Localidade localidade){
         this.nome = nome;
         this.numeroIntegrantes = numeroIntegrantes;
         this.coach = coach;
         this.fiscal = fiscal;
-        this.pais = pais;
+        this.localidade = localidade;
     }
     public void setnumIntegrantes(int numeroIntegrantes){
         this.numeroIntegrantes = numeroIntegrantes;

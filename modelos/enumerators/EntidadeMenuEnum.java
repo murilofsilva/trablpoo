@@ -1,4 +1,4 @@
-package processos.menu.enumerators;
+package modelos.enumerators;
 
 import java.util.HashMap;
 import java.util.Map;

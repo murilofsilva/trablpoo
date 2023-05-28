@@ -1,8 +1,10 @@
 package processos.organizador;
 
+import modelos.Localidade;
 import modelos.Organizador;
 import util.ConsoleResources;
 import util.DataResources;
+import util.InscricaoResources;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OrganizadorService {
-    static Scanner sc = new Scanner(System.in);
-
-    private static ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
+    private static ConsoleResources consoleResources = new ConsoleResources();
+    private static InscricaoResources inscricaoResources = new InscricaoResources();
+    public static ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
 
     public static boolean imprimirOrganizadoresPorNome(String nome) {
         boolean encontrouResultados = false;
@@ -47,19 +49,16 @@ public class OrganizadorService {
     public static void cadastra() {
         try {
             System.out.println("========= CADASTRO DE ORGANIZADOR ==========");
-            System.out.print("Informe o nome do organizador: ");
-            String nome = sc.nextLine();
-            System.out.print("Informe o cpf ou cnpj do organizador: ");
-            String cpfCnpj = sc.nextLine();
+            String nome = consoleResources.getStringFromConsole("Informe o nome do organizador: ");
+            String cpfCnpj = inscricaoResources.getAndValidateCpfCnpj("organizador");
             LocalDate dataNascimento = DataResources.getAndValidateDate("organizador");
-            System.out.print("Informe o país do organizador: ");
-            String pais = sc.nextLine();
-            System.out.print("Informe o estado do organizador: ");
-            String estado = sc.nextLine();
-            System.out.print("Informe o municipio do organizador: ");
-            String municipio = sc.nextLine();
+            String pais = consoleResources.getStringFromConsole("Informe o país do organizador: ");
+            String estado = consoleResources.getStringFromConsole("Informe o estado do organizador: ");
+            String municipio = consoleResources.getStringFromConsole("Informe o município do organizador");
 
-            Organizador organizador = new Organizador(nome, cpfCnpj, dataNascimento, pais, municipio, estado);
+            Localidade localidade = new Localidade(pais, municipio, estado);
+            Organizador organizador = new Organizador(nome, cpfCnpj, dataNascimento,localidade);
+
             organizadores.add(organizador);
         } catch (Exception e) {
             System.out.println("Ocorreram erros ao cadastrar um organizador. Entre em contato com o suporte.");

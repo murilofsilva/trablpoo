@@ -1,6 +1,6 @@
 package processos.menu;
 
-import processos.menu.enumerators.EntidadeMenuEnum;
+import modelos.enumerators.EntidadeMenuEnum;
 import processos.organizador.OrganizadorService;
 import util.ConsoleResources;
 
@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class MenuVisualizacaoService {
     private static final Scanner sc = new Scanner(System.in);
+    private static ConsoleResources consoleResources = new ConsoleResources();
+
     private static final String EXIBICAO_ENTIDADES_MENU = """
             01 - Organizador
             02 - Gerente
@@ -22,7 +24,7 @@ public class MenuVisualizacaoService {
     public static void processaMenuVisualizacao() {
         while (true) {
             exibeMenuVisualizacao();
-            int opcaoVisualizacao = readOpcao();
+            int opcaoVisualizacao = consoleResources.getNumberFromConsole();
 
             if (opcaoVisualizacao == 0) return;
 
@@ -42,20 +44,6 @@ public class MenuVisualizacaoService {
                         """;
         System.out.print(menu);
     }
-
-    private static int readOpcao() {
-        int opcao;
-        try {
-            System.out.print("Informe a opção: ");
-            opcao = Integer.parseInt(sc.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("A opcão escolhida deve ser um número!");
-            return readOpcao();
-        }
-
-        return opcao;
-    }
-
 
     private static void processaOpcaoEscolhida(int opcaoEscolhida) {
         EntidadeMenuEnum opcaoEscolhidaEnum = EntidadeMenuEnum.obterEntidadePorValor(opcaoEscolhida);
