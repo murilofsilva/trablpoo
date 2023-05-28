@@ -1,7 +1,8 @@
-package processos.jogador;
+package services.jogador;
 
 import modelos.Jogador;
 import modelos.Localidade;
+import modelos.Time;
 import util.ConsoleResources;
 import util.DataResources;
 import util.InscricaoResources;
@@ -9,8 +10,10 @@ import util.InscricaoResources;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
-import java.util.regex.Pattern;
+
+import static services.time.TimeService.times;
 
 public class JogadorService {
     static Scanner sc = new Scanner(System.in);
@@ -28,11 +31,11 @@ public class JogadorService {
             String estado = consoleResources.getStringFromConsole("Informe o país do jogador: ");
             String municipio = consoleResources.getStringFromConsole("Informe o país do jogador: ");
             System.out.print("Informe o nome ou id do time que o jogador pertence: ");
-            Long idTime = getTime(sc.nextLine());
+            Time time = getTime();
             String jogo = getJogo();
 
             Localidade localidade = new Localidade(pais, municipio, estado);
-            Jogador jogador = new Jogador(nome, cpfCnpj, dataNascimento, localidade, idTime, jogo);
+            Jogador jogador = new Jogador(nome, cpfCnpj, dataNascimento, localidade, jogo, time);
 
             jogadores.add(jogador);
         } catch (Exception e) {
@@ -40,17 +43,21 @@ public class JogadorService {
         }
     }
 
-    private static Long getTime(String nameOrId) {
-        final Pattern pattern = Pattern.compile("[0-9]+");
+    private static Time getTime() {
+        System.out.print("Informe o nome do time do jogador (caso não possua, apenas avance): ");
+        String time = sc.nextLine();
 
-        if (pattern.matcher(nameOrId).find()) {
-            Long id = Long.valueOf(nameOrId);
-            //TODO: busca por id na lista de Jogadores da classe JogadoresService
-        } else {
-            //TODO: busca por nome na lista de Jogadores da classe JogadoresService
+        if (Objects.isNull(time) || time.isEmpty()) {
+            return null;
         }
 
-        return 1L;
+        List<Time> timesEncontrados = times.stream().filter(t -> t.getNome().equals(time)).toList();
+        if (timesEncontrados.size() == 0) {
+            System.out.println("Time não encontrado! Tente novamente.");
+            getTime();
+        }
+
+        return timesEncontrados.get(0);
     }
 
     private static String getJogo() {

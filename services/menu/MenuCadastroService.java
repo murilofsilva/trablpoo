@@ -1,8 +1,8 @@
-package processos.menu;
+package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
-import processos.jogador.JogadorService;
-import processos.organizador.OrganizadorService;
+import services.jogador.JogadorService;
+import services.organizador.OrganizadorService;
 import util.ConsoleResources;
 
 import java.util.Scanner;

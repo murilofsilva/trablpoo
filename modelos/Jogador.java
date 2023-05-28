@@ -6,11 +6,16 @@ public class Jogador extends Pessoa {
     Long id;
     private Long idTime;
     private String jogo;
+    private Time time;
 
-    public Jogador(String nome, String cpfCnpj, LocalDate dataNascimento, Localidade localidade, Long time, String jogo) {
+    public Jogador(String nome, String cpfCnpj, LocalDate dataNascimento, Localidade localidade, String jogo, Time time) {
         super(nome, cpfCnpj, dataNascimento, localidade);
-        this.idTime = time;
         this.jogo = jogo;
+        this.time = time;
+    }
+
+    public Time getTime() {
+        return this.time;
     }
 
     public void imprimirInformacoes() {
