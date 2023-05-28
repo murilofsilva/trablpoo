@@ -8,6 +8,7 @@ public class ConsoleResources {
     public static void pausarConsole() {
         System.out.println("Tecle para continuar...");
         String discard = sc.nextLine();
+        pularVariasLinhas();
     }
 
     public int getNumberFromConsole() {
@@ -23,16 +24,12 @@ public class ConsoleResources {
         return opcao;
     }
 
-    public String getStringFromConsole(String str) {
-        String value;
-        try {
-            System.out.print(str);
-            value = sc.nextLine();
-        } catch (Exception e) {
-            System.out.println("Opção escolhida inválida! Tente novamente!");
-            return getStringFromConsole(str);
-        }
+    public String getStringFromConsole(String mensagem) {
+        System.out.print(mensagem);
+        return sc.nextLine();
+    }
 
-        return value;
+    public static void pularVariasLinhas() {
+        System.out.print("\n\n\n\n\n");
     }
 }

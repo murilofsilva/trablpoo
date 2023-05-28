@@ -5,14 +5,12 @@ public class Time {
     private String nome;
     private Integer numeroIntegrantes;
     private String coach;
-    private Fiscal fiscal;
     private Localidade localidade;
 
-    public Time(String nome, int numeroIntegrantes, String coach, Fiscal fiscal, Localidade localidade){
+    public Time(String nome, int numeroIntegrantes, String coach, Localidade localidade){
         this.nome = nome;
         this.numeroIntegrantes = numeroIntegrantes;
         this.coach = coach;
-        this.fiscal = fiscal;
         this.localidade = localidade;
     }
     public void setnumIntegrantes(int numeroIntegrantes){

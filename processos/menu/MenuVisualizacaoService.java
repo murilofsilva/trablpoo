@@ -1,14 +1,20 @@
 package processos.menu;
 
+import modelos.Gerente;
+import modelos.Organizador;
+import modelos.Pessoa;
 import modelos.enumerators.EntidadeMenuEnum;
 import processos.organizador.OrganizadorService;
+import repositories.PessoaRepository;
 import util.ConsoleResources;
 
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuVisualizacaoService {
     private static final Scanner sc = new Scanner(System.in);
-    private static ConsoleResources consoleResources = new ConsoleResources();
+    private static final ConsoleResources consoleResources = new ConsoleResources();
 
     private static final String EXIBICAO_ENTIDADES_MENU = """
             01 - Organizador
@@ -49,33 +55,45 @@ public class MenuVisualizacaoService {
         EntidadeMenuEnum opcaoEscolhidaEnum = EntidadeMenuEnum.obterEntidadePorValor(opcaoEscolhida);
 
         switch (opcaoEscolhidaEnum) {
-            case ORGANIZADOR -> exibirBuscaOrganizador();
-            case GERENTE -> System.out.print("organizador");
-            case EVENTO -> System.out.print("organizador");
-            case AUXILIAR -> System.out.print("organizador");
-            case JOGADOR -> System.out.print("organizador");
-            case TECNICO -> System.out.print("organizador");
-            case TIME -> System.out.print("organizador");
-            case FORNECEDOR -> System.out.print("organizador");
-            default -> System.out.print("nada");
+            case AUXILIAR:
+            case JOGADOR:
+            case TECNICO:
+            case ORGANIZADOR:
+            case GERENTE:
+                List<Pessoa> pessoas = buscarPessoasPorNome();
+                List<Pessoa> gerentes = Gerente.filtrarGerentes(pessoas);
+                imprimirPessoasEncontradas(gerentes);
+                imprimirInformacoesPessoa();
+                break;
+            case EVENTO: System.out.print("organizador");
+            case FORNECEDOR: System.out.print("organizador");
+            case TIME: System.out.print("organizador");
+            default: System.out.print("nada");
         }
     }
 
-    private static void exibirBuscaOrganizador() {
-        System.out.println("========= VISUALIZAÇÃO DO ORGANIZADOR ==========");
-        System.out.print("Informe o nome do organizador para busca: ");
+    private static List<Pessoa> buscarPessoasPorNome() {
+        ConsoleResources.pularVariasLinhas();
+        System.out.println("************** VISUALIZAÇÃO DA PESSOA **************");
+        String nome = consoleResources.getStringFromConsole("Informe o nome para pesquisa: ");
+        return PessoaRepository.obterPorNome(nome);
+    }
 
-        String nome = sc.nextLine();
-        boolean encontrouResultados = OrganizadorService.imprimirOrganizadoresPorNome(nome);
-
-        if (!encontrouResultados) {
-            System.out.println("Organizador não encontrado!");
-            ConsoleResources.pausarConsole();
-            return;
+    private static void imprimirPessoasEncontradas(List<Pessoa> pessoas) {
+        for (Pessoa pessoa : pessoas) {
+            System.out.println(pessoa.obterInformacoes());
         }
+    }
 
-        System.out.print("Informe o código do organizador para visualização completa: ");
-        String codigoOrganizador = sc.nextLine();
-        OrganizadorService.imprimirInformacoesOrganizador(codigoOrganizador);
+    private static void imprimirInformacoesPessoa() {
+        String cpf = consoleResources.getStringFromConsole("Informe o CPF para exibir informações detalhadas: ");
+        Pessoa pessoa = PessoaRepository.obter(cpf);
+        imprimirInformacoesPessoa(pessoa);
+    }
+
+    private static void imprimirInformacoesPessoa(Pessoa pessoa) {
+        ConsoleResources.pularVariasLinhas();
+        System.out.println(pessoa.obterInformacoesDetalhadas());
+        ConsoleResources.pausarConsole();
     }
 }

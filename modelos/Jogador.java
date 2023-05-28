@@ -2,7 +2,7 @@ package modelos;
 
 import java.time.LocalDate;
 
-public class Jogador extends Pessoa{
+public class Jogador extends Pessoa {
     Long id;
     private Long idTime;
     private String jogo;
@@ -11,5 +11,13 @@ public class Jogador extends Pessoa{
         super(nome, cpfCnpj, dataNascimento, localidade);
         this.idTime = time;
         this.jogo = jogo;
+    }
+
+    public void imprimirInformacoes() {
+
+    }
+
+    public String obterInformacoes() {
+        return null;
     }
 }

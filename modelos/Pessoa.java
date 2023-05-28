@@ -47,4 +47,10 @@ public abstract class Pessoa {
     public void setLocalidade(Localidade localidade) {
         this.localidade = localidade;
     }
+
+    public abstract String obterInformacoes();
+
+    public String obterInformacoesDetalhadas() {
+        return String.format("Nome: %s\nCPF: %s\nData do nascimento: %s", this.nome, this.cpfCnpj, this.dataNascimento);
+    };
 }

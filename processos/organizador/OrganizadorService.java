@@ -10,38 +10,46 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class OrganizadorService {
     private static ConsoleResources consoleResources = new ConsoleResources();
     private static InscricaoResources inscricaoResources = new InscricaoResources();
-    public static ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
+    public static ArrayList<Organizador> organizadores = new ArrayList<Organizador>() {
+        {
+            add(new Organizador("Emerson",
+                    "06369196177",
+                    LocalDate.now(),
+                    new Localidade("brazil", "cg", "ms"))
+            );
+        }
+    };
+
+    public static Organizador obterOrganizadorPorCodigo(String codigo) {
+        Optional<Organizador> organizador = organizadores.stream()
+                .filter(x -> x.getCodigoOrganizador().equals(codigo)).findFirst();
+        if (organizador.isEmpty()) {
+            System.out.println("Organizador não encontrado");
+            return null;
+        }
+
+        return organizador.get();
+    }
 
     public static boolean imprimirOrganizadoresPorNome(String nome) {
         boolean encontrouResultados = false;
-        for (Organizador organizador : organizadores) {
-            if (!organizador.getNome().toLowerCase().contains(nome.toLowerCase()))
-                continue;
+        List<Organizador> organizadoresEncontrados = organizadores.stream()
+                .filter(x -> x.getNome().toLowerCase().contains(nome.toLowerCase())).toList();
+
+        for (Organizador organizador : organizadoresEncontrados) {
             System.out.println(organizador.getCodigoOrganizador() + " - " + organizador.getNome());
             encontrouResultados = true;
         }
 
         return encontrouResultados;
-    }
-
-    public static boolean imprimirInformacoesOrganizador(String codigoOrganizador) {
-        for (Organizador organizador : organizadores) {
-            if (!organizador.getCodigoOrganizador().equals(codigoOrganizador))
-                continue;
-            System.out.println("========= ORGANIZADOR " + organizador.getCodigoOrganizador() + " ==========");
-
-            System.out.println("Nome: " + organizador.getNome());
-            System.out.println("CPF: " + organizador.getCpfCnpj());
-            System.out.println("Data de nascimento: " + organizador.getDataNascimento());
-            ConsoleResources.pausarConsole();
-        }
-
-        return true;
     }
 
     //CADASTRO
