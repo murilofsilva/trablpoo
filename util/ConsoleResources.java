@@ -23,6 +23,19 @@ public class ConsoleResources {
         return opcao;
     }
 
+    public int getNumberFromConsole(String mensagem) {
+        int opcao;
+        try {
+            System.out.print(mensagem);
+            opcao = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("O valor inserido deve ser um número!");
+            return getNumberFromConsole(mensagem);
+        }
+
+        return opcao;
+    }
+
     public String getStringFromConsole(String str) {
         String value;
         try {
@@ -34,5 +47,12 @@ public class ConsoleResources {
         }
 
         return value;
+    }
+
+    public boolean getSimNao(String str) {
+        if (str.contains("s")) {
+            return true;
+        }
+        return false;
     }
 }

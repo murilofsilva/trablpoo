@@ -1,7 +1,7 @@
-package processos;
+package services;
 
-import processos.menu.MenuCadastroService;
-import processos.menu.MenuVisualizacaoService;
+import services.menu.MenuCadastroService;
+import services.menu.MenuVisualizacaoService;
 import util.ConsoleResources;
 
 public class MenuService {

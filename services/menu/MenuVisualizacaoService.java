@@ -1,7 +1,7 @@
-package processos.menu;
+package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
-import processos.organizador.OrganizadorService;
+import services.organizador.OrganizadorService;
 import util.ConsoleResources;
 
 import java.util.Scanner;

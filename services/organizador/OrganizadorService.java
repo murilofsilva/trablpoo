@@ -1,4 +1,4 @@
-package processos.organizador;
+package services.organizador;
 
 import modelos.Localidade;
 import modelos.Organizador;
@@ -7,10 +7,7 @@ import util.DataResources;
 import util.InscricaoResources;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class OrganizadorService {
     private static ConsoleResources consoleResources = new ConsoleResources();
