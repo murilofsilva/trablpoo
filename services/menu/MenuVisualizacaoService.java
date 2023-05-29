@@ -7,30 +7,25 @@ import services.pessoa.JogadorService;
 import services.pessoa.OrganizadorService;
 import util.ConsoleResources;
 
-import java.util.Scanner;
-
 public class MenuVisualizacaoService {
-    private static final Scanner sc = new Scanner(System.in);
     private static final ConsoleResources consoleResources = new ConsoleResources();
 
     private static final String EXIBICAO_ENTIDADES_MENU = """
-            01 - Organizador
-            02 - Gerente
-            03 - Evento
-            04 - Auxiliar
-            05 - Jogador
-            06 - Coach/Técnico
-            07 - Time
-            08 - Fornecedor
-            """;
+                                                          01 - Organizador
+                                                          02 - Gerente
+                                                          03 - Evento
+                                                          04 - Auxiliar
+                                                          05 - Jogador
+                                                          06 - Coach/Técnico
+                                                          07 - Time
+                                                          08 - Fornecedor
+                                                          """;
 
     public static void processaMenuVisualizacao() {
         while (true) {
             exibeMenuVisualizacao();
             int opcaoVisualizacao = consoleResources.getNumberFromConsole();
-
             if (opcaoVisualizacao == 0) return;
-
             processaOpcaoEscolhida(opcaoVisualizacao);
         }
     }
@@ -41,10 +36,10 @@ public class MenuVisualizacaoService {
                 """
                 + EXIBICAO_ENTIDADES_MENU +
                 """
-                        09 - Visualização completa
-                        00 - Voltar
-                        =================================
-                        """;
+                09 - Visualização completa
+                00 - Voltar
+                =================================
+                """;
         System.out.print(menu);
     }
 
