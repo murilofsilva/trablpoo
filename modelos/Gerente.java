@@ -26,13 +26,4 @@ public class Gerente extends Pessoa {
                 this.setorGerenciado +
                 "\n******* ********************** *******";
     }
-
-    public static List<Pessoa> filtrarGerentes(List<Pessoa> pessoas) {
-        List<Pessoa> gerentes = new ArrayList<>();
-        for (Pessoa pessoa: pessoas) {
-            if (pessoa instanceof Gerente)
-                gerentes.add(pessoa);
-        }
-        return gerentes;
-    }
 }

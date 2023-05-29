@@ -1,8 +1,7 @@
-package services.coach;
+package services.pessoa;
 
-import modelos.Coach;
-import modelos.Localidade;
-import modelos.Time;
+import modelos.*;
+import services.pessoa.PessoaService;
 import util.ConsoleResources;
 import util.DataResources;
 import util.InscricaoResources;
@@ -14,13 +13,36 @@ import java.util.Objects;
 
 import static services.time.TimeService.times;
 
-public class CoachService {
+public class CoachService extends PessoaService {
     public static List<Coach> coaches = new ArrayList<>();
-    private static ConsoleResources consoleResources = new ConsoleResources();
-    private static InscricaoResources inscricaoResources = new InscricaoResources();
-    private static DataResources dataResources = new DataResources();
+    private final static ConsoleResources consoleResources = new ConsoleResources();
+    private final static InscricaoResources inscricaoResources = new InscricaoResources();
 
-    public void cadastra() {
+    public void visualizar() {
+        ConsoleResources.pularVariasLinhas();
+        System.out.println("************** VISUALIZAÇÃO DO COACH **************");
+
+        while(true) {
+            List<Pessoa> pessoas = buscarPessoasPorNome();
+            List<Pessoa> coaches = filtrar(pessoas);
+            if (coaches.size() > 0) {
+                imprimirPessoasEncontradas(coaches);
+                break;
+            }
+            System.out.println("Nenhum coach encontrado com esse nome!");
+        }
+
+        while (true) {
+            Pessoa gerente = buscarPessoaPorCPF();
+            if (gerente != null) {
+                imprimirInformacoesPessoa(gerente);
+                break;
+            }
+            System.out.println("Nenhum coach encontrado com esse CPF!");
+        }
+    }
+
+    public void criar() {
         try {
             if (times.isEmpty() || times.stream().filter(t -> Objects.isNull(t.getCoach())).toList().isEmpty()) {
                 System.out.println("Não há times disponíveis para cadastrar o coach.");
@@ -28,7 +50,7 @@ public class CoachService {
             System.out.println("========= CADASTRO DE COACH ==========");
             String nome = consoleResources.getStringFromConsole("Informe o nome do coach: ");
             String cpfCnpj = inscricaoResources.getAndValidateCpfCnpj("coach");
-            LocalDate dataNascimento = dataResources.getAndValidateDate("coach");
+            LocalDate dataNascimento = DataResources.getAndValidateDate("coach");
             String pais = consoleResources.getStringFromConsole("Informe o país do coach: ");
             String municipio = consoleResources.getStringFromConsole("Informe o município do coach: ");
             String estado = consoleResources.getStringFromConsole("Informe o estado do coach: ");
@@ -41,6 +63,14 @@ public class CoachService {
         } catch (Exception e) {
             System.out.println("Ocorreram erros ao cadastrar um coach. Entre em contato com o suporte.");
         }
+    }
+
+    protected List<Pessoa> filtrar(List<Pessoa> pessoas) {
+        List<Pessoa> coaches = new ArrayList<>();
+        pessoas.forEach(pessoa -> {
+            if (pessoa instanceof Coach) coaches.add(pessoa);
+        });
+        return coaches;
     }
 
     private Time getTime() {

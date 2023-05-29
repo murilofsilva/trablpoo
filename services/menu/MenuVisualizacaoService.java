@@ -1,15 +1,12 @@
-package processos.menu;
+package services.menu;
 
-import modelos.Gerente;
-import modelos.Organizador;
-import modelos.Pessoa;
 import modelos.enumerators.EntidadeMenuEnum;
-import processos.organizador.OrganizadorService;
-import repositories.PessoaRepository;
+import services.pessoa.CoachService;
+import services.pessoa.GerenteService;
+import services.pessoa.JogadorService;
+import services.pessoa.OrganizadorService;
 import util.ConsoleResources;
 
-import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Scanner;
 
 public class MenuVisualizacaoService {
@@ -57,43 +54,21 @@ public class MenuVisualizacaoService {
         switch (opcaoEscolhidaEnum) {
             case AUXILIAR:
             case JOGADOR:
-            case TECNICO:
+                new JogadorService().visualizar();
+                break;
+            case COACH:
+                new CoachService().visualizar();
+                break;
             case ORGANIZADOR:
+                new OrganizadorService().visualizar();
+                break;
             case GERENTE:
-                List<Pessoa> pessoas = buscarPessoasPorNome();
-                List<Pessoa> gerentes = Gerente.filtrarGerentes(pessoas);
-                imprimirPessoasEncontradas(gerentes);
-                imprimirInformacoesPessoa();
+                new GerenteService().visualizar();
                 break;
             case EVENTO: System.out.print("organizador");
             case FORNECEDOR: System.out.print("organizador");
             case TIME: System.out.print("organizador");
             default: System.out.print("nada");
         }
-    }
-
-    private static List<Pessoa> buscarPessoasPorNome() {
-        ConsoleResources.pularVariasLinhas();
-        System.out.println("************** VISUALIZAÇÃO DA PESSOA **************");
-        String nome = consoleResources.getStringFromConsole("Informe o nome para pesquisa: ");
-        return PessoaRepository.obterPorNome(nome);
-    }
-
-    private static void imprimirPessoasEncontradas(List<Pessoa> pessoas) {
-        for (Pessoa pessoa : pessoas) {
-            System.out.println(pessoa.obterInformacoes());
-        }
-    }
-
-    private static void imprimirInformacoesPessoa() {
-        String cpf = consoleResources.getStringFromConsole("Informe o CPF para exibir informações detalhadas: ");
-        Pessoa pessoa = PessoaRepository.obter(cpf);
-        imprimirInformacoesPessoa(pessoa);
-    }
-
-    private static void imprimirInformacoesPessoa(Pessoa pessoa) {
-        ConsoleResources.pularVariasLinhas();
-        System.out.println(pessoa.obterInformacoesDetalhadas());
-        ConsoleResources.pausarConsole();
     }
 }

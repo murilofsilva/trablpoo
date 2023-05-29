@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static services.coach.CoachService.coaches;
-import static services.jogador.JogadorService.jogadores;
+import static services.pessoa.CoachService.coaches;
+import static services.pessoa.JogadorService.jogadores;
 
 public class TimeService {
     static Scanner sc = new Scanner(System.in);
@@ -28,7 +28,7 @@ public class TimeService {
 
         System.out.println("========= CADASTRO DE TIME ==========");
         String nome = consoleResources.getStringFromConsole("Informe o nome do time: ");
-        Integer maxJogadores = consoleResources.getNumberFromConsole("Informe o número máximo de jogadores no time");
+        int maxJogadores = consoleResources.getNumberFromConsole("Informe o número máximo de jogadores no time");
         String pais = consoleResources.getStringFromConsole("Informe o país do time: ");
         String municipio = consoleResources.getStringFromConsole("Informe o município do time: ");
         String estado = consoleResources.getStringFromConsole("Informe o estado do time: ");
@@ -36,7 +36,7 @@ public class TimeService {
         List<Jogador> jogadores = getJogadores(true, maxJogadores);
         Localidade localidade = new Localidade(pais, municipio, estado);
 
-        Time time = new Time(nome, jogadores, coach, localidade, maxJogadores);
+        Time time = new Time(2, nome, jogadores, coach);
         times.add(time);
     }
 

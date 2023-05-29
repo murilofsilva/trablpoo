@@ -3,43 +3,48 @@ package modelos;
 import java.util.List;
 
 public class Time {
-    private Long id;
+    private final int id;
     private String nome;
     private List<Jogador> jogadores;
-    private Integer numeroIntegrantes;
+    private int numeroIntegrantes;
     private Coach coach;
-    private Localidade localidade;
-    private Integer maxJogadores;
 
-    public Time(String nome, List<Jogador> jogadores, Coach coach, Localidade localidade, Integer maxJogadores){
+    public Time(int id, String nome, List<Jogador> jogadores, Coach coach){
+        this.id = id;
         this.nome = nome;
         this.jogadores = jogadores;
         this.numeroIntegrantes = jogadores.size() + 1;
         this.coach = coach;
-        this.localidade = localidade;
     }
 
-    public void setCoach(Coach coach) {
-        this.coach = coach;
+    public Time(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
     }
+
+    public int getId() { return this.id; }
 
     public String getNome() {
         return this.nome;
     }
 
-    public List<Jogador> getJogadores() {
-        return this.jogadores;
-    }
-
-    public Integer getNumeroIntegrantes() {
-        return this.numeroIntegrantes;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Coach getCoach() {
         return this.coach;
     }
 
-    public Localidade getLocalidade() {
-        return this.localidade;
+    public void setCoach(Coach coach) {
+        this.coach = coach;
+    }
+
+    public List<Jogador> getJogadores() {
+        return this.jogadores;
+    }
+
+    public int getNumeroIntegrantes() {
+        return this.numeroIntegrantes;
     }
 }

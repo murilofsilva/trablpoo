@@ -26,6 +26,6 @@ public class Organizador extends Pessoa {
                 super.obterInformacoesDetalhadas() +
                 "\nCódigo de segurança: " +
                 this.codigoOrganizador +
-                "\n******* ********************** *******";
+                "\n******* ************************ ********";
     }
 }

@@ -8,6 +8,7 @@ public class ConsoleResources {
     public static void pausarConsole() {
         System.out.println("Tecle para continuar...");
         String discard = sc.nextLine();
+        pularVariasLinhas();
     }
 
     public int getNumberFromConsole() {
@@ -37,16 +38,8 @@ public class ConsoleResources {
     }
 
     public String getStringFromConsole(String str) {
-        String value;
-        try {
-            System.out.print(str);
-            value = sc.nextLine();
-        } catch (Exception e) {
-            System.out.println("Opção escolhida inválida! Tente novamente!");
-            return getStringFromConsole(str);
-        }
-
-        return value;
+        System.out.print(str);
+        return sc.nextLine();
     }
 
     public boolean getSimNao(String str) {
@@ -54,5 +47,9 @@ public class ConsoleResources {
             return true;
         }
         return false;
+    }
+
+    public static void pularVariasLinhas() {
+        System.out.println("\n\n\n\n");
     }
 }

@@ -9,7 +9,7 @@ public enum EntidadeMenuEnum {
     EVENTO(3),
     AUXILIAR(4),
     JOGADOR(5),
-    TECNICO(6),
+    COACH(6),
     TIME(7),
     FORNECEDOR(8);
 

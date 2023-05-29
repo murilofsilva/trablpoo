@@ -1,7 +1,7 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
-import services.jogador.JogadorService;
+import services.pessoa.JogadorService;
 import services.organizador.OrganizadorService;
 import util.ConsoleResources;
 
@@ -50,8 +50,8 @@ public class MenuCadastroService {
             case GERENTE -> System.out.print("organizador");
             case EVENTO -> System.out.print("organizador");
             case AUXILIAR -> System.out.print("organizador");
-            case JOGADOR -> JogadorService.cadastra();
-            case TECNICO -> System.out.print("organizador");
+            case JOGADOR -> new JogadorService().criar();
+            case COACH -> System.out.print("organizador");
             case TIME -> System.out.print("organizador");
             case FORNECEDOR -> System.out.print("organizador");
             default -> System.out.print("nada");

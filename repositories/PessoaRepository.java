@@ -1,8 +1,6 @@
 package repositories;
 
-import modelos.Gerente;
-import modelos.Localidade;
-import modelos.Pessoa;
+import modelos.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,6 +14,24 @@ public class PessoaRepository {
                     LocalDate.now(),
                     new Localidade("br", "cg", "ms"),
                     "setor de bebidas")
+            );
+            add(new Organizador("Murilo",
+                    "99232712822",
+                    LocalDate.now(),
+                    new Localidade("br", "cg", "ms"))
+            );
+            add(new Coach("Dioguinho",
+                    "23915319411",
+                    LocalDate.now(),
+                    new Localidade("br", "cg", "ms"),
+                    TimeRepository.obter(1))
+            );
+            add(new Jogador("Lucas Vinicius",
+                    "12782122376",
+                    LocalDate.now(),
+                    new Localidade("br", "cg", "ms"),
+                    "blaster",
+                    TimeRepository.obter(1))
             );
         }
     };
