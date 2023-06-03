@@ -5,6 +5,7 @@ import services.pessoa.CoachService;
 import services.pessoa.GerenteService;
 import services.pessoa.JogadorService;
 import services.pessoa.OrganizadorService;
+import services.time.TimeService;
 import util.ConsoleResources;
 
 public class MenuVisualizacaoService {
@@ -31,6 +32,7 @@ public class MenuVisualizacaoService {
     }
 
     private static void exibeMenuVisualizacao() {
+        ConsoleResources.pularVariasLinhas();
         String menu = """
                 ========= VISUALIZAÇÃO ==========
                 """
@@ -62,7 +64,9 @@ public class MenuVisualizacaoService {
                 break;
             case EVENTO: System.out.print("organizador");
             case FORNECEDOR: System.out.print("organizador");
-            case TIME: System.out.print("organizador");
+            case TIME:
+                new TimeService().visualizar();
+                break;
             default: System.out.print("nada");
         }
     }

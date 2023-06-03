@@ -33,6 +33,13 @@ public class PessoaRepository {
                     "blaster",
                     TimeRepository.obter(1))
             );
+            add(new Jogador("Lucas Vinicius",
+                    "12782122376",
+                    LocalDate.now(),
+                    new Localidade("br", "cg", "ms"),
+                    "blaster",
+                    TimeRepository.obter(1))
+            );
         }
     };
 

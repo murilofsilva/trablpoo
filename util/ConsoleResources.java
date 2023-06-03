@@ -7,7 +7,7 @@ public class ConsoleResources {
 
     public static void pausarConsole() {
         System.out.println("Tecle para continuar...");
-        String discard = sc.nextLine();
+        sc.nextLine();
         pularVariasLinhas();
     }
 
@@ -51,5 +51,16 @@ public class ConsoleResources {
 
     public static void pularVariasLinhas() {
         System.out.println("\n\n\n\n");
+    }
+
+    public static void exibirTitulo(String titulo) {
+        int tamanhoLinhaDivisoria = 50;
+        String linhaDivisoria = new String(new char[tamanhoLinhaDivisoria]).replace("\0", "*");
+        int tamanhoMetadeLinhaDivisoria = (tamanhoLinhaDivisoria - 2 - titulo.length()) / 2;
+        String metadeLinhaDivisoria = new String(new char[tamanhoMetadeLinhaDivisoria]).replace("\0", "*");
+
+        System.out.println(linhaDivisoria);
+        System.out.println(metadeLinhaDivisoria + " " + titulo.toUpperCase() + " " + metadeLinhaDivisoria);
+        System.out.println(linhaDivisoria);
     }
 }

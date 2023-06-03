@@ -1,5 +1,6 @@
 package modelos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Time {
@@ -7,7 +8,7 @@ public class Time {
     private String nome;
     private List<Jogador> jogadores;
     private int numeroIntegrantes;
-    private Coach coach;
+    private Coach coach = null;
 
     public Time(int id, String nome, List<Jogador> jogadores, Coach coach){
         this.id = id;
@@ -20,6 +21,7 @@ public class Time {
     public Time(int id, String nome) {
         this.id = id;
         this.nome = nome;
+        this.jogadores = new ArrayList<>();
     }
 
     public int getId() { return this.id; }
@@ -46,5 +48,17 @@ public class Time {
 
     public int getNumeroIntegrantes() {
         return this.numeroIntegrantes;
+    }
+
+    public String obterInformacoesDetalhadas() {
+        List<String> jogadores = this.jogadores.stream().map(Pessoa::getNome).toList();
+        String nomes = String.join(", ", jogadores);
+
+        return "Nome: "
+                + this.nome
+                + "\nCoach: "
+                + (this.coach == null ? "Sem coach" : this.coach.getNome())
+                + "\nJogadores: "
+                + nomes;
     }
 }

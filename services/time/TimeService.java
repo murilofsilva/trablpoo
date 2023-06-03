@@ -1,9 +1,11 @@
 package services.time;
 
+import interfaces.ItemMenu;
 import modelos.Coach;
 import modelos.Jogador;
 import modelos.Localidade;
 import modelos.Time;
+import repositories.TimeRepository;
 import services.menu.MenuCadastroService;
 import util.ConsoleResources;
 
@@ -15,12 +17,34 @@ import java.util.Scanner;
 import static services.pessoa.CoachService.coaches;
 import static services.pessoa.JogadorService.jogadores;
 
-public class TimeService {
+public class TimeService implements ItemMenu {
     static Scanner sc = new Scanner(System.in);
     public static List<Time> times = new ArrayList<>();
-    private static ConsoleResources consoleResources = new ConsoleResources();
+    private static final ConsoleResources consoleResources = new ConsoleResources();
 
-    public void cadastra() {
+    public void visualizar() {
+        ConsoleResources.pularVariasLinhas();
+        System.out.println("****************************************");
+        System.out.println("******** VISUALIZAÇÃO DOS TIMES ********");
+        System.out.println("****************************************");
+
+        int opcaoEscolhida = consoleResources
+                .getNumberFromConsole("Deseja buscar o time por (1) código ou por (2) nome? (1 ou 2) ");
+
+        if (opcaoEscolhida == 1) {
+            int codigo = consoleResources.getNumberFromConsole("Informe o código do time: ");
+            Time time = TimeRepository.obter(codigo);
+            ConsoleResources.pularVariasLinhas();
+            ConsoleResources.exibirTitulo("informações do time");
+            System.out.print(time.obterInformacoesDetalhadas() + "\n");
+            ConsoleResources.pausarConsole();
+        }
+
+        String nome = consoleResources.getStringFromConsole("Informe o nome do time: ");
+        TimeRepository.
+    }
+
+    public void criar() {
         if (coaches.size() == 0) {
             System.out.println("É necessário ter um coach cadastrado para atribui-lo ao time!");
             MenuCadastroService.processaMenuCadastro();
