@@ -24,24 +24,44 @@ public class TimeService implements ItemMenu {
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
-        System.out.println("****************************************");
-        System.out.println("******** VISUALIZAÇÃO DOS TIMES ********");
-        System.out.println("****************************************");
+        ConsoleResources.exibirTitulo("VISUALIZAÇÃO DOS TIMES");
+        buscarTimesPorNome();
+    }
 
-        int opcaoEscolhida = consoleResources
-                .getNumberFromConsole("Deseja buscar o time por (1) código ou por (2) nome? (1 ou 2) ");
+    private void buscarTimesPorNome() {
+        String nomeASerBuscado = consoleResources.getStringFromConsole("Digite um nome para pesquisa do time: ");
+        List<Time> timesEncontrados = TimeRepository.obter(nomeASerBuscado);
 
-        if (opcaoEscolhida == 1) {
-            int codigo = consoleResources.getNumberFromConsole("Informe o código do time: ");
-            Time time = TimeRepository.obter(codigo);
-            ConsoleResources.pularVariasLinhas();
-            ConsoleResources.exibirTitulo("informações do time");
-            System.out.print(time.obterInformacoesDetalhadas() + "\n");
-            ConsoleResources.pausarConsole();
+        if (timesEncontrados.size() == 0) {
+            System.out.println("Nenhum time foi encontrado com esse nome! Por favor, tente novamente!");
+            buscarTimesPorNome();
         }
 
-        String nome = consoleResources.getStringFromConsole("Informe o nome do time: ");
-        TimeRepository.
+        ConsoleResources.pularVariasLinhas();
+        exibirListaTimes(timesEncontrados);
+
+        while(true) {
+            int idTime = consoleResources.getNumberFromConsole("Digite o ID do time para informações detalhadas: ");
+            Time time = TimeRepository.obter(idTime);
+            if (time != null) {
+                exibirInformacoesDetalhadas(time);
+                break;
+            }
+            System.out.println("Nenhum time foi encontrado com esse ID! Por favor, tente novamente!");
+        }
+    }
+
+    private void exibirListaTimes(List<Time> times) {
+        for (Time time : times) {
+            System.out.println(time.obterInformacoes());
+        }
+    }
+
+    private void exibirInformacoesDetalhadas(Time time) {
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("INFORMAÇÕES DETALHADAS DO TIME");
+        System.out.println(time.obterInformacoesDetalhadas());
+        ConsoleResources.pausarConsole();
     }
 
     public void criar() {
@@ -75,10 +95,10 @@ public class TimeService implements ItemMenu {
         }
 
         List<Jogador> jogadoresParaAdicionar = new ArrayList<>();
-        if (jogadores.size() == 0 || jogadores.stream().filter(f -> Objects.nonNull(f.getTime())).toList().isEmpty()) {
-            System.out.println("Não há jogadores disponíveis no momento.");
-            return null;
-        }
+//        if (jogadores.size() == 0 || jogadores.stream().filter(f -> Objects.nonNull(f.getTime())).toList().isEmpty()) {
+//            System.out.println("Não há jogadores disponíveis no momento.");
+//            return null;
+//        }
 
         String nome = consoleResources.getStringFromConsole("Informe o nome do jogador que deseja adicionar ao time: ");
         Jogador jogador = jogadores.stream().filter(j -> j.getNome().equals(nome)).findFirst().orElse(null);

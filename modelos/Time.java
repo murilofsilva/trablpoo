@@ -50,6 +50,13 @@ public class Time {
         return this.numeroIntegrantes;
     }
 
+    public String obterInformacoes() {
+        return String.format("ID: %d | Nome do time: %s | Número de Jogadores: %s",
+                this.id,
+                this.nome,
+                this.jogadores.size());
+    }
+
     public String obterInformacoesDetalhadas() {
         List<String> jogadores = this.jogadores.stream().map(Pessoa::getNome).toList();
         String nomes = String.join(", ", jogadores);
@@ -59,6 +66,6 @@ public class Time {
                 + "\nCoach: "
                 + (this.coach == null ? "Sem coach" : this.coach.getNome())
                 + "\nJogadores: "
-                + nomes;
+                + (this.jogadores.size() == 0 ? "Sem jogadores" : nomes);
     }
 }

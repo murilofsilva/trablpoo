@@ -5,7 +5,7 @@ import services.menu.MenuVisualizacaoService;
 import util.ConsoleResources;
 
 public class MenuService {
-    private static ConsoleResources consoleResources = new ConsoleResources();
+    private static final ConsoleResources consoleResources = new ConsoleResources();
     private static final String QUEBRA_DE_LINHA = "\n";
 
     private static void exibeOpcoesMenu() {

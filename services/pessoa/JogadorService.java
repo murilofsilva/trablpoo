@@ -57,7 +57,7 @@ public class JogadorService extends PessoaService {
             String jogo = getJogo();
 
             Localidade localidade = new Localidade(pais, municipio, estado);
-            Jogador jogador = new Jogador(nome, cpfCnpj, dataNascimento, localidade, jogo, time);
+            Jogador jogador = new Jogador(nome, cpfCnpj, dataNascimento, localidade, jogo);
 
             jogadores.add(jogador);
         } catch (Exception e) {

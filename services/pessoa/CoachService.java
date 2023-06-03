@@ -57,7 +57,7 @@ public class CoachService extends PessoaService {
             Time time = getTime();
 
             Localidade localidade = new Localidade(pais, municipio, estado);
-            Coach coach = new Coach(nome, cpfCnpj, dataNascimento, localidade, time);
+            Coach coach = new Coach(nome, cpfCnpj, dataNascimento, localidade);
 
             coaches.add(coach);
         } catch (Exception e) {

@@ -23,22 +23,19 @@ public class PessoaRepository {
             add(new Coach("Dioguinho",
                     "23915319411",
                     LocalDate.now(),
-                    new Localidade("br", "cg", "ms"),
-                    TimeRepository.obter(1))
+                    new Localidade("br", "cg", "ms"))
             );
             add(new Jogador("Lucas Vinicius",
                     "12782122376",
                     LocalDate.now(),
                     new Localidade("br", "cg", "ms"),
-                    "blaster",
-                    TimeRepository.obter(1))
+                    "blaster")
             );
-            add(new Jogador("Lucas Vinicius",
-                    "12782122376",
+            add(new Jogador("Jota e os tres mosqueteiros",
+                    "22818271244",
                     LocalDate.now(),
                     new Localidade("br", "cg", "ms"),
-                    "blaster",
-                    TimeRepository.obter(1))
+                    "jotaMatador")
             );
         }
     };

@@ -1,13 +1,19 @@
 package util;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ConsoleResources {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void pausarConsole() {
-        System.out.println("Tecle para continuar...");
-        sc.nextLine();
+        System.out.print("Tecle para continuar...");
+        try {
+            int resultado = System.in.read();
+        } catch (IOException e) {
+            System.out.print("");
+        }
+
         pularVariasLinhas();
     }
 
