@@ -10,17 +10,7 @@ import util.ConsoleResources;
 
 public class MenuVisualizacaoService {
     private static final ConsoleResources consoleResources = new ConsoleResources();
-
-    private static final String EXIBICAO_ENTIDADES_MENU = """
-                                                          01 - Organizador
-                                                          02 - Gerente
-                                                          03 - Evento
-                                                          04 - Auxiliar
-                                                          05 - Jogador
-                                                          06 - Coach/Técnico
-                                                          07 - Time
-                                                          08 - Fornecedor
-                                                          """;
+    private static final String QUEBRA_DE_LINHA = "\n";
 
     public static void processaMenuVisualizacao() {
         while (true) {
@@ -32,16 +22,20 @@ public class MenuVisualizacaoService {
     }
 
     private static void exibeMenuVisualizacao() {
+        StringBuilder menu = new StringBuilder();
         ConsoleResources.pularVariasLinhas();
-        String menu = """
-                ========= VISUALIZAÇÃO ==========
-                """
-                + EXIBICAO_ENTIDADES_MENU +
-                """
-                09 - Visualização completa
-                00 - Voltar
-                =================================
-                """;
+        menu.append("========= VISUALIZAÇÃO ==========");
+        menu.append(QUEBRA_DE_LINHA + "01 - Organizador");
+        menu.append(QUEBRA_DE_LINHA + "02 - Gerente");
+        menu.append(QUEBRA_DE_LINHA + "03 - Evento");
+        menu.append(QUEBRA_DE_LINHA + "04 - Auxiliar");
+        menu.append(QUEBRA_DE_LINHA + "05 - Jogador");
+        menu.append(QUEBRA_DE_LINHA + "06 - Coach/Técnico");
+        menu.append(QUEBRA_DE_LINHA + "07 - Time");
+        menu.append(QUEBRA_DE_LINHA + "08 - Fornecedor");
+        menu.append(QUEBRA_DE_LINHA + "09 - Visualização completa");
+        menu.append(QUEBRA_DE_LINHA + "00 - Voltar");
+
         System.out.print(menu);
     }
 
@@ -62,12 +56,15 @@ public class MenuVisualizacaoService {
             case GERENTE:
                 new GerenteService().visualizar();
                 break;
-            case EVENTO: System.out.print("organizador");
-            case FORNECEDOR: System.out.print("organizador");
+            case EVENTO:
+                System.out.print("organizador");
+            case FORNECEDOR:
+                System.out.print("organizador");
             case TIME:
                 new TimeService().visualizar();
                 break;
-            default: System.out.print("nada");
+            default:
+                System.out.print("nada");
         }
     }
 }

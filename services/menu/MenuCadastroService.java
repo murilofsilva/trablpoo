@@ -1,27 +1,13 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
-import services.pessoa.JogadorService;
 import services.organizador.OrganizadorService;
+import services.pessoa.JogadorService;
 import util.ConsoleResources;
 
-import java.util.Scanner;
-
 public class MenuCadastroService {
-    private static final Scanner sc = new Scanner(System.in);
+    private static final String QUEBRA_DE_LINHA = "\n";
     private static ConsoleResources consoleResources = new ConsoleResources();
-
-    private static final String EXIBICAO_ENTIDADES_MENU = """
-            01 - Organizador
-            02 - Gerente
-            03 - Evento
-            04 - Auxiliar
-            05 - Jogador
-            06 - Coach/Técnico
-            07 - Time
-            08 - Fornecedor
-            00 - Voltar
-            """;
 
     public static void processaMenuCadastro() {
         while (true) {
@@ -35,10 +21,19 @@ public class MenuCadastroService {
     }
 
     private static void exibeMenuCadastro() {
-        String menu = """
-                ========= CADASTRO ==========
-                """
-                + EXIBICAO_ENTIDADES_MENU;
+        StringBuilder menu = new StringBuilder();
+        consoleResources.pularVariasLinhas();
+        menu.append("========= CADASTRO ==========");
+        menu.append(QUEBRA_DE_LINHA + "Escolha a entidade que deseja cadastrar:");
+        menu.append(QUEBRA_DE_LINHA + "01 - Organizador");
+        menu.append(QUEBRA_DE_LINHA + "02 - Gerente");
+        menu.append(QUEBRA_DE_LINHA + "03 - Jogador");
+        menu.append(QUEBRA_DE_LINHA + "04 - Coach/Técnico");
+        menu.append(QUEBRA_DE_LINHA + "05 - Time");
+        menu.append(QUEBRA_DE_LINHA + "00 - Voltar");
+        menu.append(QUEBRA_DE_LINHA + "");
+        menu.append(QUEBRA_DE_LINHA + "");
+
         System.out.print(menu);
     }
 
@@ -46,15 +41,23 @@ public class MenuCadastroService {
         EntidadeMenuEnum opcaoEscolhidaEnum = EntidadeMenuEnum.obterEntidadePorValor(opcaoEscolhida);
 
         switch (opcaoEscolhidaEnum) {
-            case ORGANIZADOR -> OrganizadorService.cadastra();
-            case GERENTE -> System.out.print("organizador");
-            case EVENTO -> System.out.print("organizador");
-            case AUXILIAR -> System.out.print("organizador");
-            case JOGADOR -> new JogadorService().criar();
-            case COACH -> System.out.print("organizador");
-            case TIME -> System.out.print("organizador");
-            case FORNECEDOR -> System.out.print("organizador");
-            default -> System.out.print("nada");
+            case ORGANIZADOR:
+                OrganizadorService.cadastra();
+                break;
+            case GERENTE:
+                System.out.print("organizador");
+                break;
+            case JOGADOR:
+                new JogadorService().criar();
+                break;
+            case COACH:
+                System.out.print("organizador");
+                break;
+            case TIME:
+                System.out.print("organizador");
+                break;
+            default:
+                System.out.print("nada");
         }
     }
 }

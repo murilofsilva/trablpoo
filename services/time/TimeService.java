@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static services.pessoa.CoachService.coaches;
 import static services.pessoa.JogadorService.jogadores;
@@ -130,7 +131,7 @@ public class TimeService implements ItemMenu {
         System.out.print("Informe o nome do coach do time: ");
         String nome = sc.nextLine();
 
-        List<Coach> coach = coaches.stream().filter(c -> c.getNome().equals(nome)).toList();
+        List<Coach> coach = coaches.stream().filter(c -> c.getNome().equals(nome)).collect(Collectors.toList());
         if (coach.size() == 0) {
             System.out.println("Coach não encontrado! Tente novamente.");
             getCoach();

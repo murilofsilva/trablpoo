@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static services.time.TimeService.times;
 
@@ -81,7 +82,7 @@ public class JogadorService extends PessoaService {
             return null;
         }
 
-        List<Time> timesEncontrados = times.stream().filter(t -> t.getNome().equals(time)).toList();
+        List<Time> timesEncontrados = times.stream().filter(t -> t.getNome().equals(time)).collect(Collectors.toList());
         if (timesEncontrados.size() == 0) {
             System.out.println("Time não encontrado! Tente novamente.");
             getTime();

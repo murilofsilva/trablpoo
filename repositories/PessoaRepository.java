@@ -5,9 +5,10 @@ import modelos.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PessoaRepository {
-    public static ArrayList<Pessoa> pessoas = new ArrayList<>() {
+    public static ArrayList<Pessoa> pessoas = new ArrayList() {
         {
             add(new Gerente("Emerson",
                     "06169116177",
@@ -45,6 +46,6 @@ public class PessoaRepository {
     }
 
     public static List<Pessoa> obterPorNome(String nome) {
-        return pessoas.stream().filter(x -> x.getNome().toLowerCase().contains(nome.toLowerCase())).toList();
+        return pessoas.stream().filter(x -> x.getNome().toLowerCase().contains(nome.toLowerCase())).collect(Collectors.toList());
     }
 }

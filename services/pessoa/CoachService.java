@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static services.time.TimeService.times;
 
@@ -44,7 +45,7 @@ public class CoachService extends PessoaService {
 
     public void criar() {
         try {
-            if (times.isEmpty() || times.stream().filter(t -> Objects.isNull(t.getCoach())).toList().isEmpty()) {
+            if (times.isEmpty() || times.stream().filter(t -> Objects.isNull(t.getCoach())).collect(Collectors.toList()).isEmpty()) {
                 System.out.println("Não há times disponíveis para cadastrar o coach.");
             }
             System.out.println("========= CADASTRO DE COACH ==========");

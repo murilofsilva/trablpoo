@@ -2,6 +2,7 @@ package modelos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Time {
     private final int id;
@@ -58,7 +59,7 @@ public class Time {
     }
 
     public String obterInformacoesDetalhadas() {
-        List<String> jogadores = this.jogadores.stream().map(Pessoa::getNome).toList();
+        List<String> jogadores = this.jogadores.stream().map(Pessoa::getNome).collect(Collectors.toList());
         String nomes = String.join(", ", jogadores);
 
         return "Nome: "
