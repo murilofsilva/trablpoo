@@ -1,10 +1,7 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
-import services.pessoa.CoachService;
-import services.pessoa.GerenteService;
-import services.pessoa.JogadorService;
-import services.pessoa.OrganizadorService;
+import services.pessoa.*;
 import services.time.TimeService;
 import util.ConsoleResources;
 
@@ -24,7 +21,7 @@ public class MenuVisualizacaoService {
     private static void exibeMenuVisualizacao() {
         StringBuilder menu = new StringBuilder();
         ConsoleResources.pularVariasLinhas();
-        menu.append("========= VISUALIZAÇÃO ==========");
+        ConsoleResources.exibirTitulo("visualização");
         menu.append(QUEBRA_DE_LINHA + "01 - Organizador");
         menu.append(QUEBRA_DE_LINHA + "02 - Gerente");
         menu.append(QUEBRA_DE_LINHA + "03 - Evento");
@@ -34,7 +31,7 @@ public class MenuVisualizacaoService {
         menu.append(QUEBRA_DE_LINHA + "07 - Time");
         menu.append(QUEBRA_DE_LINHA + "08 - Fornecedor");
         menu.append(QUEBRA_DE_LINHA + "09 - Visualização completa");
-        menu.append(QUEBRA_DE_LINHA + "00 - Voltar");
+        menu.append(QUEBRA_DE_LINHA + "00 - Voltar\n");
 
         System.out.print(menu);
     }
@@ -44,6 +41,8 @@ public class MenuVisualizacaoService {
 
         switch (opcaoEscolhidaEnum) {
             case AUXILIAR:
+                new AuxiliarService().visualizar();
+                break;
             case JOGADOR:
                 new JogadorService().visualizar();
                 break;

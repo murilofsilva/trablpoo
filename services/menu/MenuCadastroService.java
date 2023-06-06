@@ -1,8 +1,9 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
-import services.organizador.OrganizadorService;
+import services.pessoa.AuxiliarService;
 import services.pessoa.JogadorService;
+import services.pessoa.OrganizadorService;
 import util.ConsoleResources;
 
 public class MenuCadastroService {
@@ -22,13 +23,13 @@ public class MenuCadastroService {
 
     private static void exibeMenuCadastro() {
         StringBuilder menu = new StringBuilder();
-        consoleResources.pularVariasLinhas();
-        menu.append("========= CADASTRO ==========");
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("cadastro");
         menu.append(QUEBRA_DE_LINHA + "Escolha a entidade que deseja cadastrar:");
         menu.append(QUEBRA_DE_LINHA + "01 - Organizador");
         menu.append(QUEBRA_DE_LINHA + "02 - Gerente");
         menu.append(QUEBRA_DE_LINHA + "03 - Jogador");
-        menu.append(QUEBRA_DE_LINHA + "04 - Coach/Técnico");
+        menu.append(QUEBRA_DE_LINHA + "04 - Auxiliar");
         menu.append(QUEBRA_DE_LINHA + "05 - Time");
         menu.append(QUEBRA_DE_LINHA + "00 - Voltar");
         menu.append(QUEBRA_DE_LINHA + "");
@@ -41,8 +42,11 @@ public class MenuCadastroService {
         EntidadeMenuEnum opcaoEscolhidaEnum = EntidadeMenuEnum.obterEntidadePorValor(opcaoEscolhida);
 
         switch (opcaoEscolhidaEnum) {
+            case AUXILIAR:
+                new AuxiliarService().criar();
+                break;
             case ORGANIZADOR:
-                OrganizadorService.cadastra();
+                new OrganizadorService().criar();
                 break;
             case GERENTE:
                 System.out.print("organizador");

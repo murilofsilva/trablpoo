@@ -29,7 +29,6 @@ public abstract class PessoaService implements ItemMenu {
     }
 
     protected static void imprimirInformacoesPessoa(Pessoa pessoa) {
-        ConsoleResources.pularVariasLinhas();
         System.out.println(pessoa.obterInformacoesDetalhadas());
         ConsoleResources.pausarConsole();
     }

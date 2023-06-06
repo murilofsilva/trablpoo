@@ -8,7 +8,7 @@ public class InscricaoResources {
     static Scanner sc = new Scanner(System.in);
 
     public String getAndValidateCpfCnpj(String context) {
-        System.out.println("Informe o cpf ou cnpj do " + context);
+        System.out.print("Informe o CPF/CNPJ do " + context + ": ");
         String str = sc.nextLine();
 
         str = str.replace(".", "").replace("-","");

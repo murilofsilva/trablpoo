@@ -43,6 +43,18 @@ public class ConsoleResources {
         return opcao;
     }
 
+    public double getDoubleFromConsole(String mensagem) {
+        double valor;
+        try {
+            System.out.print(mensagem);
+            valor = Double.parseDouble(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("O valor inserido deve ser um número!");
+            return getDoubleFromConsole(mensagem);
+        }
+        return valor;
+    }
+
     public String getStringFromConsole(String str) {
         System.out.print(str);
         return sc.nextLine();

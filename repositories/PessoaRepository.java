@@ -38,6 +38,11 @@ public class PessoaRepository {
                     new Localidade("br", "cg", "ms"),
                     "jotaMatador")
             );
+            add(new Auxiliar("Carlos Alberto",
+                    "06369196177",
+                    LocalDate.now(),
+                    2100.19,
+                    LocalDate.now()));
         }
     };
 
@@ -47,5 +52,9 @@ public class PessoaRepository {
 
     public static List<Pessoa> obterPorNome(String nome) {
         return pessoas.stream().filter(x -> x.getNome().toLowerCase().contains(nome.toLowerCase())).collect(Collectors.toList());
+    }
+
+    public static void salvar(Pessoa pessoa) {
+        pessoas.add(pessoa);
     }
 }

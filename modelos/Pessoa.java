@@ -16,6 +16,13 @@ public abstract class Pessoa {
         this.id = System.currentTimeMillis();
     }
 
+    public Pessoa(String nome, String cpfCnpj, LocalDate dataNascimento){
+        this.nome = nome;
+        this.cpfCnpj = cpfCnpj;
+        this.dataNascimento = dataNascimento;
+        this.id = System.currentTimeMillis();
+    }
+
     public String getNome() {
         return this.nome;
     }
