@@ -80,5 +80,6 @@ public class ConsoleResources {
         System.out.println(linhaDivisoria);
         System.out.println(metadeLinhaDivisoria + " " + titulo.toUpperCase() + " " + metadeLinhaDivisoria);
         System.out.println(linhaDivisoria);
+        System.out.println();
     }
 }

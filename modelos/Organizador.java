@@ -2,16 +2,20 @@ package modelos;
 
 import java.time.LocalDate;
 
-public class Organizador extends Pessoa {
+public class Organizador extends Funcionario {
     private final String codigoOrganizador;
+    private int numeroCampeonatosOrganizados = 0;
 
-    public Organizador(String nome, String cpfCnpj, LocalDate dataNascimento, Localidade localidade) {
-        super(nome, cpfCnpj, dataNascimento, localidade);
+    public Organizador(String nome, String cpfCnpj, LocalDate dataNascimento, double salarioBase, LocalDate dataEntrada) {
+        super(nome, cpfCnpj, dataNascimento, salarioBase, dataEntrada);
         codigoOrganizador = Math.random() + "$d@" + System.currentTimeMillis();
+        this.calculaSalario();
     }
 
-    public String getCodigoOrganizador() {
-        return this.codigoOrganizador;
+    protected void calculaSalario() {
+        this.salarioReal = this.salarioBase +
+                (LocalDate.now().getYear() - this.dataEntrada.getYear()) * 1.9 +
+                this.numeroCampeonatosOrganizados * 20;
     }
 
     public String obterInformacoes() {
@@ -22,10 +26,16 @@ public class Organizador extends Pessoa {
     }
 
     public String obterInformacoesDetalhadas() {
-        return "******* INFORMAÇÕES DO ORGANIZADOR *******\n" +
-                super.obterInformacoesDetalhadas() +
+        return super.obterInformacoesDetalhadas() +
                 "\nCódigo de segurança: " +
                 this.codigoOrganizador +
-                "\n******* ************************ ********";
+                "\nSalário atual: " +
+                this.salarioReal +
+                "\nNúmero de campeonatos organizados: " +
+                this.numeroCampeonatosOrganizados;
+    }
+
+    public void incrementarNumeroCampeonatosOrganizados() {
+        this.numeroCampeonatosOrganizados++;
     }
 }

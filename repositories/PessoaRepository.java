@@ -13,13 +13,13 @@ public class PessoaRepository {
             add(new Gerente("Emerson",
                     "06169116177",
                     LocalDate.now(),
-                    new Localidade("br", "cg", "ms"),
+                    2300.10,
+                    LocalDate.now(),
                     "setor de bebidas")
             );
             add(new Organizador("Murilo",
                     "99232712822",
-                    LocalDate.now(),
-                    new Localidade("br", "cg", "ms"))
+                    LocalDate.now(), 4600.92, LocalDate.now())
             );
             add(new Coach("Dioguinho",
                     "23915319411",

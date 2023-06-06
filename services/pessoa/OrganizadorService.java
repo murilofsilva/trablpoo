@@ -1,17 +1,21 @@
 package services.pessoa;
 
-import modelos.Gerente;
 import modelos.Organizador;
 import modelos.Pessoa;
+import repositories.PessoaRepository;
 import util.ConsoleResources;
+import util.DataResources;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static services.pessoa.JogadorService.inscricaoResources;
 
 public class OrganizadorService extends PessoaService {
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
-        System.out.println("************** VISUALIZAÇÃO DO ORGANIZADOR **************");
+        ConsoleResources.exibirTitulo("visualização do organizador");
 
         while(true) {
             List<Pessoa> pessoas = buscarPessoasPorNome();
@@ -24,17 +28,27 @@ public class OrganizadorService extends PessoaService {
         }
 
         while (true) {
-            Pessoa gerente = buscarPessoaPorCPF();
-            if (gerente != null) {
-                imprimirInformacoesPessoa(gerente);
-                break;
+            Pessoa organizador = buscarPessoaPorCPF();
+            if (!(organizador instanceof Organizador)) {
+                System.out.println("Nenhum organizador encontrado com esse CPF!");
+                continue;
             }
-            System.out.println("Nenhum organizador encontrado com esse CPF!");
+            ConsoleResources.pularVariasLinhas();
+            ConsoleResources.exibirTitulo("informações do organizador");
+            imprimirInformacoesPessoa(organizador);
+            break;
         }
     }
 
     public void criar() {
-
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("cadastro de organizador");
+        String nome = consoleResources.getStringFromConsole("Informe o nome do organizador: ");
+        String cpfCnpj = inscricaoResources.getAndValidateCpfCnpj("organizador");
+        LocalDate dataNascimento = DataResources.getAndValidateDate("Informe a data de nascimento do organizador: ");
+        double salario = consoleResources.getDoubleFromConsole("Informe o salário base do organizador: ");
+        Organizador organizador = new Organizador(nome, cpfCnpj, dataNascimento, salario, LocalDate.now());
+        PessoaRepository.salvar(organizador);
     }
 
     protected List<Pessoa> filtrar(List<Pessoa> pessoas) {

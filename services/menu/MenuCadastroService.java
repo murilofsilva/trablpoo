@@ -2,6 +2,7 @@ package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
 import services.pessoa.AuxiliarService;
+import services.pessoa.GerenteService;
 import services.pessoa.JogadorService;
 import services.pessoa.OrganizadorService;
 import util.ConsoleResources;
@@ -25,8 +26,7 @@ public class MenuCadastroService {
         StringBuilder menu = new StringBuilder();
         ConsoleResources.pularVariasLinhas();
         ConsoleResources.exibirTitulo("cadastro");
-        menu.append(QUEBRA_DE_LINHA + "Escolha a entidade que deseja cadastrar:");
-        menu.append(QUEBRA_DE_LINHA + "01 - Organizador");
+        menu.append("01 - Organizador");
         menu.append(QUEBRA_DE_LINHA + "02 - Gerente");
         menu.append(QUEBRA_DE_LINHA + "03 - Jogador");
         menu.append(QUEBRA_DE_LINHA + "04 - Auxiliar");
@@ -49,7 +49,7 @@ public class MenuCadastroService {
                 new OrganizadorService().criar();
                 break;
             case GERENTE:
-                System.out.print("organizador");
+                new GerenteService().criar();
                 break;
             case JOGADOR:
                 new JogadorService().criar();

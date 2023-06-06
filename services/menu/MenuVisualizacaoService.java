@@ -22,7 +22,7 @@ public class MenuVisualizacaoService {
         StringBuilder menu = new StringBuilder();
         ConsoleResources.pularVariasLinhas();
         ConsoleResources.exibirTitulo("visualização");
-        menu.append(QUEBRA_DE_LINHA + "01 - Organizador");
+        menu.append("01 - Organizador");
         menu.append(QUEBRA_DE_LINHA + "02 - Gerente");
         menu.append(QUEBRA_DE_LINHA + "03 - Evento");
         menu.append(QUEBRA_DE_LINHA + "04 - Auxiliar");
