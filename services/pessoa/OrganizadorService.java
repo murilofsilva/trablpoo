@@ -51,6 +51,10 @@ public class OrganizadorService extends PessoaService {
         PessoaRepository.salvar(organizador);
     }
 
+    public void editar() {
+
+    }
+
     protected List<Pessoa> filtrar(List<Pessoa> pessoas) {
         List<Pessoa> organizadores = new ArrayList<>();
         pessoas.forEach(pessoa -> {

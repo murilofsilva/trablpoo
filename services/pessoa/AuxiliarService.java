@@ -11,7 +11,7 @@ import java.util.List;
 
 import static services.pessoa.JogadorService.inscricaoResources;
 
-public class AuxiliarService extends PessoaService {
+public class AuxiliarService extends FuncionarioService {
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
         ConsoleResources.exibirTitulo("visualização do auxiliar");
@@ -50,7 +50,40 @@ public class AuxiliarService extends PessoaService {
         PessoaRepository.salvar(auxiliar);
     }
 
-    protected List<Pessoa> filtrar(List<Pessoa> pessoas) {
+    public void editar() {
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("edição do auxiliar");
+
+        Pessoa pessoa;
+        while (true) {
+            pessoa = buscarPessoaPorCPF();
+            if (!(pessoa instanceof Auxiliar)) {
+                System.out.println("Nenhum auxiliar encontrado com esse CPF!");
+                continue;
+            }
+            break;
+        }
+
+        Funcionario funcionario = (Funcionario)pessoa;
+        System.out.println("\nNome do auxiliar: " + funcionario.getNome());
+
+        while(true) {
+            System.out.println("Opções de edição:");
+            System.out.println("01 - Salário base");
+            int opcao = consoleResources.getNumberFromConsole("O que deseja editar? ");
+            if (opcao == 0) break;
+
+            switch (opcao) {
+                case 1: editarSalarioBase(funcionario); break;
+                default: break;
+            }
+
+            System.out.println("Edição realizada com sucesso!");
+            ConsoleResources.pausarConsole();
+        }
+    }
+
+    public List<Pessoa> filtrar(List<Pessoa> pessoas) {
         List<Pessoa> auxiliares = new ArrayList<>();
         pessoas.forEach(pessoa -> {
             if (pessoa instanceof Auxiliar) auxiliares.add(pessoa);

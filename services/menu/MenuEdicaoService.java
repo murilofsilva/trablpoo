@@ -1,40 +1,30 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
+import services.MenuService;
 import services.pessoa.AuxiliarService;
 import services.pessoa.GerenteService;
 import services.pessoa.JogadorService;
 import services.pessoa.OrganizadorService;
 import util.ConsoleResources;
 
-public class MenuCadastroService {
+public class MenuEdicaoService {
     private static final String QUEBRA_DE_LINHA = "\n";
     private static final ConsoleResources consoleResources = new ConsoleResources();
 
-    public static void processaMenuCadastro() {
+    public static void processaMenuEdicao() {
         while (true) {
-            exibeMenuCadastro();
-            int opcaoVisualizacao = consoleResources.getNumberFromConsole();
-
-            if (opcaoVisualizacao == 0) return;
-
-            processaOpcaoEscolhida(opcaoVisualizacao);
+            exibeMenuEdicao();
+            int opcao = consoleResources.getNumberFromConsole();
+            if (opcao == 0) return;
+            processaOpcaoEscolhida(opcao);
         }
     }
 
-    private static void exibeMenuCadastro() {
-        StringBuilder menu = new StringBuilder();
+    private static void exibeMenuEdicao() {
         ConsoleResources.pularVariasLinhas();
-        ConsoleResources.exibirTitulo("cadastro");
-        menu.append("01 - Organizador");
-        menu.append(QUEBRA_DE_LINHA + "02 - Gerente");
-        menu.append(QUEBRA_DE_LINHA + "03 - Jogador");
-        menu.append(QUEBRA_DE_LINHA + "04 - Auxiliar");
-        menu.append(QUEBRA_DE_LINHA + "05 - Time");
-        menu.append(QUEBRA_DE_LINHA + "00 - Voltar");
-        menu.append(QUEBRA_DE_LINHA + "");
-        menu.append(QUEBRA_DE_LINHA + "");
-
+        ConsoleResources.exibirTitulo("edição");
+        String menu = MenuService.obterEntidadesMenu();
         System.out.print(menu);
     }
 
@@ -43,13 +33,13 @@ public class MenuCadastroService {
 
         switch (opcaoEscolhidaEnum) {
             case AUXILIAR:
-                new AuxiliarService().criar();
+                new AuxiliarService().editar();
                 break;
             case ORGANIZADOR:
                 new OrganizadorService().criar();
                 break;
             case GERENTE:
-                new GerenteService().criar();
+                new GerenteService().editar();
                 break;
             case JOGADOR:
                 new JogadorService().criar();

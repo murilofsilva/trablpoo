@@ -1,6 +1,7 @@
 package services;
 
 import services.menu.MenuCadastroService;
+import services.menu.MenuEdicaoService;
 import services.menu.MenuVisualizacaoService;
 import util.ConsoleResources;
 
@@ -36,7 +37,7 @@ public class MenuService {
                     MenuCadastroService.processaMenuCadastro();
                     break;
                 case 3:
-                    System.out.println("TODO");
+                    MenuEdicaoService.processaMenuEdicao();
                     break;
                 case 4:
                     System.out.println("TODO");
@@ -48,5 +49,15 @@ public class MenuService {
                     System.out.println(QUEBRA_DE_LINHA + "Favor digitar uma opção válida!");
             }
         } while (op != 0);
+    }
+
+    public static String obterEntidadesMenu() {
+        return "01 - Organizador" +
+                QUEBRA_DE_LINHA + "02 - Gerente" +
+                QUEBRA_DE_LINHA + "03 - Jogador" +
+                QUEBRA_DE_LINHA + "04 - Auxiliar" +
+                QUEBRA_DE_LINHA + "05 - Time" +
+                QUEBRA_DE_LINHA + "00 - Voltar" +
+                QUEBRA_DE_LINHA + "";
     }
 }

@@ -24,7 +24,7 @@ public abstract class PessoaService implements ItemMenu {
     }
 
     protected static Pessoa buscarPessoaPorCPF() {
-        String cpf = consoleResources.getStringFromConsole("Informe o CPF para exibir informações detalhadas: ");
+        String cpf = consoleResources.getStringFromConsole("Informe o CPF: ");
         return PessoaRepository.obter(cpf);
     }
 

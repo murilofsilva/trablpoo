@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Gerente extends Funcionario {
-    private final String setorGerenciado;
+    private String setorGerenciado;
     private final List<Funcionario> funcionariosGerenciados;
 
     public Gerente(String nome, String cpfCnpj, LocalDate dataNascimento, double salarioBase, LocalDate dataEntrada,
@@ -50,5 +50,9 @@ public class Gerente extends Funcionario {
 
     public void adicionarFuncionarioGerenciado(Funcionario funcionario)  {
         this.funcionariosGerenciados.add(funcionario);
+    }
+
+    public void setSetorGerenciado(String setorGerenciado) {
+        this.setorGerenciado = setorGerenciado;
     }
 }

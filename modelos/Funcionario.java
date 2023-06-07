@@ -15,4 +15,9 @@ public abstract class Funcionario extends Pessoa {
     }
 
     protected abstract void calculaSalario();
+
+    public void setSalarioBase(double salarioBase) {
+        this.salarioBase = salarioBase;
+        this.calculaSalario();
+    }
 }

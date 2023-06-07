@@ -66,6 +66,10 @@ public class JogadorService extends PessoaService {
         }
     }
 
+    public void editar() {
+
+    }
+
     protected List<Pessoa> filtrar(List<Pessoa> pessoas) {
         List<Pessoa> jogadores = new ArrayList<>();
         pessoas.forEach(pessoa -> {

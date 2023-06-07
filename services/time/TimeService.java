@@ -139,4 +139,8 @@ public class TimeService implements ItemMenu {
 
         return coach.get(0);
     }
+
+    public void editar() {
+
+    }
 }
