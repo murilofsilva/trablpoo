@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ModalidadeEnum {
-    FPS(1),
-    MOBA(2),
-    BATTLE_ROYALE(3),
-    FIGHTING(4),
-    FUTEBOL(5);
+    FPS("fps"),
+    MOBA("moba"),
+    BATTLE_ROYALE("battle royale"),
+    FIGHTING("fighting"),
+    FUTEBOL("futebol");
 
-    private static final Map<Integer, ModalidadeEnum> items = new HashMap<>();
+    private static final Map<String, ModalidadeEnum> items = new HashMap<>();
 
     static {
         for (ModalidadeEnum modalidade : ModalidadeEnum.values()) {
@@ -18,13 +18,13 @@ public enum ModalidadeEnum {
         }
     }
 
-    private final int valor;
+    private final String valor;
 
-    ModalidadeEnum(int valorOpcao) {
+    ModalidadeEnum(String valorOpcao) {
         valor = valorOpcao;
     }
 
-    public int obterValor() {
+    public String obterValor() {
         return valor;
     }
 

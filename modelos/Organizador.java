@@ -35,6 +35,10 @@ public class Organizador extends Funcionario {
                 this.numeroCampeonatosOrganizados;
     }
 
+    public String getCodigoOrganizador() {
+        return this.codigoOrganizador;
+    }
+
     public void incrementarNumeroCampeonatosOrganizados() {
         this.numeroCampeonatosOrganizados++;
     }

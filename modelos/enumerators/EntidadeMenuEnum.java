@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EntidadeMenuEnum {
-    ORGANIZADOR(1),
-    GERENTE(2),
-    EVENTO(3),
-    AUXILIAR(4),
-    JOGADOR(5),
-    COACH(6),
+    AUXILIAR(1),
+    ORGANIZADOR(2),
+    GERENTE(3),
+    JOGADOR(4),
+    COACH(5),
+    EVENTO(6),
     TIME(7),
     FORNECEDOR(8);
 

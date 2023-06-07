@@ -10,8 +10,9 @@ public class Time {
     private List<Jogador> jogadores;
     private int numeroIntegrantes;
     private Coach coach = null;
+    private Localidade localidade;
 
-    public Time(int id, String nome, List<Jogador> jogadores, Coach coach){
+    public Time(int id, String nome, List<Jogador> jogadores, Coach coach, Localidade localidade){
         this.id = id;
         this.nome = nome;
         this.jogadores = jogadores;

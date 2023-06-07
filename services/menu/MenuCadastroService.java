@@ -1,10 +1,9 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
-import services.pessoa.AuxiliarService;
-import services.pessoa.GerenteService;
-import services.pessoa.JogadorService;
-import services.pessoa.OrganizadorService;
+import services.MenuService;
+import services.pessoa.*;
+import services.time.TimeService;
 import util.ConsoleResources;
 
 public class MenuCadastroService {
@@ -26,14 +25,15 @@ public class MenuCadastroService {
         StringBuilder menu = new StringBuilder();
         ConsoleResources.pularVariasLinhas();
         ConsoleResources.exibirTitulo("cadastro");
-        menu.append("01 - Organizador");
-        menu.append(QUEBRA_DE_LINHA + "02 - Gerente");
-        menu.append(QUEBRA_DE_LINHA + "03 - Jogador");
-        menu.append(QUEBRA_DE_LINHA + "04 - Auxiliar");
-        menu.append(QUEBRA_DE_LINHA + "05 - Time");
+        menu.append("01 - Auxiliar");
+        menu.append(QUEBRA_DE_LINHA + "02 - Organizador");
+        menu.append(QUEBRA_DE_LINHA + "03 - Gerente");
+        menu.append(QUEBRA_DE_LINHA + "04 - Jogador");
+        menu.append(QUEBRA_DE_LINHA + "05 - Coach");
+        menu.append(QUEBRA_DE_LINHA + "06 - Evento");
+        menu.append(QUEBRA_DE_LINHA + "07 - Time");
+        menu.append(QUEBRA_DE_LINHA + "08 - Fornecedor");
         menu.append(QUEBRA_DE_LINHA + "00 - Voltar");
-        menu.append(QUEBRA_DE_LINHA + "");
-        menu.append(QUEBRA_DE_LINHA + "");
 
         System.out.print(menu);
     }
@@ -55,13 +55,14 @@ public class MenuCadastroService {
                 new JogadorService().criar();
                 break;
             case COACH:
-                System.out.print("organizador");
+                new CoachService().criar();
                 break;
             case TIME:
-                System.out.print("organizador");
+                new TimeService().criar();
                 break;
             default:
-                System.out.print("nada");
+                System.out.print("Opção inválida!");
+                MenuService.processaMenu();
         }
     }
 }

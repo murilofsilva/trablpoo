@@ -1,6 +1,7 @@
 package repositories;
 
 import modelos.*;
+import modelos.enumerators.ModalidadeEnum;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,13 +31,16 @@ public class PessoaRepository {
                     "12782122376",
                     LocalDate.now(),
                     new Localidade("br", "cg", "ms"),
-                    "blaster")
+                    "blaster",
+                    new Jogo("Welligton Rato", ModalidadeEnum.BATTLE_ROYALE)
+                   )
             );
             add(new Jogador("Jota e os tres mosqueteiros",
                     "22818271244",
                     LocalDate.now(),
                     new Localidade("br", "cg", "ms"),
-                    "jotaMatador")
+                    "jotaMatador",
+                    new Jogo("Ariana Grande", ModalidadeEnum.FPS))
             );
             add(new Auxiliar("Carlos Alberto",
                     "06369196177",
@@ -52,6 +56,10 @@ public class PessoaRepository {
 
     public static List<Pessoa> obterPorNome(String nome) {
         return pessoas.stream().filter(x -> x.getNome().toLowerCase().contains(nome.toLowerCase())).collect(Collectors.toList());
+    }
+
+    public static List<Pessoa> obterTodos() {
+        return pessoas;
     }
 
     public static void salvar(Pessoa pessoa) {
