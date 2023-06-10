@@ -1,19 +1,15 @@
 package services.pessoa;
 
-import modelos.Localidade;
 import modelos.Organizador;
 import modelos.Pessoa;
 import repositories.PessoaRepository;
 import util.ConsoleResources;
-import util.DataResources;
 import util.DataResources;
 import util.InscricaoResources;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import static services.pessoa.JogadorService.inscricaoResources;
 
 public class OrganizadorService extends PessoaService {
     InscricaoResources inscricaoResources = new InscricaoResources();

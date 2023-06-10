@@ -5,13 +5,13 @@ import java.util.Map;
 
 public enum EntidadeMenuEnum {
     AUXILIAR(1),
-    ORGANIZADOR(2),
-    GERENTE(3),
-    JOGADOR(4),
-    COACH(5),
-    EVENTO(6),
-    TIME(7),
-    FORNECEDOR(8);
+    CAMPEONATO(2),
+    COACH(3),
+    GERENTE(4),
+    JOGADOR(5),
+    JOGO(6),
+    ORGANIZADOR(7),
+    TIME(8);
 
     private static final Map<Integer, EntidadeMenuEnum> items = new HashMap<>();
 

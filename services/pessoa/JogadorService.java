@@ -25,7 +25,7 @@ public class JogadorService extends PessoaService {
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
-        consoleResources.exibirTitulo("Visualização de jogador");
+        ConsoleResources.exibirTitulo("visualização de jogador");
 
         while (true) {
             List<Pessoa> pessoas = buscarPessoasPorNome();
@@ -40,6 +40,8 @@ public class JogadorService extends PessoaService {
         while (true) {
             Pessoa jogador = buscarPessoaPorCPF();
             if (jogador != null) {
+                ConsoleResources.pularVariasLinhas();
+                ConsoleResources.exibirTitulo("informações do jogador");
                 imprimirInformacoesPessoa(jogador);
                 break;
             }
@@ -54,7 +56,7 @@ public class JogadorService extends PessoaService {
                 MenuService.processaMenu();
             }
 
-            consoleResources.exibirTitulo("Cadastro de jogador");
+            ConsoleResources.exibirTitulo("Cadastro de jogador");
             String nome = consoleResources.getStringFromConsole("Informe o nome do Jogador: ");
             String cpfCnpj = inscricaoResources.getAndValidateCpfCnpj("jogador");
             LocalDate dataNascimento = DataResources.getAndValidateDate("Informe a data de nascimento do jogador: ");

@@ -7,7 +7,6 @@ import util.ConsoleResources;
 
 public class MenuVisualizacaoService {
     private static final ConsoleResources consoleResources = new ConsoleResources();
-    private static final String QUEBRA_DE_LINHA = "\n";
 
     public static void processaMenuVisualizacao() {
         while (true) {
@@ -19,21 +18,9 @@ public class MenuVisualizacaoService {
     }
 
     private static void exibeMenuVisualizacao() {
-        StringBuilder menu = new StringBuilder();
         ConsoleResources.pularVariasLinhas();
         ConsoleResources.exibirTitulo("visualização");
-        menu.append("01 - Organizador");
-        menu.append(QUEBRA_DE_LINHA + "02 - Gerente");
-        menu.append(QUEBRA_DE_LINHA + "03 - Evento");
-        menu.append(QUEBRA_DE_LINHA + "04 - Auxiliar");
-        menu.append(QUEBRA_DE_LINHA + "05 - Jogador");
-        menu.append(QUEBRA_DE_LINHA + "06 - Coach/Técnico");
-        menu.append(QUEBRA_DE_LINHA + "07 - Time");
-        menu.append(QUEBRA_DE_LINHA + "08 - Fornecedor");
-        menu.append(QUEBRA_DE_LINHA + "09 - Visualização completa");
-        menu.append(QUEBRA_DE_LINHA + "00 - Voltar\n");
-
-        System.out.print(menu);
+        System.out.print(ConsoleResources.modelos);
     }
 
     private static void processaOpcaoEscolhida(int opcaoEscolhida) {
@@ -43,27 +30,26 @@ public class MenuVisualizacaoService {
             case AUXILIAR:
                 new AuxiliarService().visualizar();
                 break;
-            case JOGADOR:
-                new JogadorService().visualizar();
-                break;
+            case CAMPEONATO: break;
             case COACH:
                 new CoachService().visualizar();
-                break;
-            case ORGANIZADOR:
-                new OrganizadorService().visualizar();
                 break;
             case GERENTE:
                 new GerenteService().visualizar();
                 break;
-            case EVENTO:
-                System.out.print("organizador");
-            case FORNECEDOR:
-                System.out.print("organizador");
+            case JOGADOR:
+                new JogadorService().visualizar();
+                break;
+            case JOGO: break;
+            case ORGANIZADOR:
+                new OrganizadorService().visualizar();
+                break;
             case TIME:
                 new TimeService().visualizar();
                 break;
-            default:
-                System.out.print("nada");
+            default: 
+                System.out.println("Opção desconhecida!");
+                break;
         }
     }
 }

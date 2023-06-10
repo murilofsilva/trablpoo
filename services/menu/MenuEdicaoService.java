@@ -1,15 +1,15 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
-import services.MenuService;
 import services.pessoa.AuxiliarService;
+import services.pessoa.CoachService;
 import services.pessoa.GerenteService;
 import services.pessoa.JogadorService;
 import services.pessoa.OrganizadorService;
+import services.time.TimeService;
 import util.ConsoleResources;
 
 public class MenuEdicaoService {
-    private static final String QUEBRA_DE_LINHA = "\n";
     private static final ConsoleResources consoleResources = new ConsoleResources();
 
     public static void processaMenuEdicao() {
@@ -24,8 +24,7 @@ public class MenuEdicaoService {
     private static void exibeMenuEdicao() {
         ConsoleResources.pularVariasLinhas();
         ConsoleResources.exibirTitulo("edição");
-        String menu = MenuService.obterEntidadesMenu();
-        System.out.print(menu);
+        System.out.print(ConsoleResources.modelos);
     }
 
     private static void processaOpcaoEscolhida(int opcaoEscolhida) {
@@ -35,23 +34,26 @@ public class MenuEdicaoService {
             case AUXILIAR:
                 new AuxiliarService().editar();
                 break;
-            case ORGANIZADOR:
-                new OrganizadorService().criar();
+            case CAMPEONATO: break;
+            case COACH:
+                new CoachService().editar();
                 break;
             case GERENTE:
                 new GerenteService().editar();
                 break;
             case JOGADOR:
-                new JogadorService().criar();
+                new JogadorService().editar();
                 break;
-            case COACH:
-                System.out.print("organizador");
+            case JOGO: break;
+            case ORGANIZADOR:
+                new OrganizadorService().editar();
                 break;
             case TIME:
-                System.out.print("organizador");
+                new TimeService().editar();
                 break;
-            default:
-                System.out.print("nada");
+            default: 
+                System.out.println("Opção desconhecida!");
+                break;
         }
     }
 }

@@ -1,7 +1,6 @@
 package modelos;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public abstract class Funcionario extends Pessoa {
     protected double salarioBase;

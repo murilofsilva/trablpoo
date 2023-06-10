@@ -50,14 +50,4 @@ public class MenuService {
             }
         } while (op != 0);
     }
-
-    public static String obterEntidadesMenu() {
-        return "01 - Organizador" +
-                QUEBRA_DE_LINHA + "02 - Gerente" +
-                QUEBRA_DE_LINHA + "03 - Jogador" +
-                QUEBRA_DE_LINHA + "04 - Auxiliar" +
-                QUEBRA_DE_LINHA + "05 - Time" +
-                QUEBRA_DE_LINHA + "00 - Voltar" +
-                QUEBRA_DE_LINHA + "";
-    }
 }

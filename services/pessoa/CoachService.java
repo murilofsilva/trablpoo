@@ -18,7 +18,7 @@ public class CoachService extends PessoaService {
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
-        consoleResources.exibirTitulo("VISUALIZAÇÃO DO COACH");
+        ConsoleResources.exibirTitulo("visualização do coach");
 
         while (true) {
             List<Pessoa> pessoas = buscarPessoasPorNome();
@@ -31,9 +31,11 @@ public class CoachService extends PessoaService {
         }
 
         while (true) {
-            Pessoa gerente = buscarPessoaPorCPF();
-            if (gerente != null) {
-                imprimirInformacoesPessoa(gerente);
+            Pessoa coach = buscarPessoaPorCPF();
+            if (coach != null) {
+                ConsoleResources.pularVariasLinhas();
+                ConsoleResources.exibirTitulo("informações do coach");
+                imprimirInformacoesPessoa(coach);
                 break;
             }
             System.out.println("Nenhum coach encontrado com esse CPF!");
@@ -42,7 +44,7 @@ public class CoachService extends PessoaService {
 
     public void criar() {
         try {
-            consoleResources.exibirTitulo("Cadastro de coach/técnico");
+            ConsoleResources.exibirTitulo("cadastro de coach/técnico");
             String nome = consoleResources.getStringFromConsole("Informe o nome do coach: ");
             String cpfCnpj = inscricaoResources.getAndValidateCpfCnpj("coach");
             LocalDate dataNascimento = DataResources.getAndValidateDate("Informe a data de nascimento do coach: ");

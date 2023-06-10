@@ -5,11 +5,19 @@ import java.util.Scanner;
 
 public class ConsoleResources {
     private static final Scanner sc = new Scanner(System.in);
+    public static final String modelos = "01 - AUXILIAR" +
+                                        "\n02 - CAMPEONATO" +
+                                        "\n03 - COACH" +
+                                        "\n04 - GERENTE" +
+                                        "\n05 - JOGADOR" +
+                                        "\n06 - JOGO" +
+                                        "\n07 - ORGANIZADOR" +
+                                        "\n08 - TIME";
 
     public static void pausarConsole() {
         System.out.print("Tecle para continuar...");
         try {
-            int resultado = System.in.read();
+            System.in.read();
         } catch (IOException e) {
             System.out.print("");
         }

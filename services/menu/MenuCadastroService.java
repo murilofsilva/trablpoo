@@ -1,13 +1,15 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
-import services.MenuService;
-import services.pessoa.*;
+import services.pessoa.AuxiliarService;
+import services.pessoa.CoachService;
+import services.pessoa.GerenteService;
+import services.pessoa.JogadorService;
+import services.pessoa.OrganizadorService;
 import services.time.TimeService;
 import util.ConsoleResources;
 
 public class MenuCadastroService {
-    private static final String QUEBRA_DE_LINHA = "\n";
     private static final ConsoleResources consoleResources = new ConsoleResources();
 
     public static void processaMenuCadastro() {
@@ -22,20 +24,9 @@ public class MenuCadastroService {
     }
 
     private static void exibeMenuCadastro() {
-        StringBuilder menu = new StringBuilder();
         ConsoleResources.pularVariasLinhas();
         ConsoleResources.exibirTitulo("cadastro");
-        menu.append("01 - Auxiliar");
-        menu.append(QUEBRA_DE_LINHA + "02 - Organizador");
-        menu.append(QUEBRA_DE_LINHA + "03 - Gerente");
-        menu.append(QUEBRA_DE_LINHA + "04 - Jogador");
-        menu.append(QUEBRA_DE_LINHA + "05 - Coach");
-        menu.append(QUEBRA_DE_LINHA + "06 - Evento");
-        menu.append(QUEBRA_DE_LINHA + "07 - Time");
-        menu.append(QUEBRA_DE_LINHA + "08 - Fornecedor");
-        menu.append(QUEBRA_DE_LINHA + "00 - Voltar");
-
-        System.out.print(menu);
+        System.out.print(ConsoleResources.modelos);
     }
 
     private static void processaOpcaoEscolhida(int opcaoEscolhida) {
@@ -45,8 +36,9 @@ public class MenuCadastroService {
             case AUXILIAR:
                 new AuxiliarService().criar();
                 break;
-            case ORGANIZADOR:
-                new OrganizadorService().criar();
+            case CAMPEONATO: break;
+            case COACH:
+                new CoachService().criar();
                 break;
             case GERENTE:
                 new GerenteService().criar();
@@ -54,15 +46,16 @@ public class MenuCadastroService {
             case JOGADOR:
                 new JogadorService().criar();
                 break;
-            case COACH:
-                new CoachService().criar();
+            case JOGO: break;
+            case ORGANIZADOR:
+                new OrganizadorService().criar();
                 break;
             case TIME:
                 new TimeService().criar();
                 break;
-            default:
-                System.out.print("Opção inválida!");
-                MenuService.processaMenu();
+            default: 
+                System.out.println("Opção desconhecida!");
+                break;
         }
     }
 }
