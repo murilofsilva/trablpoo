@@ -90,4 +90,6 @@ public class AuxiliarService extends FuncionarioService {
         });
         return auxiliares;
     }
+
+    public void remover() {}
 }

@@ -250,4 +250,6 @@ public class TimeService implements ItemMenu {
         }
         time.setCoach(coach);
     }
+
+    public void remover() {}
 }

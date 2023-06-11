@@ -100,4 +100,6 @@ public class CoachService extends PessoaService {
         });
         return coaches;
     }
+
+    public void remover() {}
 }

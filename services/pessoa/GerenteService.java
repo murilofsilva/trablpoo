@@ -121,4 +121,6 @@ public class GerenteService extends FuncionarioService {
         });
         return gerentes;
     }
+
+    public void remover() {}
 }

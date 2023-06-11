@@ -124,4 +124,6 @@ public class JogoService implements ItemMenu {
         ModalidadeEnum modalidadeEscolhida = ModalidadeEnum.obterModalidadePorValor(sc.nextLine());
         jogo.setModalidade(modalidadeEscolhida);
     }
+
+    public void remover() {}
 }

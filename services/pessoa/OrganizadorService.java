@@ -113,4 +113,6 @@ public class OrganizadorService extends PessoaService {
         });
         return organizadores;
     }
+
+    public void remover() {}
 }

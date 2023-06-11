@@ -4,6 +4,7 @@ import modelos.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import interfaces.ItemMenu;
 import modelos.Campeonato;
@@ -17,6 +18,7 @@ import util.DataResources;
 
 public class CampeonatoService implements ItemMenu {
     private static final ConsoleResources consoleResources = new ConsoleResources();
+    private static final CampeonatoRepository campeonatoRepository = new CampeonatoRepository();
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
@@ -25,7 +27,7 @@ public class CampeonatoService implements ItemMenu {
 
         while (true) {
             String nomePesquisado = consoleResources.getStringFromConsole("Informe o nome do campeonato: ");
-            campeonatos = CampeonatoRepository.obter(nomePesquisado);
+            campeonatos = campeonatoRepository.obter(nomePesquisado);
     
             if (campeonatos.size() > 0)
                 break;
@@ -76,7 +78,7 @@ public class CampeonatoService implements ItemMenu {
 
         Localidade localizacao = new Localidade(pais, estado, municipio);
         Campeonato campeonato = new Campeonato(nome, dataInicio, dataFim, localizacao, new ArrayList<Time>(), jogo);
-        CampeonatoRepository.salvar(campeonato);
+        campeonatoRepository.salvar(campeonato);
         System.out.println("Campeonato cadastrado com sucesso!");
         ConsoleResources.pausarConsole();
     }
@@ -88,7 +90,7 @@ public class CampeonatoService implements ItemMenu {
         Campeonato campeonato;
         while (true) {
             String nome = consoleResources.getStringFromConsole("Informe o nome do campeonato: ");
-            campeonato = CampeonatoRepository.obter(nome).get(0);
+            campeonato = campeonatoRepository.obter(nome).get(0);
             if (campeonato != null)
                 break;
             System.out.println("Nenhum campeonato encontrado com esse nome!");
@@ -120,7 +122,7 @@ public class CampeonatoService implements ItemMenu {
 
     private static void editarNome(Campeonato campeonato) {
         String nome = consoleResources.getStringFromConsole("Informe o novo nome: ");
-        boolean jaExiste = !CampeonatoRepository.obter(nome).isEmpty();
+        boolean jaExiste = !campeonatoRepository.obter(nome).isEmpty();
     
         if (jaExiste) {
             System.out.println("Já existe um campeonato com esse nome!");
@@ -157,5 +159,43 @@ public class CampeonatoService implements ItemMenu {
             System.out.println("Nenhum time encontrado com esse nome!");
         }
         campeonato.removerTime(time);
+    }
+
+    public void remover() {
+        int op = consoleResources.getNumberFromConsole("Por qual meio gostaria de remover um campeonato?\n01 - id\n02 - nome\n");
+        switch (op) {
+            case 1:
+                removerPorId();
+                break;
+            case 2:
+                removerPorNome();
+                break;
+            default:
+                System.out.println("Opção inválida! Tente novamente.");
+                remover();
+        }
+
+        System.out.println("Remoção realizada com sucesso!");
+        ConsoleResources.pausarConsole();
+    }
+
+    private void removerPorId() {
+        int id = consoleResources.getNumberFromConsole("Informe o id do campeonato: ");
+        Campeonato campeonato = campeonatoRepository.obterTodos().stream().filter(c -> c.getId() == id).findFirst().orElse(null);
+        if (Objects.isNull(campeonato)) {
+            System.out.println("Id não existe no sistema! Tente novamente.");
+            removerPorId();
+        }
+        campeonatoRepository.remover(campeonato);
+    }
+
+    private void removerPorNome() {
+        String nome = consoleResources.getStringFromConsole("Informe o nome do campeonato: ");
+        Campeonato campeonato = campeonatoRepository.obterTodos().stream().filter(c -> c.getNome().equals(nome)).findFirst().orElse(null);
+        if (Objects.isNull(campeonato)) {
+            System.out.println("Id não existe no sistema! Tente novamente.");
+            removerPorNome();
+        }
+        campeonatoRepository.remover(campeonato);
     }
 }

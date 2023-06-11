@@ -162,4 +162,6 @@ public class JogadorService extends PessoaService {
 
         return jogosEncontrados.get(0);
     }
+
+    public void remover() {}
 }

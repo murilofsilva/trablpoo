@@ -2,6 +2,7 @@ package services;
 
 import services.menu.MenuCadastroService;
 import services.menu.MenuEdicaoService;
+import services.menu.MenuRemocaoService;
 import services.menu.MenuVisualizacaoService;
 import util.ConsoleResources;
 
@@ -40,7 +41,7 @@ public class MenuService {
                     MenuEdicaoService.processaMenuEdicao();
                     break;
                 case 4:
-                    System.out.println("TODO");
+                    MenuRemocaoService.processaMenuRemocao();
                     break;
                 case 0:
                     System.out.println(QUEBRA_DE_LINHA + "Obrigado, volte sempre!");
