@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class TimeRepository {
     private static int proximaChaveUnica = 1;
-    private static final List<Time> times = new ArrayList() {
+    private static final List<Time> times = new ArrayList<>() {
         {
             add(new Time(proximaChaveUnica,
                     "Sapecas do morro",

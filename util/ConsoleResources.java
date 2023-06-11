@@ -12,7 +12,7 @@ public class ConsoleResources {
                                         "\n05 - JOGADOR" +
                                         "\n06 - JOGO" +
                                         "\n07 - ORGANIZADOR" +
-                                        "\n08 - TIME";
+                                        "\n08 - TIME\n";
 
     public static void pausarConsole() {
         System.out.print("Tecle para continuar...");

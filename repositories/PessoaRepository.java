@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PessoaRepository {
-    public static ArrayList<Pessoa> pessoas = new ArrayList() {
+    public static ArrayList<Pessoa> pessoas = new ArrayList<>() {
         {
             add(new Gerente("Emerson",
                     "06169116177",
