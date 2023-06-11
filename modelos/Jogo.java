@@ -20,6 +20,14 @@ public class Jogo {
         return this.nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setModalidade(ModalidadeEnum modalidade) {
+        this.modalidade = modalidade;
+    }
+
     public ModalidadeEnum getModalidade() {
         return this.modalidade;
     }

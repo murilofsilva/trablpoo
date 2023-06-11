@@ -64,5 +64,63 @@ public class JogoService implements ItemMenu {
     }
 
     public void editar() {
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("edição de jogo");
+        Jogo jogo;
+
+        while (true) {
+            jogo = buscarJogoPorNome();
+            if (Objects.isNull(jogo)) {
+                System.out.println("Nenhum jogo encontrado com esse CPF!");
+                continue;
+            }
+            break;
+        }
+
+        System.out.println("\nNome do jogo: " + jogo.getNome());
+        while (true) {
+            System.out.println("Opções de edição:");
+            System.out.println("01 - nome");
+            System.out.println("02 - modalidade");
+            System.out.println("00 - Sair");
+            int opcao = consoleResources.getNumberFromConsole("O que deseja editar? ");
+            if (opcao == 0) break;
+
+            switch (opcao) {
+                case 1:
+                    editarNome(jogo);
+                    break;
+                case 2:
+                    editarModalidade(jogo);
+                    break;
+            }
+
+            System.out.println("Edição realizada com sucesso!");
+            ConsoleResources.pausarConsole();
+        }
+    }
+
+    private Jogo buscarJogoPorNome() {
+        String nome = consoleResources.getStringFromConsole("Informe o nome: ");
+        return JogoRepository.obterPorNome(nome).get(0);
+    }
+
+    private void editarNome(Jogo jogo) {
+        ConsoleResources.pularVariasLinhas();
+        String novoNome = consoleResources.getStringFromConsole("Informe o novo nome para o jogo: ");
+        jogo.setNome(novoNome);
+    }
+
+    private void editarModalidade(Jogo jogo) {
+        int contador = ModalidadeEnum.values().length;
+        System.out.print("Escolha a nova modalidade dentre as opções listadas: ");
+        for (ModalidadeEnum modalidade : ModalidadeEnum.values()) {
+            contador--;
+            System.out.print(modalidade.obterValor());
+            if (contador != 0) System.out.print(", ");
+            else System.out.print(": ");
+        }
+        ModalidadeEnum modalidadeEscolhida = ModalidadeEnum.obterModalidadePorValor(sc.nextLine());
+        jogo.setModalidade(modalidadeEscolhida);
     }
 }
