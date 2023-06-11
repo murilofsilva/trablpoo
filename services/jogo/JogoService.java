@@ -47,7 +47,7 @@ public class JogoService implements ItemMenu {
 
         while (true) {
             String nomePesquisado = consoleResources.getStringFromConsole("Informe o nome do jogo: ");
-            jogos = JogoRepository.obterPorNome(nomePesquisado);
+            jogos = jogoRepository.obterPorNome(nomePesquisado);
 
             if (jogos.size() > 0)
                 break;
@@ -103,7 +103,7 @@ public class JogoService implements ItemMenu {
 
     private Jogo buscarJogoPorNome() {
         String nome = consoleResources.getStringFromConsole("Informe o nome: ");
-        return JogoRepository.obterPorNome(nome).get(0);
+        return jogoRepository.obterPorNome(nome).get(0);
     }
 
     private void editarNome(Jogo jogo) {
@@ -125,5 +125,41 @@ public class JogoService implements ItemMenu {
         jogo.setModalidade(modalidadeEscolhida);
     }
 
-    public void remover() {}
+    public void remover() {
+        int op = consoleResources.getNumberFromConsole("Por qual meio gostaria de remover um jogo?\n01 - id\n02 - nome\n");
+        switch (op) {
+            case 1:
+                removerPorId();
+                break;
+            case 2:
+                removerPorNome();
+                break;
+            default:
+                System.out.println("Opção inválida! Tente novamente.");
+                remover();
+        }
+
+        System.out.println("Remoção realizada com sucesso!");
+        ConsoleResources.pausarConsole();
+    }
+
+    private void removerPorId() {
+        int id = consoleResources.getNumberFromConsole("Informe o id do jogo: ");
+        Jogo jogo = jogoRepository.obterPorId(id);
+        if (Objects.isNull(jogo)) {
+            System.out.println("Id não existe no sistema! Tente novamente.");
+            removerPorId();
+        }
+        jogoRepository.remover(jogo);
+    }
+
+    private void removerPorNome() {
+        String nome = consoleResources.getStringFromConsole("Informe o nome do jogo: ");
+        List<Jogo> jogos = jogoRepository.obterPorNome(nome);
+        if (Objects.isNull(jogos) || jogos.isEmpty()) {
+            System.out.println("Nome não existe no sistema! Tente novamente.");
+            removerPorNome();
+        }
+        jogoRepository.remover(jogos.get(0));
+    }
 }

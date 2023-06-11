@@ -19,6 +19,7 @@ import util.DataResources;
 public class CampeonatoService implements ItemMenu {
     private static final ConsoleResources consoleResources = new ConsoleResources();
     private static final CampeonatoRepository campeonatoRepository = new CampeonatoRepository();
+    private static final JogoRepository jogoRepository = new JogoRepository();
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
@@ -68,7 +69,7 @@ public class CampeonatoService implements ItemMenu {
 
         while (true) {
             String nomeJogo = consoleResources.getStringFromConsole("Informe o nome do jogo do campeonato: ");
-            jogo = JogoRepository.obterPorNome(nomeJogo).get(0);
+            jogo = jogoRepository.obterPorNome(nomeJogo).get(0);
             
             if (jogo != null)
                 break;
@@ -181,7 +182,7 @@ public class CampeonatoService implements ItemMenu {
 
     private void removerPorId() {
         int id = consoleResources.getNumberFromConsole("Informe o id do campeonato: ");
-        Campeonato campeonato = campeonatoRepository.obterTodos().stream().filter(c -> c.getId() == id).findFirst().orElse(null);
+        Campeonato campeonato = campeonatoRepository.obterPorId(id);
         if (Objects.isNull(campeonato)) {
             System.out.println("Id não existe no sistema! Tente novamente.");
             removerPorId();
@@ -191,9 +192,9 @@ public class CampeonatoService implements ItemMenu {
 
     private void removerPorNome() {
         String nome = consoleResources.getStringFromConsole("Informe o nome do campeonato: ");
-        Campeonato campeonato = campeonatoRepository.obterTodos().stream().filter(c -> c.getNome().equals(nome)).findFirst().orElse(null);
+        Campeonato campeonato = campeonatoRepository.obterPorNome(nome);
         if (Objects.isNull(campeonato)) {
-            System.out.println("Id não existe no sistema! Tente novamente.");
+            System.out.println("Nome não existe no sistema! Tente novamente.");
             removerPorNome();
         }
         campeonatoRepository.remover(campeonato);

@@ -135,7 +135,7 @@ public class JogadorService extends PessoaService {
     }
 
     private Jogo getJogo() {
-        List<Jogo> jogosEncontrados = JogoRepository.obterPorNome(consoleResources.getStringFromConsole("Informe o jogo do jogador, " +
+        List<Jogo> jogosEncontrados = jogoRepository.obterPorNome(consoleResources.getStringFromConsole("Informe o jogo do jogador, " +
                 "os disponíveis são: " + jogoRepository.obterTodos().stream().map(Jogo::getNome).collect(Collectors.joining(", ")) + ": "));
 
         if (Objects.isNull(jogosEncontrados) || jogosEncontrados.isEmpty()) {

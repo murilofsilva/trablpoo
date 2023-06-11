@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class JogoRepository {
     private static int proximaChaveUnica = 1;
-    public static ArrayList<Jogo> jogos = new ArrayList() {
+    private ArrayList<Jogo> jogos = new ArrayList() {
         {
             add(new Jogo("Free fire",
                     ModalidadeEnum.BATTLE_ROYALE)
@@ -20,10 +20,14 @@ public class JogoRepository {
         }
     };
 
-    public static List<Jogo> obterPorNome(String nome) {
+    public List<Jogo> obterPorNome(String nome) {
         return jogos.stream().filter(jogo -> jogo.getNome().toLowerCase().trim()
                 .replace(" ", "").contains(nome.toLowerCase().trim()
                         .replace(" ", ""))).collect(Collectors.toList());
+    }
+
+    public Jogo obterPorId(int id) {
+        return jogos.stream().filter(jogo -> jogo.getId() == id).findFirst().orElse(null);
     }
 
     public void salvar(Jogo jogo) {
@@ -34,5 +38,9 @@ public class JogoRepository {
 
     public List<Jogo> obterTodos() {
         return this.jogos;
+    }
+
+    public void remover(Jogo jogo) {
+        this.jogos.remove(jogo);
     }
 }
