@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 public class TimeService implements ItemMenu {
     private static final String SWITCH_ITEM_DEFAULT_MESSAGE = "\nDigite a posição do item que deseja (considere que o primeiro elemento está na primeira posição): ";
     static Scanner sc = new Scanner(System.in);
-    public static List<Time> times = new ArrayList<>();
     private static final ConsoleResources consoleResources = new ConsoleResources();
     final CoachService coachService = new CoachService();
     final JogadorService jogadorService = new JogadorService();

@@ -1,9 +1,6 @@
 package services.pessoa;
 
-import modelos.Jogador;
-import modelos.Jogo;
-import modelos.Localidade;
-import modelos.Pessoa;
+import modelos.*;
 import repositories.JogoRepository;
 import repositories.PessoaRepository;
 import services.MenuService;
@@ -87,7 +84,46 @@ public class JogadorService extends PessoaService {
     }
 
     public void editar() {
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("edição de jogador");
 
+        String username = consoleResources.getStringFromConsole("Informe o nome de usuário do jogador que deseja editar: ");
+        List<Jogador> jogadores = filtrar(pessoaRepository.obterTodos()).stream().map(j -> (Jogador) j).collect(Collectors.toList());
+        Jogador jogador = jogadores.stream().filter(j -> j.getNomeUsuario().equals(username)).findFirst().orElse(null);
+
+        if (Objects.isNull(jogador)) {
+            System.out.println("Jogador não encontrado! Tente novamente.");
+            editar();
+        }
+
+        int op = consoleResources.getNumberFromConsole("O que deseja editar?\n01 - Nome de usuário\n02 - Loacalidade");
+        switch (op) {
+            case 1:
+                editarUserName(jogador, jogadores);
+                break;
+            case 2:
+                editaLocalidade(jogador);
+                break;
+            default:
+                System.out.println("Opção inválida! Tente novamente.");
+                editar();
+        }
+    }
+
+    private void editarUserName(Jogador jogador, List<Jogador> jogadores) {
+        String newUserName = consoleResources.getStringFromConsole("Informe o novo nome de usuário: ");
+        if (!jogadores.stream().filter(j -> j.getNomeUsuario().equals(newUserName)).collect(Collectors.toList()).isEmpty()) {
+            System.out.println("Já existe um jogador com este nome de usuário! Tente novamente.");
+            editarUserName(jogador, jogadores);
+        }
+        jogador.setNomeUsuario(newUserName);
+    }
+
+    private void editaLocalidade(Jogador jogador) {
+        String pais = consoleResources.getStringFromConsole("Informe o país do jogador: ");
+        String estado = consoleResources.getStringFromConsole("Informe o estado do jogador: ");
+        String municipio = consoleResources.getStringFromConsole("Informe o municipio do jogador: ");
+        jogador.setLocalidade(new Localidade(pais, municipio, estado));
     }
 
     public List<Pessoa> filtrar(List<Pessoa> pessoas) {

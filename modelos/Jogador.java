@@ -28,4 +28,8 @@ public class Jogador extends Pessoa {
     public String getNomeUsuario() {
         return this.nomeUsuario;
     }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
 }

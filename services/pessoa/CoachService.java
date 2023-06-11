@@ -2,6 +2,7 @@ package services.pessoa;
 
 import modelos.Coach;
 import modelos.Localidade;
+import modelos.Organizador;
 import modelos.Pessoa;
 import repositories.PessoaRepository;
 import util.ConsoleResources;
@@ -11,6 +12,7 @@ import util.InscricaoResources;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CoachService extends PessoaService {
     private final static ConsoleResources consoleResources = new ConsoleResources();
@@ -62,7 +64,33 @@ public class CoachService extends PessoaService {
     }
 
     public void editar() {
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("edição de coach");
+        Coach coach = null;
+        int op;
 
+        op = consoleResources.getNumberFromConsole("Gostaria de buscar o coach por:\n01 - nome\n 02 - cpf/cnpj");
+        switch (op) {
+            case 1:
+                coach = (Coach) PessoaService.buscarPessoasPorNome();
+                break;
+            case 2:
+                coach = (Coach) PessoaService.buscarPessoaPorCPF();
+                break;
+            default:
+                System.out.println("Opção inválida! Tente novamente!");
+                editar();
+        }
+
+        if (Objects.isNull(coach)) {
+            System.out.println("Organizador não encontrado! Tente novamente.");
+            editar();
+        }
+
+        String pais = consoleResources.getStringFromConsole("Informe o país do jogador: ");
+        String estado = consoleResources.getStringFromConsole("Informe o estado do jogador: ");
+        String municipio = consoleResources.getStringFromConsole("Informe o municipio do jogador: ");
+        coach.setLocalidade(new Localidade(pais, municipio, estado));
     }
 
     public List<Pessoa> filtrar(List<Pessoa> pessoas) {

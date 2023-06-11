@@ -1,5 +1,6 @@
 package services.pessoa;
 
+import modelos.Localidade;
 import modelos.Organizador;
 import modelos.Pessoa;
 import repositories.PessoaRepository;
@@ -10,9 +11,11 @@ import util.InscricaoResources;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OrganizadorService extends PessoaService {
     InscricaoResources inscricaoResources = new InscricaoResources();
+    PessoaRepository pessoaRepository = new PessoaRepository();
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
@@ -53,7 +56,54 @@ public class OrganizadorService extends PessoaService {
     }
 
     public void editar() {
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("edição de organizador");
+        Organizador organizador = null;
+        int op;
 
+        op = consoleResources.getNumberFromConsole("Gostaria de buscar o organizador por:\n01 - nome\n 02 - cpf/cnpj");
+        switch (op) {
+            case 1:
+                organizador = (Organizador) PessoaService.buscarPessoasPorNome();
+                break;
+            case 2:
+                organizador = (Organizador) PessoaService.buscarPessoaPorCPF();
+                break;
+            default:
+                System.out.println("Opção inválida! Tente novamente!");
+                editar();
+        }
+
+        if (Objects.isNull(organizador)) {
+            System.out.println("Organizador não encontrado! Tente novamente.");
+            editar();
+        }
+
+        op = consoleResources.getNumberFromConsole("O que gostaria de editar?\n01 - Quantidade de campeonatos organizados\n02: Localidade");
+        switch (op) {
+            case 1:
+                editarQuantidadeCampeonatosOrganizados(organizador);
+                break;
+            case 2:
+                editarLocalidade(organizador);
+                break;
+            case 3:
+                System.out.println("Opção inválida! Tente novamente!");
+                editar();
+        }
+    }
+
+    private void editarQuantidadeCampeonatosOrganizados(Organizador organizador) {
+        int num = consoleResources.getNumberFromConsole("Informe o novo número de campeonatos que estão sob responsabilidade do organizador");
+        organizador.setNumeroCampeonatosOrganizados(num);
+
+    }
+
+    private void editarLocalidade(Organizador organizador) {
+        String pais = consoleResources.getStringFromConsole("Informe o país do jogador: ");
+        String estado = consoleResources.getStringFromConsole("Informe o estado do jogador: ");
+        String municipio = consoleResources.getStringFromConsole("Informe o municipio do jogador: ");
+        organizador.setLocalidade(new Localidade(pais, municipio, estado));
     }
 
     protected List<Pessoa> filtrar(List<Pessoa> pessoas) {

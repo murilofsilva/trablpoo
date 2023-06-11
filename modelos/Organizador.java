@@ -42,4 +42,8 @@ public class Organizador extends Funcionario {
     public void incrementarNumeroCampeonatosOrganizados() {
         this.numeroCampeonatosOrganizados++;
     }
+
+    public void setNumeroCampeonatosOrganizados(int num) {
+        this.numeroCampeonatosOrganizados = num;
+    }
 }
