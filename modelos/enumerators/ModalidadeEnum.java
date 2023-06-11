@@ -18,7 +18,7 @@ public enum ModalidadeEnum {
         }
     }
 
-    private final String valor;
+    private String valor;
 
     ModalidadeEnum(String valorOpcao) {
         valor = valorOpcao;
@@ -28,7 +28,7 @@ public enum ModalidadeEnum {
         return valor;
     }
 
-    public static ModalidadeEnum obterModalidadePorValor(int valor) {
+    public static ModalidadeEnum obterModalidadePorValor(String valor) {
         return items.get(valor);
     }
 }

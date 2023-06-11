@@ -8,7 +8,7 @@ import modelos.Campeonato;
 import modelos.Localidade;
 
 public class CampeonatoRepository {
-    public static ArrayList<Campeonato> campeonatos = new ArrayList<>() {
+    public static ArrayList<Campeonato> campeonatos = new ArrayList() {
         {
             Localidade localidade = new Localidade("Brazil", "Campo Grande", "Mato Grosso do Sul");
             add(new Campeonato(1, "brasileirao", LocalDate.now(), LocalDate.now(), localidade, TimeRepository.obter("Sapecas"), JogoRepository.obterPorNome("FIFA").get(0)));
