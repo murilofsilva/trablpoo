@@ -2,6 +2,9 @@ package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
 import services.campeonato.CampeonatoService;
+import services.jogo.JogoService;
+import services.pessoa.*;
+import services.time.TimeService;
 import util.ConsoleResources;
 
 public class MenuRemocaoService {
@@ -22,7 +25,7 @@ public class MenuRemocaoService {
         System.out.print(ConsoleResources.modelos);
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         processaMenuRemocao();
     }
 
@@ -31,29 +34,29 @@ public class MenuRemocaoService {
 
         switch (opcaoEscolhidaEnum) {
             case AUXILIAR:
-//                new AuxiliarService().remover();
-//                break;
+                new AuxiliarService().remover();
+                break;
             case CAMPEONATO:
                 new CampeonatoService().remover();
                 break;
             case COACH:
-//                new CoachService().remover();
-//                break;
+                new CoachService().remover();
+                break;
             case GERENTE:
-//                new GerenteService().remover();
-//                break;
+                new GerenteService().remover();
+                break;
             case JOGADOR:
-//                new JogadorService().remover();
-//                break;
+                new JogadorService().remover();
+                break;
             case JOGO:
-//                new JogoService().remover();
-//                break;
+                new JogoService().remover();
+                break;
             case ORGANIZADOR:
-//                new OrganizadorService().remover();
-//                break;
+                new OrganizadorService().remover();
+                break;
             case TIME:
-//                new TimeService().remover();
-//                break;
+                new TimeService().remover();
+                break;
             default:
                 System.out.println("Opção desconhecida!");
                 break;

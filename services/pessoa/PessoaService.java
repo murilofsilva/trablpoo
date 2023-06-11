@@ -9,12 +9,13 @@ import java.util.List;
 
 public abstract class PessoaService implements ItemMenu {
     protected static final ConsoleResources consoleResources = new ConsoleResources();
+    protected static final PessoaRepository pessoaRepository = new PessoaRepository();
 
     protected abstract List<Pessoa> filtrar(List<Pessoa> pessoas);
 
     protected static List<Pessoa> buscarPessoasPorNome() {
         String nome = consoleResources.getStringFromConsole("Informe o nome para pesquisa: ");
-        return PessoaRepository.obterPorNome(nome);
+        return pessoaRepository.obterPorNome(nome);
     }
 
     protected static void imprimirPessoasEncontradas(List<Pessoa> pessoas) {
@@ -25,7 +26,7 @@ public abstract class PessoaService implements ItemMenu {
 
     protected static Pessoa buscarPessoaPorCPF() {
         String cpf = consoleResources.getStringFromConsole("Informe o CPF: ");
-        return PessoaRepository.obter(cpf);
+        return pessoaRepository.obter(cpf);
     }
 
     protected static void imprimirInformacoesPessoa(Pessoa pessoa) {

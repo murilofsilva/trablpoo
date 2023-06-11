@@ -52,7 +52,7 @@ public class OrganizadorService extends PessoaService {
         LocalDate dataNascimento = DataResources.getAndValidateDate("Informe a data de nascimento do organizador: ");
         double salario = consoleResources.getDoubleFromConsole("Informe o salário base do organizador: ");
         Organizador organizador = new Organizador(nome, cpfCnpj, dataNascimento, salario, LocalDate.now());
-        PessoaRepository.salvar(organizador);
+        pessoaRepository.salvar(organizador);
     }
 
     public void editar() {

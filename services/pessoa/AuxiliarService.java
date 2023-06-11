@@ -1,6 +1,8 @@
 package services.pessoa;
 
-import modelos.*;
+import modelos.Auxiliar;
+import modelos.Funcionario;
+import modelos.Pessoa;
 import repositories.PessoaRepository;
 import util.ConsoleResources;
 import util.DataResources;
@@ -8,15 +10,18 @@ import util.DataResources;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static services.pessoa.JogadorService.inscricaoResources;
 
 public class AuxiliarService extends FuncionarioService {
+    private static final PessoaRepository pessoaRepository = new PessoaRepository();
+
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
         ConsoleResources.exibirTitulo("visualização do auxiliar");
 
-        while(true) {
+        while (true) {
             List<Pessoa> pessoas = buscarPessoasPorNome();
             List<Pessoa> auxiliares = filtrar(pessoas);
             if (auxiliares.size() > 0) {
@@ -47,7 +52,7 @@ public class AuxiliarService extends FuncionarioService {
         double salario = consoleResources.getDoubleFromConsole("Informe o salário base do auxiliar: ");
         LocalDate dataEntrada = DataResources.getAndValidateDate("Informe a data de entrada do auxiliar: ");
         Auxiliar auxiliar = new Auxiliar(nome, cpfCnpj, dataNascimento, salario, dataEntrada);
-        PessoaRepository.salvar(auxiliar);
+        pessoaRepository.salvar(auxiliar);
     }
 
     public void editar() {
@@ -64,18 +69,21 @@ public class AuxiliarService extends FuncionarioService {
             break;
         }
 
-        Funcionario funcionario = (Funcionario)pessoa;
+        Funcionario funcionario = (Funcionario) pessoa;
         System.out.println("\nNome do auxiliar: " + funcionario.getNome());
 
-        while(true) {
+        while (true) {
             System.out.println("Opções de edição:");
             System.out.println("01 - Salário base");
             int opcao = consoleResources.getNumberFromConsole("O que deseja editar? ");
             if (opcao == 0) break;
 
             switch (opcao) {
-                case 1: editarSalarioBase(funcionario); break;
-                default: break;
+                case 1:
+                    editarSalarioBase(funcionario);
+                    break;
+                default:
+                    break;
             }
 
             System.out.println("Edição realizada com sucesso!");
@@ -91,5 +99,45 @@ public class AuxiliarService extends FuncionarioService {
         return auxiliares;
     }
 
-    public void remover() {}
+    public void remover() {
+        int op = consoleResources.getNumberFromConsole("Por qual meio gostaria de remover um auxiliar?\n01 - cpf/cnpj\n02 - nome\n");
+        switch (op) {
+            case 1:
+                removerPorCpfCnpj();
+                break;
+            case 2:
+                removerPorNome();
+                break;
+            default:
+                System.out.println("Opção inválida! Tente novamente.");
+                remover();
+        }
+
+        System.out.println("Remoção realizada com sucesso!");
+        ConsoleResources.pausarConsole();
+    }
+
+    private void removerPorCpfCnpj() {
+        String cpfCnpj = consoleResources.getStringFromConsole("Informe o cpf/cnpj do auxiliar: ");
+        List<Pessoa> auxiliares = filtrar(pessoaRepository.obterTodos());
+        Auxiliar auxiliar = (Auxiliar) auxiliares.stream().filter(a -> a.getCpfCnpj().equals(cpfCnpj)).findFirst().orElse(null);
+        if (Objects.isNull(auxiliar)) {
+            System.out.println("Cpf/cnpj não existe no sistema! Tente novamente.");
+            removerPorCpfCnpj();
+        }
+        pessoaRepository.remover(auxiliar);
+    }
+
+    private void removerPorNome() {
+        String nome = consoleResources.getStringFromConsole("Informe o nome do auxiliar: ");
+        List<Pessoa> auxiliares = filtrar(pessoaRepository.obterTodos());
+        Auxiliar auxiliar = (Auxiliar) auxiliares.stream().filter(p -> p.getNome().toLowerCase()
+                .trim().replace(" ", "").equals(nome.toLowerCase().trim()
+                        .replace(" ", ""))).findFirst().orElse(null);
+        if (Objects.isNull(auxiliar)) {
+            System.out.println("Nome não existe no sistema! Tente novamente.");
+            removerPorNome();
+        }
+        pessoaRepository.remover(auxiliar);
+    }
 }

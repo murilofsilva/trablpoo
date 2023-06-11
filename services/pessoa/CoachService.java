@@ -57,7 +57,7 @@ public class CoachService extends PessoaService {
             Localidade localidade = new Localidade(pais, municipio, estado);
             Coach coach = new Coach(nome, cpfCnpj, dataNascimento, localidade);
 
-            PessoaRepository.salvar(coach);
+            pessoaRepository.salvar(coach);
         } catch (Exception e) {
             System.out.println("Ocorreram erros ao cadastrar um coach. Entre em contato com o suporte.");
         }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PessoaRepository {
-    public static ArrayList<Pessoa> pessoas = new ArrayList() {
+    private ArrayList<Pessoa> pessoas = new ArrayList() {
         {
             add(new Gerente("Emerson",
                     "06169116177",
@@ -28,12 +28,12 @@ public class PessoaRepository {
                     new Localidade("br", "cg", "ms"))
             );
             add(new Jogador("Lucas Vinicius",
-                    "12782122376",
-                    LocalDate.now(),
-                    new Localidade("br", "cg", "ms"),
-                    "blaster",
-                    new Jogo("Welligton Rato", ModalidadeEnum.BATTLE_ROYALE)
-                   )
+                            "12782122376",
+                            LocalDate.now(),
+                            new Localidade("br", "cg", "ms"),
+                            "blaster",
+                            new Jogo("Welligton Rato", ModalidadeEnum.BATTLE_ROYALE)
+                    )
             );
             add(new Jogador("Jota e os tres mosqueteiros",
                     "22818271244",
@@ -50,19 +50,25 @@ public class PessoaRepository {
         }
     };
 
-    public static Pessoa obter(String cpf) {
+    public Pessoa obter(String cpf) {
         return pessoas.stream().filter(x -> x.getCpfCnpj().equals(cpf)).findFirst().orElse(null);
     }
 
-    public static List<Pessoa> obterPorNome(String nome) {
-        return pessoas.stream().filter(x -> x.getNome().toLowerCase().contains(nome.toLowerCase())).collect(Collectors.toList());
+    public List<Pessoa> obterPorNome(String nome) {
+        return pessoas.stream().filter(x -> x.getNome().toLowerCase().trim()
+                        .replace(" ", "").contains(nome.toLowerCase().trim().replace(" ", "")))
+                .collect(Collectors.toList());
     }
 
     public List<Pessoa> obterTodos() {
         return pessoas;
     }
 
-    public static void salvar(Pessoa pessoa) {
+    public void salvar(Pessoa pessoa) {
         pessoas.add(pessoa);
+    }
+
+    public void remover(Pessoa pessoa) {
+        pessoas.remove(pessoa);
     }
 }

@@ -52,7 +52,7 @@ public class GerenteService extends FuncionarioService {
         double salario = consoleResources.getDoubleFromConsole("Informe o salário base do gerente: ");
         String setor = consoleResources.getStringFromConsole("Informe o setor do gerente: ");
         Gerente gerente = new Gerente(nome, cpfCnpj, dataNascimento, salario, LocalDate.now(), setor);
-        PessoaRepository.salvar(gerente);
+        pessoaRepository.salvar(gerente);
     }
 
     public void editar() {
@@ -104,7 +104,7 @@ public class GerenteService extends FuncionarioService {
 
         while (true) {
             String cpf = consoleResources.getStringFromConsole("Informe o CPF do funcionário auxiliar para ser adicionado: ");
-            pessoa = PessoaRepository.obter(cpf);
+            pessoa = pessoaRepository.obter(cpf);
             if (pessoa instanceof Auxiliar)
                 break;
             System.out.println("Nenhum auxiliar encontrado com esse CPF!");

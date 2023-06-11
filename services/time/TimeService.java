@@ -1,8 +1,10 @@
 package services.time;
 
 import interfaces.ItemMenu;
-import modelos.*;
-import repositories.JogoRepository;
+import modelos.Coach;
+import modelos.Jogador;
+import modelos.Pessoa;
+import modelos.Time;
 import repositories.PessoaRepository;
 import repositories.TimeRepository;
 import services.MenuService;
@@ -11,7 +13,10 @@ import services.pessoa.CoachService;
 import services.pessoa.JogadorService;
 import util.ConsoleResources;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class TimeService implements ItemMenu {
@@ -67,7 +72,7 @@ public class TimeService implements ItemMenu {
     }
 
     public void criar() {
-        List<Coach> coaches = coachService.filtrar(PessoaRepository.pessoas).stream().map(c -> (Coach) c).collect(Collectors.toList());
+        List<Coach> coaches = coachService.filtrar(pessoaRepository.obterTodos()).stream().map(c -> (Coach) c).collect(Collectors.toList());
         if (coaches.isEmpty()) {
             System.out.println("É necessário ter um coach cadastrado para atribui-lo ao time!");
             MenuCadastroService.processaMenuCadastro();
@@ -93,7 +98,7 @@ public class TimeService implements ItemMenu {
             return Collections.EMPTY_LIST;
         }
 
-        List<Jogador> jogadores = jogadorService.filtrar(PessoaRepository.pessoas).stream().map(pessoa -> (Jogador) pessoa).collect(Collectors.toList());
+        List<Jogador> jogadores = jogadorService.filtrar(pessoaRepository.obterTodos()).stream().map(pessoa -> (Jogador) pessoa).collect(Collectors.toList());
         if (jogadores.isEmpty()) {
             System.out.println("Impossível adicionar jogadores no momento pois não há nenhum disponível no sistema.");
             return Collections.EMPTY_LIST;
@@ -115,7 +120,7 @@ public class TimeService implements ItemMenu {
 
     private Jogador getJogador() {
         String nome = consoleResources.getStringFromConsole("Informe o nome do jogador que deseja adicionar ao time: ");
-        Jogador jogador = PessoaRepository.pessoas.stream().map(pessoa -> (Jogador) pessoa)
+        Jogador jogador = pessoaRepository.obterTodos().stream().map(pessoa -> (Jogador) pessoa)
                 .filter(j -> j.getNome().toLowerCase().trim().replace(" ", "")
                         .equals(nome.toLowerCase().trim().replace(" ", ""))).findFirst().orElse(null);
 
@@ -133,8 +138,8 @@ public class TimeService implements ItemMenu {
 
     private Coach getCoach() {
         String nome = consoleResources.getStringFromConsole("Informe o nome do coach do time, as opções são: " + coachService.filtrar(
-                PessoaRepository.pessoas).stream().map(Pessoa::getNome).collect(Collectors.joining(", ")) + ": ");
-        List<Pessoa> pessoas = PessoaRepository.obterPorNome(nome);
+                pessoaRepository.obterTodos()).stream().map(Pessoa::getNome).collect(Collectors.joining(", ")) + ": ");
+        List<Pessoa> pessoas = pessoaRepository.obterPorNome(nome);
         pessoas = coachService.filtrar(pessoas);
 
         List<Pessoa> coachesEncontrados = pessoas.stream().filter(c -> c.getNome().toLowerCase().trim().replace(" ", "")
@@ -179,7 +184,7 @@ public class TimeService implements ItemMenu {
         }
 
         System.out.println("\nNome do time: " + time.getNome());
-        while(true) {
+        while (true) {
             System.out.println("Opções de edição:");
             System.out.println("01 - Salário base");
             System.out.println("02 - Setor gerenciado");
@@ -188,10 +193,17 @@ public class TimeService implements ItemMenu {
             if (opcao == 0) break;
 
             switch (opcao) {
-                case 1: editarNome(time); break;
-                case 2: editarListaDeJogadores(time); break;
-                case 3: editarCoach(time); break;
-                default: break;
+                case 1:
+                    editarNome(time);
+                    break;
+                case 2:
+                    editarListaDeJogadores(time);
+                    break;
+                case 3:
+                    editarCoach(time);
+                    break;
+                default:
+                    break;
             }
 
             System.out.println("Edição realizada com sucesso!");
@@ -230,7 +242,7 @@ public class TimeService implements ItemMenu {
         }
         jogadorService.criar();
         List<Pessoa> pessoas = pessoaRepository.obterTodos();
-        Jogador jogador = (Jogador) jogadorService.filtrar(pessoas).get(pessoas.size()-1);
+        Jogador jogador = (Jogador) jogadorService.filtrar(pessoas).get(pessoas.size() - 1);
         time.addJogador(jogador);
     }
 
@@ -251,5 +263,6 @@ public class TimeService implements ItemMenu {
         time.setCoach(coach);
     }
 
-    public void remover() {}
+    public void remover() {
+    }
 }

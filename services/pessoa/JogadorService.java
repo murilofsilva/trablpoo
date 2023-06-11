@@ -67,7 +67,7 @@ public class JogadorService extends PessoaService {
             Localidade localidade = new Localidade(pais, municipio, estado);
             Jogador jogador = new Jogador(nome, cpfCnpj, dataNascimento, localidade, userName, jogo);
 
-            PessoaRepository.salvar(jogador);
+            pessoaRepository.salvar(jogador);
         } catch (Exception e) {
             System.out.println("Ocorreram erros ao cadastrar um jogador. Entre em contato com o suporte.");
         }
