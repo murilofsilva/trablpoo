@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Campeonato {
-    private final int id;
+    private int id;
     private String nome;
     private LocalDate dataInicio;
     private LocalDate dataFim;
@@ -13,8 +13,7 @@ public class Campeonato {
     private List<Time> times;
     private Jogo jogo;
 
-    public Campeonato(int id, String nome, LocalDate dataInicio, LocalDate dataFim, Localidade localizacao, List<Time> times, Jogo jogo) {
-        this.id = id;
+    public Campeonato(String nome, LocalDate dataInicio, LocalDate dataFim, Localidade localizacao, List<Time> times, Jogo jogo) {
         this.nome = nome;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
@@ -25,6 +24,10 @@ public class Campeonato {
 
     public int getId() {
         return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {

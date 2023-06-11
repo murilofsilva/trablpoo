@@ -1,11 +1,18 @@
 package services.campeonato;
 
+import modelos.Time;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.ItemMenu;
 import modelos.Campeonato;
+import modelos.Jogo;
+import modelos.Localidade;
 import repositories.CampeonatoRepository;
+import repositories.JogoRepository;
 import util.ConsoleResources;
+import util.DataResources;
 
 public class CampeonatoService implements ItemMenu {
     private static final ConsoleResources consoleResources = new ConsoleResources();
@@ -45,8 +52,32 @@ public class CampeonatoService implements ItemMenu {
     }
 
     public void criar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'criar'");
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("cadastro de campeonato");
+
+        String nome = consoleResources.getStringFromConsole("Informe o nome do campeonato: ");
+        LocalDate dataInicio = DataResources.getAndValidateDate("Informe a data de início do campeonato: ");
+        LocalDate dataFim = DataResources.getAndValidateDate("Informe a data de fim do campeonato: ");
+        String pais = consoleResources.getStringFromConsole("Informe o país em que ocorrerá o campeonato: ");
+        String estado = consoleResources.getStringFromConsole("Informe o estado em que ocorrerá o campeonato: ");
+        String municipio = consoleResources.getStringFromConsole("Informe o município em que ocorrerá o campeonato: ");
+        Jogo jogo;
+
+        while (true) {
+            String nomeJogo = consoleResources.getStringFromConsole("Informe o nome do jogo do campeonato: ");
+            jogo = JogoRepository.obterPorNome(nomeJogo).get(0);
+            
+            if (jogo != null)
+                break;
+
+            System.out.println("Nenhum jogo encontrado com esse nome!");
+        }
+
+        Localidade localizacao = new Localidade(pais, estado, municipio);
+        Campeonato campeonato = new Campeonato(nome, dataInicio, dataFim, localizacao, new ArrayList<Time>(), jogo);
+        CampeonatoRepository.salvar(campeonato);
+        System.out.println("Campeonato cadastrado com sucesso!");
+        ConsoleResources.pausarConsole();
     }
 
     public void editar() {
