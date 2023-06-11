@@ -3,7 +3,7 @@ package modelos;
 import modelos.enumerators.ModalidadeEnum;
 
 public class Jogo {
-    private Long id;
+    private int id;
     private String nome;
     private ModalidadeEnum modalidade;
 
@@ -22,6 +22,10 @@ public class Jogo {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setModalidade(ModalidadeEnum modalidade) {

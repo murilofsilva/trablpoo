@@ -80,7 +80,7 @@ public class TimeService implements ItemMenu {
         Localidade localidade = new Localidade(pais, municipio, estado);
 
         Time time = new Time(2, nome, jogadores, coach, localidade);
-        TimeRepository.inserir(time);
+        TimeRepository.salvar(time);
     }
 
     private List<Jogador> getJogadores(int maxJogadores) {

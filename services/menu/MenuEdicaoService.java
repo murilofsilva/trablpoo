@@ -1,6 +1,7 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
+import services.jogo.JogoService;
 import services.pessoa.AuxiliarService;
 import services.pessoa.CoachService;
 import services.pessoa.GerenteService;
@@ -44,7 +45,9 @@ public class MenuEdicaoService {
             case JOGADOR:
                 new JogadorService().editar();
                 break;
-            case JOGO: break;
+            case JOGO:
+                new JogoService().editar();
+                break;
             case ORGANIZADOR:
                 new OrganizadorService().editar();
                 break;

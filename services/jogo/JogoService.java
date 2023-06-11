@@ -13,13 +13,14 @@ import java.util.Scanner;
 public class JogoService implements ItemMenu {
     static Scanner sc = new Scanner(System.in);
     private final ConsoleResources consoleResources = new ConsoleResources();
+    private final JogoRepository jogoRepository = new JogoRepository();
 
     public void criar() {
         consoleResources.exibirTitulo("Cadasatro de jogo");
         String nome = consoleResources.getStringFromConsole("Informe o nome do jogo: ");
         ModalidadeEnum modalidadeEscolhida = getModalidade();
         Jogo jogo = new Jogo(nome, modalidadeEscolhida);
-        JogoRepository.jogos.add(jogo);
+        jogoRepository.salvar(jogo);
     }
 
     private ModalidadeEnum getModalidade() {

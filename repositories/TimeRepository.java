@@ -31,7 +31,8 @@ public class TimeRepository {
         return times.stream().filter(time -> time.getNome().toUpperCase().contains(nome.toUpperCase())).collect(Collectors.toList());
     }
 
-    public static void inserir(Time time) {
+    public static void salvar(Time time) {
+        time.setId(proximaChaveUnica);
         times.add(time);
         proximaChaveUnica++;
     }

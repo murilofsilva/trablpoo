@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Time {
-    private final int id;
+    private int id;
     private String nome;
     private List<Jogador> jogadores;
     private int numeroIntegrantes;
@@ -42,6 +42,10 @@ public class Time {
 
     public void setCoach(Coach coach) {
         this.coach = coach;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Jogador> getJogadores() {

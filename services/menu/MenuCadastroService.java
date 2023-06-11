@@ -2,11 +2,8 @@ package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
 import services.campeonato.CampeonatoService;
-import services.pessoa.AuxiliarService;
-import services.pessoa.CoachService;
-import services.pessoa.GerenteService;
-import services.pessoa.JogadorService;
-import services.pessoa.OrganizadorService;
+import services.jogo.JogoService;
+import services.pessoa.*;
 import services.time.TimeService;
 import util.ConsoleResources;
 
@@ -37,7 +34,7 @@ public class MenuCadastroService {
             case AUXILIAR:
                 new AuxiliarService().criar();
                 break;
-            case CAMPEONATO: 
+            case CAMPEONATO:
                 new CampeonatoService().criar();
                 break;
             case COACH:
@@ -49,14 +46,16 @@ public class MenuCadastroService {
             case JOGADOR:
                 new JogadorService().criar();
                 break;
-            case JOGO: break;
+            case JOGO:
+                new JogoService().criar();
+                break;
             case ORGANIZADOR:
                 new OrganizadorService().criar();
                 break;
             case TIME:
                 new TimeService().criar();
                 break;
-            default: 
+            default:
                 System.out.println("Opção desconhecida!");
                 break;
         }
