@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class JogoRepository {
-    int proximaChaveUnica = 1;
-    private static ArrayList<Jogo> jogos = new ArrayList() {
+    private static int proximaChaveUnica = 1;
+    public static ArrayList<Jogo> jogos = new ArrayList() {
         {
             add(new Jogo("Free fire",
                     ModalidadeEnum.BATTLE_ROYALE)

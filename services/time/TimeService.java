@@ -74,17 +74,13 @@ public class TimeService implements ItemMenu {
             MenuCadastroService.processaMenuCadastro();
         }
 
-        consoleResources.exibirTitulo("Cadastro de time");
+        ConsoleResources.exibirTitulo("Cadastro de time");
         String nome = consoleResources.getStringFromConsole("Informe o nome do time: ");
         int maxJogadores = consoleResources.getNumberFromConsole("Informe o número máximo de jogadores no time: ");
-        String pais = consoleResources.getStringFromConsole("Informe o país do time: ");
-        String municipio = consoleResources.getStringFromConsole("Informe o município do time: ");
-        String estado = consoleResources.getStringFromConsole("Informe o estado do time: ");
         Coach coach = getCoach();
         List<Jogador> jogadores = getJogadores(maxJogadores);
-        Localidade localidade = new Localidade(pais, municipio, estado);
 
-        Time time = new Time(2, nome, jogadores, coach, localidade);
+        Time time = new Time(2, nome, jogadores, coach);
         TimeRepository.salvar(time);
     }
 
@@ -194,9 +190,8 @@ public class TimeService implements ItemMenu {
 
             switch (opcao) {
                 case 1: editarNome(time); break;
-                case 2: editarNumeroIntegrantes(time); break;
-                case 3: editarLocalidade(time); break;
-                case 4: editarListaDeJogadores(time); break;
+                case 2: editarListaDeJogadores(time); break;
+                case 3: editarCoach(time); break;
                 default: break;
             }
 
@@ -212,22 +207,6 @@ public class TimeService implements ItemMenu {
             editarNome(time);
         }
         time.setNome(nome);
-    }
-
-    private void editarNumeroIntegrantes(Time time) {
-        int numeroIntegrantes = consoleResources.getNumberFromConsole("Informe o novo número de integrantes para o time");
-        if (numeroIntegrantes < TimeRepository.obterTodos().size()) {
-            System.out.println("O número máximo de integrantes deve ser maior que o número de integrantes já cadastrados! Tente novamente.");
-            editarNumeroIntegrantes(time);
-        }
-        time.setNumeroIntegrantes(numeroIntegrantes);
-    }
-
-    private void editarLocalidade(Time time) {
-        String pais = consoleResources.getStringFromConsole("Informe o país do time: ");
-        String estado = consoleResources.getStringFromConsole("Informe o estado do time: ");
-        String municipio = consoleResources.getStringFromConsole("Informe a cidade do time: ");
-        time.setLocalidade(new Localidade(pais, municipio, estado));
     }
 
     private void editarListaDeJogadores(Time time) {
@@ -260,5 +239,16 @@ public class TimeService implements ItemMenu {
         String username = consoleResources.getStringFromConsole("Informe o nome de usuário do jogador que deseja remover: ");
         Jogador jogador = time.getJogadores().stream().filter(u -> u.getNomeUsuario().equals(username)).findFirst().orElse(null);
         time.getJogadores().remove(jogador);
+    }
+
+    private void editarCoach(Time time) {
+        String nome = consoleResources.getStringFromConsole("Informe o nome do novo coach: ");
+        List<Coach> coaches = coachService.filtrar(pessoaRepository.obterTodos()).stream().map(c -> (Coach) c).collect(Collectors.toList());
+        Coach coach = coaches.stream().filter(c -> c.getNome().equals(nome)).findFirst().orElse(null);
+        if (Objects.isNull(coach)) {
+            System.out.println("Coach não encontrado! Tente novamente.");
+            editarCoach(time);
+        }
+        time.setCoach(coach);
     }
 }

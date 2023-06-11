@@ -2,7 +2,6 @@ package repositories;
 
 import modelos.Coach;
 import modelos.Jogador;
-import modelos.Localidade;
 import modelos.Time;
 
 import java.util.ArrayList;
@@ -16,8 +15,7 @@ public class TimeRepository {
             add(new Time(proximaChaveUnica,
                     "Sapecas do morro",
                     PessoaRepository.obterPorNome("Lucas").stream().map(pessoa -> (Jogador)pessoa).collect(Collectors.toList()),
-                    (Coach)PessoaRepository.obter("23915319411"),
-                    new Localidade("Brasil", "Curitiva", "PR"))
+                    (Coach)PessoaRepository.obter("23915319411"))
             );
             add(new Time(proximaChaveUnica+1, "Sapecas da montanha magica"));
         }
@@ -29,6 +27,17 @@ public class TimeRepository {
 
     public static List<Time> obter(String nome) {
         return times.stream().filter(time -> time.getNome().toUpperCase().contains(nome.toUpperCase())).collect(Collectors.toList());
+    }
+
+    public static Time obterExatamente(String nome) {
+        Time timeEncontrado = null;
+
+        for (Time time : times) {
+            if (time.getNome().equals(nome))
+                timeEncontrado = time;
+        }
+
+        return timeEncontrado;
     }
 
     public static List<Time> obterTodos() {

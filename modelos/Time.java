@@ -10,15 +10,13 @@ public class Time {
     private List<Jogador> jogadores;
     private int numeroIntegrantes;
     private Coach coach = null;
-    private Localidade localidade;
 
-    public Time(int id, String nome, List<Jogador> jogadores, Coach coach, Localidade localidade){
+    public Time(int id, String nome, List<Jogador> jogadores, Coach coach){
         this.id = id;
         this.nome = nome;
         this.jogadores = jogadores;
         this.numeroIntegrantes = jogadores.size() + 1;
         this.coach = coach;
-        this.localidade = localidade;
     }
 
     public Time(int id, String nome) {
@@ -51,10 +49,6 @@ public class Time {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setLocalidade(Localidade localidade) {
-        this.localidade = localidade;
     }
 
     public void addJogador(Jogador jogador) {

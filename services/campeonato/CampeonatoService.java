@@ -11,6 +11,7 @@ import modelos.Jogo;
 import modelos.Localidade;
 import repositories.CampeonatoRepository;
 import repositories.JogoRepository;
+import repositories.TimeRepository;
 import util.ConsoleResources;
 import util.DataResources;
 
@@ -81,8 +82,80 @@ public class CampeonatoService implements ItemMenu {
     }
 
     public void editar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'editar'");
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("edição do campeonato");
+
+        Campeonato campeonato;
+        while (true) {
+            String nome = consoleResources.getStringFromConsole("Informe o nome do campeonato: ");
+            campeonato = CampeonatoRepository.obter(nome).get(0);
+            if (campeonato != null)
+                break;
+            System.out.println("Nenhum campeonato encontrado com esse nome!");
+        }
+
+        System.out.println("\nNome do campeonato: " + campeonato.getNome());
+
+        while (true) {
+            System.out.println("Opções de edição:");
+            System.out.println("01 - Nome");
+            System.out.println("02 - Data de fim");
+            System.out.println("03 - Adicionar time");
+            System.out.println("04 - Remover time");
+            int opcao = consoleResources.getNumberFromConsole("O que deseja editar? ");
+            if (opcao == 0) break;
+
+            switch (opcao) {
+                case 1: editarNome(campeonato); break;
+                case 2: editarDataFim(campeonato); break;
+                case 3: adicionarTime(campeonato); break;
+                case 4: removerTime(campeonato); break;
+                default: break;
+            }
+
+            System.out.println("Edição realizada com sucesso!");
+            ConsoleResources.pausarConsole();
+        }
+    }
+
+    private static void editarNome(Campeonato campeonato) {
+        String nome = consoleResources.getStringFromConsole("Informe o novo nome: ");
+        boolean jaExiste = !CampeonatoRepository.obter(nome).isEmpty();
+    
+        if (jaExiste) {
+            System.out.println("Já existe um campeonato com esse nome!");
+            editarNome(campeonato);
+        }
+    
+        campeonato.setNome(nome);        
     }
     
+    private static void editarDataFim(Campeonato campeonato) {
+        LocalDate dataFim = DataResources.getAndValidateDate("Informe a nova data de fim: ");
+        campeonato.setDataFim(dataFim);
+    }
+    
+    private static void adicionarTime(Campeonato campeonato) {
+        Time time;
+        while (true) {
+            String nome = consoleResources.getStringFromConsole("Informe o nome do time: ");
+            time = TimeRepository.obterExatamente(nome);
+            if (time != null)
+                break;
+            System.out.println("Nenhum time encontrado com esse nome!");
+        }
+        campeonato.adicionarTime(time);
+    }
+    
+    private static void removerTime(Campeonato campeonato) {
+        Time time;
+        while (true) {
+            String nome = consoleResources.getStringFromConsole("Informe o nome do time: ");
+            time = TimeRepository.obterExatamente(nome);
+            if (time != null)
+                break;
+            System.out.println("Nenhum time encontrado com esse nome!");
+        }
+        campeonato.removerTime(time);
+    }
 }
