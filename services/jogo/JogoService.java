@@ -6,6 +6,7 @@ import modelos.enumerators.ModalidadeEnum;
 import repositories.JogoRepository;
 import util.ConsoleResources;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ public class JogoService implements ItemMenu {
 
     public void criar() {
         consoleResources.exibirTitulo("Cadasatro de jogo");
-        String nome = consoleResources.getStringFromConsole("Informe o nome do Jogador: ");
+        String nome = consoleResources.getStringFromConsole("Informe o nome do jogo: ");
         ModalidadeEnum modalidadeEscolhida = getModalidade();
         Jogo jogo = new Jogo(nome, modalidadeEscolhida);
         JogoRepository.jogos.add(jogo);
@@ -39,6 +40,27 @@ public class JogoService implements ItemMenu {
     }
 
     public void visualizar() {
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("visualização dos jogos");
+        List<Jogo> jogos;
+
+        while (true) {
+            String nomePesquisado = consoleResources.getStringFromConsole("Informe o nome do jogo: ");
+            jogos = JogoRepository.obterPorNome(nomePesquisado);
+
+            if (jogos.size() > 0)
+                break;
+
+            System.out.println("Nenhum jogo encontrado com esse nome!");
+        }
+
+        imprimirListagemJogos(jogos);
+    }
+
+    private static void imprimirListagemJogos(List<Jogo> jogos) {
+        for (Jogo jogo : jogos) {
+            System.out.println(jogo.obterInformacoes());
+        }
     }
 
     public void editar() {
