@@ -2,8 +2,10 @@ package services.time;
 
 import interfaces.ItemMenu;
 import modelos.*;
+import repositories.JogoRepository;
 import repositories.PessoaRepository;
 import repositories.TimeRepository;
+import services.MenuService;
 import services.menu.MenuCadastroService;
 import services.pessoa.CoachService;
 import services.pessoa.JogadorService;
@@ -19,6 +21,7 @@ public class TimeService implements ItemMenu {
     private static final ConsoleResources consoleResources = new ConsoleResources();
     final CoachService coachService = new CoachService();
     final JogadorService jogadorService = new JogadorService();
+    private final PessoaRepository pessoaRepository = new PessoaRepository();
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
@@ -26,7 +29,7 @@ public class TimeService implements ItemMenu {
         buscarTimesPorNome();
     }
 
-    private void buscarTimesPorNome() {
+    private List<Time> buscarTimesPorNome() {
         String nomeASerBuscado = consoleResources.getStringFromConsole("Digite um nome para pesquisa do time: ");
         List<Time> timesEncontrados = TimeRepository.obter(nomeASerBuscado);
 
@@ -47,6 +50,8 @@ public class TimeService implements ItemMenu {
             }
             System.out.println("Nenhum time foi encontrado com esse ID! Por favor, tente novamente!");
         }
+
+        return timesEncontrados;
     }
 
     private void exibirListaTimes(List<Time> times) {
@@ -165,6 +170,95 @@ public class TimeService implements ItemMenu {
     }
 
     public void editar() {
+        ConsoleResources.pularVariasLinhas();
+        ConsoleResources.exibirTitulo("edição de time");
 
+        Time time;
+        while (true) {
+            time = buscarTimesPorNome().get(0);
+            if (Objects.isNull(time)) {
+                System.out.println("Nenhum time encontrado com esse nome!");
+                continue;
+            }
+            break;
+        }
+
+        System.out.println("\nNome do time: " + time.getNome());
+        while(true) {
+            System.out.println("Opções de edição:");
+            System.out.println("01 - Salário base");
+            System.out.println("02 - Setor gerenciado");
+            System.out.println("03 - Funcionários gerenciados");
+            int opcao = consoleResources.getNumberFromConsole("O que deseja editar? ");
+            if (opcao == 0) break;
+
+            switch (opcao) {
+                case 1: editarNome(time); break;
+                case 2: editarNumeroIntegrantes(time); break;
+                case 3: editarLocalidade(time); break;
+                case 4: editarListaDeJogadores(time); break;
+                default: break;
+            }
+
+            System.out.println("Edição realizada com sucesso!");
+            ConsoleResources.pausarConsole();
+        }
+    }
+
+    private void editarNome(Time time) {
+        String nome = consoleResources.getStringFromConsole("Informe o novo nome do time: ");
+        if (!TimeRepository.obterTodos().stream().map(Time::getNome).filter(n -> n.equals(nome)).collect(Collectors.toList()).isEmpty()) {
+            System.out.println("Nome já cadastrado! Tente novamente.");
+            editarNome(time);
+        }
+        time.setNome(nome);
+    }
+
+    private void editarNumeroIntegrantes(Time time) {
+        int numeroIntegrantes = consoleResources.getNumberFromConsole("Informe o novo número de integrantes para o time");
+        if (numeroIntegrantes < TimeRepository.obterTodos().size()) {
+            System.out.println("O número máximo de integrantes deve ser maior que o número de integrantes já cadastrados! Tente novamente.");
+            editarNumeroIntegrantes(time);
+        }
+        time.setNumeroIntegrantes(numeroIntegrantes);
+    }
+
+    private void editarLocalidade(Time time) {
+        String pais = consoleResources.getStringFromConsole("Informe o país do time: ");
+        String estado = consoleResources.getStringFromConsole("Informe o estado do time: ");
+        String municipio = consoleResources.getStringFromConsole("Informe a cidade do time: ");
+        time.setLocalidade(new Localidade(pais, municipio, estado));
+    }
+
+    private void editarListaDeJogadores(Time time) {
+        int acao = consoleResources.getNumberFromConsole("Qual ação gostaria de realizar?\n01 - Adicionar jogador\n02 - Remover jogador");
+        switch (acao) {
+            case 1:
+                adicionarJogador(time);
+                break;
+            case 2:
+                removerJogador(time);
+                break;
+            default:
+                System.out.println("Opção inválida! Tente novamente.");
+                editarListaDeJogadores(time);
+        }
+    }
+
+    private void adicionarJogador(Time time) {
+        if (time.getJogadores().size() == time.getNumeroIntegrantes() - 1) {
+            System.out.println("Time cheio, impossível adicionar jogadores!");
+            MenuService.processaMenu();
+        }
+        jogadorService.criar();
+        List<Pessoa> pessoas = pessoaRepository.obterTodos();
+        Jogador jogador = (Jogador) jogadorService.filtrar(pessoas).get(pessoas.size()-1);
+        time.addJogador(jogador);
+    }
+
+    private void removerJogador(Time time) {
+        String username = consoleResources.getStringFromConsole("Informe o nome de usuário do jogador que deseja remover: ");
+        Jogador jogador = time.getJogadores().stream().filter(u -> u.getNomeUsuario().equals(username)).findFirst().orElse(null);
+        time.getJogadores().remove(jogador);
     }
 }

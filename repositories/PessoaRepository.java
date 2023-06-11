@@ -58,7 +58,7 @@ public class PessoaRepository {
         return pessoas.stream().filter(x -> x.getNome().toLowerCase().contains(nome.toLowerCase())).collect(Collectors.toList());
     }
 
-    public static List<Pessoa> obterTodos() {
+    public List<Pessoa> obterTodos() {
         return pessoas;
     }
 

@@ -24,4 +24,8 @@ public class Jogador extends Pessoa {
                 this.nomeUsuario +
                 "\n******* ********************* *******";
     }
+
+    public String getNomeUsuario() {
+        return this.nomeUsuario;
+    }
 }

@@ -18,6 +18,7 @@ public class Time {
         this.jogadores = jogadores;
         this.numeroIntegrantes = jogadores.size() + 1;
         this.coach = coach;
+        this.localidade = localidade;
     }
 
     public Time(int id, String nome) {
@@ -40,12 +41,24 @@ public class Time {
         return this.coach;
     }
 
+    public void setNumeroIntegrantes(int nro) {
+        this.numeroIntegrantes = nro;
+    }
+
     public void setCoach(Coach coach) {
         this.coach = coach;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setLocalidade(Localidade localidade) {
+        this.localidade = localidade;
+    }
+
+    public void addJogador(Jogador jogador) {
+        this.jogadores.add(jogador);
     }
 
     public List<Jogador> getJogadores() {

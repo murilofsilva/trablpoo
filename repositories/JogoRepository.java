@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class JogoRepository {
     int proximaChaveUnica = 1;
-    public static ArrayList<Jogo> jogos = new ArrayList() {
+    private static ArrayList<Jogo> jogos = new ArrayList() {
         {
             add(new Jogo("Free fire",
                     ModalidadeEnum.BATTLE_ROYALE)
@@ -30,5 +30,9 @@ public class JogoRepository {
         jogo.setId(proximaChaveUnica);
         jogos.add(jogo);
         proximaChaveUnica++;
+    }
+
+    public List<Jogo> obterTodos() {
+        return this.jogos;
     }
 }

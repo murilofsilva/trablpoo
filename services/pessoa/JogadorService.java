@@ -21,6 +21,8 @@ public class JogadorService extends PessoaService {
     private static final String SWITCH_ITEM_DEFAULT_MESSAGE = "\nDigite a posição do item que deseja (considere que o primeiro elemento está na primeira posição): ";
     private final static ConsoleResources consoleResources = new ConsoleResources();
     final static InscricaoResources inscricaoResources = new InscricaoResources();
+    private final JogoRepository jogoRepository = new JogoRepository();
+    private final PessoaRepository pessoaRepository = new PessoaRepository();
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
@@ -50,7 +52,7 @@ public class JogadorService extends PessoaService {
 
     public void criar() {
         try {
-            if (JogoRepository.jogos.isEmpty()) {
+            if (jogoRepository.obterTodos().isEmpty()) {
                 System.out.println("Impossível cadastrar jogadores no momento pois não há jogos cadastrados no sistema.");
                 MenuService.processaMenu();
             }
@@ -62,7 +64,7 @@ public class JogadorService extends PessoaService {
             String pais = consoleResources.getStringFromConsole("Informe o país do jogador: ");
             String estado = consoleResources.getStringFromConsole("Informe o estado do jogador: ");
             String municipio = consoleResources.getStringFromConsole("Informe o município do jogador: ");
-            String userName = consoleResources.getStringFromConsole("Informe o nome de usuário do jogador: ");
+            String userName = getUserName();
             Jogo jogo = getJogo();
 
             Localidade localidade = new Localidade(pais, municipio, estado);
@@ -72,6 +74,16 @@ public class JogadorService extends PessoaService {
         } catch (Exception e) {
             System.out.println("Ocorreram erros ao cadastrar um jogador. Entre em contato com o suporte.");
         }
+    }
+
+    private String getUserName() {
+        String username = consoleResources.getStringFromConsole("Informe o nome de usuário do jogador: ");
+        List<Jogador> jogadores = filtrar(pessoaRepository.obterTodos()).stream().map(pessoa -> (Jogador) pessoa).collect(Collectors.toList());
+        if (!jogadores.stream().filter(j -> j.getNomeUsuario().equals(username)).collect(Collectors.toList()).isEmpty()) {
+            System.out.println("Nome de usuário já está em uso! Tente novamente.");
+            getUserName();
+        }
+        return username;
     }
 
     public void editar() {
@@ -86,9 +98,9 @@ public class JogadorService extends PessoaService {
         return jogadores;
     }
 
-    private static Jogo getJogo() {
+    private Jogo getJogo() {
         List<Jogo> jogosEncontrados = JogoRepository.obterPorNome(consoleResources.getStringFromConsole("Informe o jogo do jogador, " +
-                "os disponíveis são: " + JogoRepository.jogos.stream().map(Jogo::getNome).collect(Collectors.joining(", ")) + ": "));
+                "os disponíveis são: " + jogoRepository.obterTodos().stream().map(Jogo::getNome).collect(Collectors.joining(", ")) + ": "));
 
         if (Objects.isNull(jogosEncontrados) || jogosEncontrados.isEmpty()) {
             System.out.println("Jogo não encontrado! Tente novamente.");
