@@ -1,6 +1,7 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
+import services.campeonato.CampeonatoService;
 import services.pessoa.AuxiliarService;
 import services.pessoa.CoachService;
 import services.pessoa.GerenteService;
@@ -34,7 +35,9 @@ public class MenuEdicaoService {
             case AUXILIAR:
                 new AuxiliarService().editar();
                 break;
-            case CAMPEONATO: break;
+            case CAMPEONATO: 
+                new CampeonatoService().editar();
+                break;
             case COACH:
                 new CoachService().editar();
                 break;

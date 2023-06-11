@@ -46,6 +46,10 @@ public class Campeonato {
         return this.dataFim;
     }
 
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
+    }
+
     public Localidade getLocalizacao() {
         return this.localizacao;
     }
@@ -56,6 +60,14 @@ public class Campeonato {
 
     public Jogo getJogo() {
         return this.jogo;
+    }
+
+    public void adicionarTime(Time time) {
+        this.times.add(time);
+    }
+
+    public void removerTime(Time time) {
+        this.times.remove(time);
     }
 
     public String obterInformacoes() {

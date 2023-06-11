@@ -29,6 +29,6 @@ public enum ModalidadeEnum {
     }
 
     public static ModalidadeEnum obterModalidadePorValor(int valor) {
-        return items.get(valor);
+        return items.get((Object)valor);
     }
 }

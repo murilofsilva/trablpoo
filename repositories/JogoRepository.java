@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class JogoRepository {
-    public static ArrayList<Jogo> jogos = new ArrayList() {
+    public static ArrayList<Jogo> jogos = new ArrayList<>() {
         {
             add(new Jogo("Free fire",
                     ModalidadeEnum.BATTLE_ROYALE)

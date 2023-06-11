@@ -69,17 +69,13 @@ public class TimeService implements ItemMenu {
             MenuCadastroService.processaMenuCadastro();
         }
 
-        consoleResources.exibirTitulo("Cadastro de time");
+        ConsoleResources.exibirTitulo("Cadastro de time");
         String nome = consoleResources.getStringFromConsole("Informe o nome do time: ");
         int maxJogadores = consoleResources.getNumberFromConsole("Informe o número máximo de jogadores no time: ");
-        String pais = consoleResources.getStringFromConsole("Informe o país do time: ");
-        String municipio = consoleResources.getStringFromConsole("Informe o município do time: ");
-        String estado = consoleResources.getStringFromConsole("Informe o estado do time: ");
         Coach coach = getCoach();
         List<Jogador> jogadores = getJogadores(maxJogadores);
-        Localidade localidade = new Localidade(pais, municipio, estado);
 
-        Time time = new Time(2, nome, jogadores, coach, localidade);
+        Time time = new Time(2, nome, jogadores, coach);
         TimeRepository.inserir(time);
     }
 
