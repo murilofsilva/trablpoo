@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class TimeRepository {
     private static int proximaChaveUnica = 1;
-    private static final List<Time> times = new ArrayList<>() {
+    private static final List<Time> times = new ArrayList() {
         {
             add(new Time(proximaChaveUnica,
                     "Sapecas do morro",
@@ -40,7 +40,8 @@ public class TimeRepository {
         return timeEncontrado;
     }
 
-    public static void inserir(Time time) {
+    public static void salvar(Time time) {
+        time.setId(proximaChaveUnica);
         times.add(time);
         proximaChaveUnica++;
     }

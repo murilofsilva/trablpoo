@@ -9,7 +9,7 @@ import modelos.Localidade;
 
 public class CampeonatoRepository {
     private static int proximaChaveUnica = 1;
-    public static ArrayList<Campeonato> campeonatos = new ArrayList<>() {
+    public static ArrayList<Campeonato> campeonatos = new ArrayList() {
         {
             Localidade localidade = new Localidade("Brazil", "Campo Grande", "Mato Grosso do Sul");
             add(new Campeonato("brasileirao", LocalDate.now(), LocalDate.now(), localidade, TimeRepository.obter("Sapecas"), JogoRepository.obterPorNome("FIFA").get(0)));

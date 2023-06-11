@@ -76,7 +76,7 @@ public class TimeService implements ItemMenu {
         List<Jogador> jogadores = getJogadores(maxJogadores);
 
         Time time = new Time(2, nome, jogadores, coach);
-        TimeRepository.inserir(time);
+        TimeRepository.salvar(time);
     }
 
     private List<Jogador> getJogadores(int maxJogadores) {
