@@ -5,27 +5,37 @@ public class Localidade {
     private String municipio;
     private String estado;
 
-    public Localidade(String pais, String municipio, String estado){
+    public Localidade(String pais, String municipio, String estado) {
         this.pais = pais;
         this.municipio = municipio;
         this.estado = estado;
     }
-    public void setPais(String pais){
+
+    public void setPais(String pais) {
         this.pais = pais;
     }
-    public void setMunicipio(String municipio){
+    
+    public void setMunicipio(String municipio) {
         this.municipio = municipio;
     }
-    public void setEstado(String estado){
+    
+    public void setEstado(String estado) {
         this.estado = estado;
     }
-    public String getPais(){
+    
+    public String getPais() {
         return this.pais;
     }
-    public String getMunicipio(){
+    
+    public String getMunicipio() {
         return this.municipio;
     }
-    public String getEstado(){
+    
+    public String getEstado() {
         return this.estado;
+    }
+
+    public String toString() {
+        return String.format("%s, %s - %s", this.municipio, this.estado, this.pais);
     }
 }

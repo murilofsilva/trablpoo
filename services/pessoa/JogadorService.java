@@ -7,7 +7,6 @@ import modelos.Pessoa;
 import repositories.JogoRepository;
 import repositories.PessoaRepository;
 import services.MenuService;
-import services.menu.MenuCadastroService;
 import util.ConsoleResources;
 import util.DataResources;
 import util.InscricaoResources;

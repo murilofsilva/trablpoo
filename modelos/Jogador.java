@@ -4,12 +4,10 @@ import java.time.LocalDate;
 
 public class Jogador extends Pessoa {
     private String nomeUsuario;
-    private Jogo jogo;
 
     public Jogador(String nome, String cpfCnpj, LocalDate dataNascimento, Localidade localidade, String nomeUsuario, Jogo jogo) {
         super(nome, cpfCnpj, dataNascimento, localidade);
         this.nomeUsuario = nomeUsuario;
-        this.jogo = jogo;
     }
 
     public String obterInformacoes() {

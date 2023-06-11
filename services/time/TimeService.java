@@ -22,7 +22,7 @@ public class TimeService implements ItemMenu {
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
-        ConsoleResources.exibirTitulo("VISUALIZAÇÃO DOS TIMES");
+        ConsoleResources.exibirTitulo("visualização dos times");
         buscarTimesPorNome();
     }
 

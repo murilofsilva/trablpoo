@@ -1,6 +1,7 @@
 package services.menu;
 
 import modelos.enumerators.EntidadeMenuEnum;
+import services.campeonato.CampeonatoService;
 import services.pessoa.*;
 import services.time.TimeService;
 import util.ConsoleResources;
@@ -30,7 +31,9 @@ public class MenuVisualizacaoService {
             case AUXILIAR:
                 new AuxiliarService().visualizar();
                 break;
-            case CAMPEONATO: break;
+            case CAMPEONATO:
+                new CampeonatoService().visualizar();
+                break;
             case COACH:
                 new CoachService().visualizar();
                 break;
