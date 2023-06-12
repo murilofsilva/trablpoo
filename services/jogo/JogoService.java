@@ -48,7 +48,7 @@ public class JogoService implements ItemMenu {
 
         while (true) {
             String nomePesquisado = consoleResources.getStringFromConsole("Informe o nome do jogo: ");
-            jogos = jogoRepository.obterPorNome(nomePesquisado);
+            jogos = jogoRepository.obter(nomePesquisado);
 
             if (jogos.size() > 0)
                 break;
@@ -104,7 +104,7 @@ public class JogoService implements ItemMenu {
 
     private Jogo buscarJogoPorNome() {
         String nome = consoleResources.getStringFromConsole("Informe o nome: ");
-        return jogoRepository.obterPorNome(nome).get(0);
+        return jogoRepository.obter(nome).get(0);
     }
 
     private void editarNome(Jogo jogo) {
@@ -146,7 +146,7 @@ public class JogoService implements ItemMenu {
 
     private void removerPorId() {
         int id = consoleResources.getNumberFromConsole("Informe o id do jogo: ");
-        Jogo jogo = jogoRepository.obterPorId(id);
+        Jogo jogo = jogoRepository.obter(id);
         if (Objects.isNull(jogo)) {
             System.out.println("Id não existe no sistema! Tente novamente.");
             removerPorId();
@@ -156,7 +156,7 @@ public class JogoService implements ItemMenu {
 
     private void removerPorNome() {
         String nome = consoleResources.getStringFromConsole("Informe o nome do jogo: ");
-        List<Jogo> jogos = jogoRepository.obterPorNome(nome);
+        List<Jogo> jogos = jogoRepository.obter(nome);
         if (Objects.isNull(jogos) || jogos.isEmpty()) {
             System.out.println("Nome não existe no sistema! Tente novamente.");
             removerPorNome();
