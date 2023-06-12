@@ -15,8 +15,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class CoachService extends PessoaService {
-    private final static ConsoleResources consoleResources = new ConsoleResources();
-    private final static InscricaoResources inscricaoResources = new InscricaoResources();
+    private static final ConsoleResources consoleResources = new ConsoleResources();
+    private static final InscricaoResources inscricaoResources = new InscricaoResources();
+    private static final PessoaRepository pessoaRepository = new PessoaRepository();
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
@@ -101,5 +102,7 @@ public class CoachService extends PessoaService {
         return coaches;
     }
 
-    public void remover() {}
+    public void remover() {
+
+    }
 }

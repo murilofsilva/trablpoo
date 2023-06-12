@@ -7,14 +7,15 @@ import modelos.Pessoa;
 import repositories.PessoaRepository;
 import util.ConsoleResources;
 import util.DataResources;
+import util.InscricaoResources;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static services.pessoa.JogadorService.inscricaoResources;
-
 public class GerenteService extends FuncionarioService {
+    private static final InscricaoResources inscricaoResources = new InscricaoResources();
+
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
         ConsoleResources.exibirTitulo("visualização do gerente");
@@ -122,5 +123,7 @@ public class GerenteService extends FuncionarioService {
         return gerentes;
     }
 
-    public void remover() {}
+    public void remover() {
+        pessoaRemocaoService.remover("gerente");
+    }
 }

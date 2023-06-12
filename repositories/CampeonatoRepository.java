@@ -8,12 +8,13 @@ import modelos.Campeonato;
 import modelos.Localidade;
 
 public class CampeonatoRepository {
+    private static final TimeRepository timeRepository = new TimeRepository();
     private static int proximaChaveUnica = 1;
     private static final JogoRepository jogoRepository = new JogoRepository();
     private ArrayList<Campeonato> campeonatos = new ArrayList() {
         {
             Localidade localidade = new Localidade("Brazil", "Campo Grande", "Mato Grosso do Sul");
-            add(new Campeonato("brasileirao", LocalDate.now(), LocalDate.now(), localidade, TimeRepository.obter("Sapecas"), jogoRepository.obterPorNome("FIFA").get(0)));
+            add(new Campeonato("brasileirao", LocalDate.now(), LocalDate.now(), localidade, timeRepository.obter("Sapecas"), jogoRepository.obterPorNome("FIFA").get(0)));
         }
     };
 

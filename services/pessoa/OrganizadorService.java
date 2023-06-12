@@ -114,5 +114,7 @@ public class OrganizadorService extends PessoaService {
         return organizadores;
     }
 
-    public void remover() {}
+    public void remover() {
+        pessoaRemocaoService.remover("organizador");
+    }
 }

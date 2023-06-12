@@ -1,6 +1,9 @@
 package services.pessoa;
 
-import modelos.*;
+import modelos.Jogador;
+import modelos.Jogo;
+import modelos.Localidade;
+import modelos.Pessoa;
 import repositories.JogoRepository;
 import repositories.PessoaRepository;
 import services.MenuService;
@@ -17,9 +20,9 @@ import java.util.stream.Collectors;
 public class JogadorService extends PessoaService {
     private static final String SWITCH_ITEM_DEFAULT_MESSAGE = "\nDigite a posição do item que deseja (considere que o primeiro elemento está na primeira posição): ";
     private final static ConsoleResources consoleResources = new ConsoleResources();
-    final static InscricaoResources inscricaoResources = new InscricaoResources();
-    private final JogoRepository jogoRepository = new JogoRepository();
-    private final PessoaRepository pessoaRepository = new PessoaRepository();
+    private final static InscricaoResources inscricaoResources = new InscricaoResources();
+    private static final JogoRepository jogoRepository = new JogoRepository();
+    private static final PessoaRepository pessoaRepository = new PessoaRepository();
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
@@ -163,5 +166,7 @@ public class JogadorService extends PessoaService {
         return jogosEncontrados.get(0);
     }
 
-    public void remover() {}
+    public void remover() {
+        pessoaRemocaoService.remover("jogador");
+    }
 }

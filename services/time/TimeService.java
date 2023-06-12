@@ -21,11 +21,12 @@ import java.util.stream.Collectors;
 
 public class TimeService implements ItemMenu {
     private static final String SWITCH_ITEM_DEFAULT_MESSAGE = "\nDigite a posição do item que deseja (considere que o primeiro elemento está na primeira posição): ";
-    static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
     private static final ConsoleResources consoleResources = new ConsoleResources();
-    final CoachService coachService = new CoachService();
-    final JogadorService jogadorService = new JogadorService();
-    private final PessoaRepository pessoaRepository = new PessoaRepository();
+    private static final CoachService coachService = new CoachService();
+    private static final JogadorService jogadorService = new JogadorService();
+    private static final PessoaRepository pessoaRepository = new PessoaRepository();
+    private static final TimeRepository timeRepository = new TimeRepository();
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
@@ -35,7 +36,7 @@ public class TimeService implements ItemMenu {
 
     private List<Time> buscarTimesPorNome() {
         String nomeASerBuscado = consoleResources.getStringFromConsole("Digite um nome para pesquisa do time: ");
-        List<Time> timesEncontrados = TimeRepository.obter(nomeASerBuscado);
+        List<Time> timesEncontrados = timeRepository.obter(nomeASerBuscado);
 
         if (timesEncontrados.size() == 0) {
             System.out.println("Nenhum time foi encontrado com esse nome! Por favor, tente novamente!");
@@ -47,7 +48,7 @@ public class TimeService implements ItemMenu {
 
         while (true) {
             int idTime = consoleResources.getNumberFromConsole("Digite o ID do time para informações detalhadas: ");
-            Time time = TimeRepository.obter(idTime);
+            Time time = timeRepository.obter(idTime);
             if (time != null) {
                 exibirInformacoesDetalhadas(time);
                 break;
@@ -85,7 +86,7 @@ public class TimeService implements ItemMenu {
         List<Jogador> jogadores = getJogadores(maxJogadores);
 
         Time time = new Time(2, nome, jogadores, coach);
-        TimeRepository.salvar(time);
+        timeRepository.salvar(time);
     }
 
     private List<Jogador> getJogadores(int maxJogadores) {
@@ -213,7 +214,7 @@ public class TimeService implements ItemMenu {
 
     private void editarNome(Time time) {
         String nome = consoleResources.getStringFromConsole("Informe o novo nome do time: ");
-        if (!TimeRepository.obterTodos().stream().map(Time::getNome).filter(n -> n.equals(nome)).collect(Collectors.toList()).isEmpty()) {
+        if (!timeRepository.obterTodos().stream().map(Time::getNome).filter(n -> n.equals(nome)).collect(Collectors.toList()).isEmpty()) {
             System.out.println("Nome já cadastrado! Tente novamente.");
             editarNome(time);
         }
@@ -264,5 +265,14 @@ public class TimeService implements ItemMenu {
     }
 
     public void remover() {
+        String nome = consoleResources.getStringFromConsole("Qual o nome do time que deseja remover? ");
+        Time time = timeRepository.obterTodos().stream().filter(t -> t.getNome().equals(nome)).findFirst().orElse(null);
+        if (Objects.isNull(time)) {
+            System.out.println("Time não encontrado! Tente novamente.");
+            remover();
+        }
+        timeRepository.remover(time);
+        System.out.println("Remoção realizada com sucesso!");
+        ConsoleResources.pausarConsole();
     }
 }

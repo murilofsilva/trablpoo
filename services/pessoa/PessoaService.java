@@ -10,6 +10,7 @@ import java.util.List;
 public abstract class PessoaService implements ItemMenu {
     protected static final ConsoleResources consoleResources = new ConsoleResources();
     protected static final PessoaRepository pessoaRepository = new PessoaRepository();
+    protected static final PessoaRemocaoService pessoaRemocaoService = new PessoaRemocaoService();
 
     protected abstract List<Pessoa> filtrar(List<Pessoa> pessoas);
 

@@ -161,5 +161,7 @@ public class JogoService implements ItemMenu {
             removerPorNome();
         }
         jogoRepository.remover(jogos.get(0));
+        System.out.println("Remoção realizada com sucesso!");
+        ConsoleResources.pausarConsole();
     }
 }

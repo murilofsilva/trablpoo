@@ -20,6 +20,7 @@ public class CampeonatoService implements ItemMenu {
     private static final ConsoleResources consoleResources = new ConsoleResources();
     private static final CampeonatoRepository campeonatoRepository = new CampeonatoRepository();
     private static final JogoRepository jogoRepository = new JogoRepository();
+    private static final TimeRepository timeRepository = new TimeRepository();
 
     public void visualizar() {
         ConsoleResources.pularVariasLinhas();
@@ -142,7 +143,7 @@ public class CampeonatoService implements ItemMenu {
         Time time;
         while (true) {
             String nome = consoleResources.getStringFromConsole("Informe o nome do time: ");
-            time = TimeRepository.obterExatamente(nome);
+            time = timeRepository.obterExatamente(nome);
             if (time != null)
                 break;
             System.out.println("Nenhum time encontrado com esse nome!");
@@ -154,7 +155,7 @@ public class CampeonatoService implements ItemMenu {
         Time time;
         while (true) {
             String nome = consoleResources.getStringFromConsole("Informe o nome do time: ");
-            time = TimeRepository.obterExatamente(nome);
+            time = timeRepository.obterExatamente(nome);
             if (time != null)
                 break;
             System.out.println("Nenhum time encontrado com esse nome!");
@@ -198,5 +199,7 @@ public class CampeonatoService implements ItemMenu {
             removerPorNome();
         }
         campeonatoRepository.remover(campeonato);
+        System.out.println("Remoção realizada com sucesso!");
+        ConsoleResources.pausarConsole();
     }
 }
