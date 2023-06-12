@@ -14,7 +14,7 @@ public class CampeonatoRepository {
     public static ArrayList<Campeonato> campeonatos = new ArrayList() {
         {
             Localidade localidade = new Localidade("Brazil", "Campo Grande", "Mato Grosso do Sul");
-            add(new Campeonato("major", LocalDate.now(), LocalDate.now(), localidade, timeRepository.obter("Sapecas"), jogoRepository.obterPorNome("FIFA").get(0)));
+            add(new Campeonato("major", LocalDate.now(), LocalDate.now(), localidade, timeRepository.obter("Sapecas"), jogoRepository.obter("FIFA").get(0)));
         }
     };
 

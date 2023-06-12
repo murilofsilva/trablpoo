@@ -72,7 +72,7 @@ public class CampeonatoService implements ItemMenu {
 
         while (true) {
             String nomeJogo = consoleResources.getStringFromConsole("Informe o nome do jogo do campeonato: ");
-            jogo = jogoRepository.obterPorNome(nomeJogo).get(0);
+            jogo = jogoRepository.obter(nomeJogo).get(0);
             
             if (jogo != null)
                 break;

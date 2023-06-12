@@ -20,13 +20,13 @@ public class JogoRepository {
         }
     };
 
-    public List<Jogo> obterPorNome(String nome) {
+    public List<Jogo> obter(String nome) {
         return jogos.stream().filter(jogo -> jogo.getNome().toLowerCase().trim()
                 .replace(" ", "").contains(nome.toLowerCase().trim()
                         .replace(" ", ""))).collect(Collectors.toList());
     }
 
-    public Jogo obterPorId(int id) {
+    public Jogo obter(int id) {
         return jogos.stream().filter(jogo -> jogo.getId() == id).findFirst().orElse(null);
     }
 
