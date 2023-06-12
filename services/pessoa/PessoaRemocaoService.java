@@ -19,7 +19,7 @@ public class PessoaRemocaoService {
 
 
     public void remover(String context) {
-        String cpfCnpj = consoleResources.getStringFromConsole("Informe o cpf/cnpj do " + context);
+        String cpfCnpj = consoleResources.getStringFromConsole("Informe o cpf/cnpj do " + context + ": ");
         Pessoa pessoa = filtrar(PessoaRepository.pessoas, context, cpfCnpj);
         if (Objects.isNull(pessoa)) {
             System.out.println("Cpf/cnpj não existe no sistema! Tente novamente.");
