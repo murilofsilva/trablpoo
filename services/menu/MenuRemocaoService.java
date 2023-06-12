@@ -25,10 +25,6 @@ public class MenuRemocaoService {
         System.out.print(ConsoleResources.modelos);
     }
 
-    public static void main(String[] args) {
-        processaMenuRemocao();
-    }
-
     private static void processaOpcaoEscolhida(int opcaoEscolhida) {
         EntidadeMenuEnum opcaoEscolhidaEnum = EntidadeMenuEnum.obterEntidadePorValor(opcaoEscolhida);
 
