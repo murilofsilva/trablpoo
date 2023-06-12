@@ -2,7 +2,6 @@ package services.pessoa;
 
 import modelos.Coach;
 import modelos.Localidade;
-import modelos.Organizador;
 import modelos.Pessoa;
 import repositories.PessoaRepository;
 import util.ConsoleResources;

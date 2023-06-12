@@ -13,7 +13,7 @@ import services.pessoa.CoachService;
 import services.pessoa.JogadorService;
 import util.ConsoleResources;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -90,19 +90,21 @@ public class TimeService implements ItemMenu {
     }
 
     private List<Jogador> getJogadores(int maxJogadores) {
-        List<Jogador> jogadoresParaAdicionar = null;
+        List<Jogador> jogadoresParaAdicionar = new ArrayList<>();
 
         System.out.print("Gostaria de já adicionar jogadores ao time? ");
         boolean adicionarJogadores = consoleResources.getSimNao(sc.nextLine());
 
         if (!adicionarJogadores) {
-            return Collections.EMPTY_LIST;
+            return new ArrayList<Jogador>();
         }
 
-        List<Jogador> jogadores = jogadorService.filtrar(PessoaRepository.pessoas).stream().map(pessoa -> (Jogador) pessoa).collect(Collectors.toList());
+        List<Pessoa> jogadores = jogadorService.filtrar(PessoaRepository.pessoas);
+        jogadores = jogadores.stream().map(pessoa -> (Jogador) pessoa).collect(Collectors.toList());
+
         if (jogadores.isEmpty()) {
             System.out.println("Impossível adicionar jogadores no momento pois não há nenhum disponível no sistema.");
-            return Collections.EMPTY_LIST;
+            return new ArrayList<Jogador>();
         }
 
         for (int i = 0; i < maxJogadores; i++) {
@@ -121,7 +123,7 @@ public class TimeService implements ItemMenu {
 
     private Jogador getJogador() {
         String nome = consoleResources.getStringFromConsole("Informe o nome do jogador que deseja adicionar ao time: ");
-        Jogador jogador = PessoaRepository.pessoas.stream().map(pessoa -> (Jogador) pessoa)
+        Jogador jogador = jogadorService.filtrar(PessoaRepository.pessoas).stream().map(pessoa -> (Jogador) pessoa)
                 .filter(j -> j.getNome().toLowerCase().trim().replace(" ", "")
                         .equals(nome.toLowerCase().trim().replace(" ", ""))).findFirst().orElse(null);
 
@@ -187,9 +189,9 @@ public class TimeService implements ItemMenu {
         System.out.println("\nNome do time: " + time.getNome());
         while (true) {
             System.out.println("Opções de edição:");
-            System.out.println("01 - Salário base");
-            System.out.println("02 - Setor gerenciado");
-            System.out.println("03 - Funcionários gerenciados");
+            System.out.println("01 - Nome");
+            System.out.println("02 - Editar lista de jogadores");
+            System.out.println("03 - Coach");
             int opcao = consoleResources.getNumberFromConsole("O que deseja editar? ");
             if (opcao == 0) break;
 
