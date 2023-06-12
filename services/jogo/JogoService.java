@@ -4,6 +4,7 @@ import interfaces.ItemMenu;
 import modelos.Jogo;
 import modelos.enumerators.ModalidadeEnum;
 import repositories.JogoRepository;
+import services.MenuService;
 import util.ConsoleResources;
 
 import java.util.List;
@@ -97,7 +98,7 @@ public class JogoService implements ItemMenu {
             }
 
             System.out.println("Edição realizada com sucesso!");
-            ConsoleResources.pausarConsole();
+            MenuService.processaMenu();
         }
     }
 
@@ -140,7 +141,7 @@ public class JogoService implements ItemMenu {
         }
 
         System.out.println("Remoção realizada com sucesso!");
-        ConsoleResources.pausarConsole();
+        MenuService.processaMenu();
     }
 
     private void removerPorId() {
@@ -162,6 +163,6 @@ public class JogoService implements ItemMenu {
         }
         jogoRepository.remover(jogos.get(0));
         System.out.println("Remoção realizada com sucesso!");
-        ConsoleResources.pausarConsole();
+        MenuService.processaMenu();
     }
 }

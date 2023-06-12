@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 public class TimeRepository {
     private static final PessoaRepository pessoaRepository = new PessoaRepository();
     private static int proximaChaveUnica = 1;
-    private final List<Time> times = new ArrayList() {
+    public static List<Time> times = new ArrayList() {
         {
             add(new Time(proximaChaveUnica,
-                    "Sapecas do morro",
+                    "Montanha",
                     pessoaRepository.obterPorNome("Lucas").stream().map(pessoa -> (Jogador) pessoa).collect(Collectors.toList()),
                     (Coach) pessoaRepository.obter("23915319411"))
             );
-            add(new Time(proximaChaveUnica + 1, "Sapecas da montanha magica"));
+            add(new Time(proximaChaveUnica + 1, "Os incríveis"));
         }
     };
 
@@ -39,10 +39,6 @@ public class TimeRepository {
         }
 
         return timeEncontrado;
-    }
-
-    public List<Time> obterTodos() {
-        return times;
     }
 
     public void salvar(Time time) {

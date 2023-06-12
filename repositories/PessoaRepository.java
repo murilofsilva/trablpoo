@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PessoaRepository {
-    private ArrayList<Pessoa> pessoas = new ArrayList() {
+    public static ArrayList<Pessoa> pessoas = new ArrayList() {
         {
             add(new Gerente("Emerson",
                     "06169116177",
@@ -58,10 +58,6 @@ public class PessoaRepository {
         return pessoas.stream().filter(x -> x.getNome().toLowerCase().trim()
                         .replace(" ", "").contains(nome.toLowerCase().trim().replace(" ", "")))
                 .collect(Collectors.toList());
-    }
-
-    public List<Pessoa> obterTodos() {
-        return pessoas;
     }
 
     public void salvar(Pessoa pessoa) {

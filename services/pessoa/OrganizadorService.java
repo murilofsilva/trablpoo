@@ -61,10 +61,10 @@ public class OrganizadorService extends PessoaService {
         Organizador organizador = null;
         int op;
 
-        op = consoleResources.getNumberFromConsole("Gostaria de buscar o organizador por:\n01 - nome\n 02 - cpf/cnpj");
+        op = consoleResources.getNumberFromConsole("Gostaria de buscar o organizador por:\n01 - nome\n02 - cpf/cnpj\n");
         switch (op) {
             case 1:
-                organizador = (Organizador) PessoaService.buscarPessoasPorNome();
+                organizador = (Organizador) PessoaService.buscarPessoasPorNome().get(0);
                 break;
             case 2:
                 organizador = (Organizador) PessoaService.buscarPessoaPorCPF();
@@ -79,7 +79,7 @@ public class OrganizadorService extends PessoaService {
             editar();
         }
 
-        op = consoleResources.getNumberFromConsole("O que gostaria de editar?\n01 - Quantidade de campeonatos organizados\n02: Localidade");
+        op = consoleResources.getNumberFromConsole("O que gostaria de editar?\n01 - Quantidade de campeonatos organizados\n02 - Localidade\n");
         switch (op) {
             case 1:
                 editarQuantidadeCampeonatosOrganizados(organizador);
@@ -94,7 +94,7 @@ public class OrganizadorService extends PessoaService {
     }
 
     private void editarQuantidadeCampeonatosOrganizados(Organizador organizador) {
-        int num = consoleResources.getNumberFromConsole("Informe o novo número de campeonatos que estão sob responsabilidade do organizador");
+        int num = consoleResources.getNumberFromConsole("Informe o novo número de campeonatos que estão sob responsabilidade do organizador: ");
         organizador.setNumeroCampeonatosOrganizados(num);
 
     }

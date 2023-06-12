@@ -73,7 +73,7 @@ public class TimeService implements ItemMenu {
     }
 
     public void criar() {
-        List<Coach> coaches = coachService.filtrar(pessoaRepository.obterTodos()).stream().map(c -> (Coach) c).collect(Collectors.toList());
+        List<Coach> coaches = coachService.filtrar(PessoaRepository.pessoas).stream().map(c -> (Coach) c).collect(Collectors.toList());
         if (coaches.isEmpty()) {
             System.out.println("É necessário ter um coach cadastrado para atribui-lo ao time!");
             MenuCadastroService.processaMenuCadastro();
@@ -99,7 +99,7 @@ public class TimeService implements ItemMenu {
             return Collections.EMPTY_LIST;
         }
 
-        List<Jogador> jogadores = jogadorService.filtrar(pessoaRepository.obterTodos()).stream().map(pessoa -> (Jogador) pessoa).collect(Collectors.toList());
+        List<Jogador> jogadores = jogadorService.filtrar(PessoaRepository.pessoas).stream().map(pessoa -> (Jogador) pessoa).collect(Collectors.toList());
         if (jogadores.isEmpty()) {
             System.out.println("Impossível adicionar jogadores no momento pois não há nenhum disponível no sistema.");
             return Collections.EMPTY_LIST;
@@ -121,7 +121,7 @@ public class TimeService implements ItemMenu {
 
     private Jogador getJogador() {
         String nome = consoleResources.getStringFromConsole("Informe o nome do jogador que deseja adicionar ao time: ");
-        Jogador jogador = pessoaRepository.obterTodos().stream().map(pessoa -> (Jogador) pessoa)
+        Jogador jogador = PessoaRepository.pessoas.stream().map(pessoa -> (Jogador) pessoa)
                 .filter(j -> j.getNome().toLowerCase().trim().replace(" ", "")
                         .equals(nome.toLowerCase().trim().replace(" ", ""))).findFirst().orElse(null);
 
@@ -139,7 +139,7 @@ public class TimeService implements ItemMenu {
 
     private Coach getCoach() {
         String nome = consoleResources.getStringFromConsole("Informe o nome do coach do time, as opções são: " + coachService.filtrar(
-                pessoaRepository.obterTodos()).stream().map(Pessoa::getNome).collect(Collectors.joining(", ")) + ": ");
+                PessoaRepository.pessoas).stream().map(Pessoa::getNome).collect(Collectors.joining(", ")) + ": ");
         List<Pessoa> pessoas = pessoaRepository.obterPorNome(nome);
         pessoas = coachService.filtrar(pessoas);
 
@@ -214,7 +214,7 @@ public class TimeService implements ItemMenu {
 
     private void editarNome(Time time) {
         String nome = consoleResources.getStringFromConsole("Informe o novo nome do time: ");
-        if (!timeRepository.obterTodos().stream().map(Time::getNome).filter(n -> n.equals(nome)).collect(Collectors.toList()).isEmpty()) {
+        if (!TimeRepository.times.stream().map(Time::getNome).filter(n -> n.equals(nome)).collect(Collectors.toList()).isEmpty()) {
             System.out.println("Nome já cadastrado! Tente novamente.");
             editarNome(time);
         }
@@ -242,7 +242,7 @@ public class TimeService implements ItemMenu {
             MenuService.processaMenu();
         }
         jogadorService.criar();
-        List<Pessoa> pessoas = pessoaRepository.obterTodos();
+        List<Pessoa> pessoas = PessoaRepository.pessoas;
         Jogador jogador = (Jogador) jogadorService.filtrar(pessoas).get(pessoas.size() - 1);
         time.addJogador(jogador);
     }
@@ -255,7 +255,7 @@ public class TimeService implements ItemMenu {
 
     private void editarCoach(Time time) {
         String nome = consoleResources.getStringFromConsole("Informe o nome do novo coach: ");
-        List<Coach> coaches = coachService.filtrar(pessoaRepository.obterTodos()).stream().map(c -> (Coach) c).collect(Collectors.toList());
+        List<Coach> coaches = coachService.filtrar(PessoaRepository.pessoas).stream().map(c -> (Coach) c).collect(Collectors.toList());
         Coach coach = coaches.stream().filter(c -> c.getNome().equals(nome)).findFirst().orElse(null);
         if (Objects.isNull(coach)) {
             System.out.println("Coach não encontrado! Tente novamente.");
@@ -266,7 +266,7 @@ public class TimeService implements ItemMenu {
 
     public void remover() {
         String nome = consoleResources.getStringFromConsole("Qual o nome do time que deseja remover? ");
-        Time time = timeRepository.obterTodos().stream().filter(t -> t.getNome().equals(nome)).findFirst().orElse(null);
+        Time time = TimeRepository.times.stream().filter(t -> t.getNome().equals(nome)).findFirst().orElse(null);
         if (Objects.isNull(time)) {
             System.out.println("Time não encontrado! Tente novamente.");
             remover();

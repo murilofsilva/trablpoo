@@ -6,13 +6,14 @@ import java.util.Scanner;
 public class ConsoleResources {
     private static final Scanner sc = new Scanner(System.in);
     public static final String modelos = "01 - AUXILIAR" +
-                                        "\n02 - CAMPEONATO" +
-                                        "\n03 - COACH" +
-                                        "\n04 - GERENTE" +
-                                        "\n05 - JOGADOR" +
-                                        "\n06 - JOGO" +
-                                        "\n07 - ORGANIZADOR" +
-                                        "\n08 - TIME\n";
+            "\n02 - CAMPEONATO" +
+            "\n03 - COACH" +
+            "\n04 - GERENTE" +
+            "\n05 - JOGADOR" +
+            "\n06 - JOGO" +
+            "\n07 - ORGANIZADOR" +
+            "\n08 - TIME" +
+            "\n00 - VOLTAR\n";
 
     public static void pausarConsole() {
         System.out.print("Tecle para continuar...");

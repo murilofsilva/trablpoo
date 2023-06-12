@@ -4,6 +4,7 @@ import modelos.Auxiliar;
 import modelos.Funcionario;
 import modelos.Pessoa;
 import repositories.PessoaRepository;
+import services.MenuService;
 import util.ConsoleResources;
 import util.DataResources;
 import util.InscricaoResources;
@@ -86,7 +87,7 @@ public class AuxiliarService extends FuncionarioService {
             }
 
             System.out.println("Edição realizada com sucesso!");
-            ConsoleResources.pausarConsole();
+            MenuService.processaMenu();
         }
     }
 

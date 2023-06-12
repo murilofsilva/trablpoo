@@ -3,6 +3,7 @@ package services.pessoa;
 import interfaces.ItemMenu;
 import modelos.Pessoa;
 import repositories.PessoaRepository;
+import services.MenuService;
 import util.ConsoleResources;
 
 import java.util.List;
@@ -32,6 +33,6 @@ public abstract class PessoaService implements ItemMenu {
 
     protected static void imprimirInformacoesPessoa(Pessoa pessoa) {
         System.out.println(pessoa.obterInformacoesDetalhadas());
-        ConsoleResources.pausarConsole();
+        MenuService.processaMenu();
     }
 }

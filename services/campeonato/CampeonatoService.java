@@ -13,6 +13,7 @@ import modelos.Localidade;
 import repositories.CampeonatoRepository;
 import repositories.JogoRepository;
 import repositories.TimeRepository;
+import services.MenuService;
 import util.ConsoleResources;
 import util.DataResources;
 
@@ -45,7 +46,8 @@ public class CampeonatoService implements ItemMenu {
                 ConsoleResources.pularVariasLinhas();
                 ConsoleResources.exibirTitulo("informações do campeonato");
                 System.out.println(campeonato.obterInformacoesDetalhadas());
-                ConsoleResources.pausarConsole();
+                
+                MenuService.processaMenu();
             }
         }
     }
@@ -82,7 +84,8 @@ public class CampeonatoService implements ItemMenu {
         Campeonato campeonato = new Campeonato(nome, dataInicio, dataFim, localizacao, new ArrayList<Time>(), jogo);
         campeonatoRepository.salvar(campeonato);
         System.out.println("Campeonato cadastrado com sucesso!");
-        ConsoleResources.pausarConsole();
+        
+        MenuService.processaMenu();
     }
 
     public void editar() {
@@ -118,7 +121,8 @@ public class CampeonatoService implements ItemMenu {
             }
 
             System.out.println("Edição realizada com sucesso!");
-            ConsoleResources.pausarConsole();
+            
+            MenuService.processaMenu();
         }
     }
 
@@ -178,7 +182,8 @@ public class CampeonatoService implements ItemMenu {
         }
 
         System.out.println("Remoção realizada com sucesso!");
-        ConsoleResources.pausarConsole();
+        
+        MenuService.processaMenu();
     }
 
     private void removerPorId() {
@@ -200,6 +205,6 @@ public class CampeonatoService implements ItemMenu {
         }
         campeonatoRepository.remover(campeonato);
         System.out.println("Remoção realizada com sucesso!");
-        ConsoleResources.pausarConsole();
+        MenuService.processaMenu();
     }
 }

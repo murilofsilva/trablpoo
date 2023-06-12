@@ -4,7 +4,7 @@ import modelos.Auxiliar;
 import modelos.Funcionario;
 import modelos.Gerente;
 import modelos.Pessoa;
-import repositories.PessoaRepository;
+import services.MenuService;
 import util.ConsoleResources;
 import util.DataResources;
 import util.InscricaoResources;
@@ -20,7 +20,7 @@ public class GerenteService extends FuncionarioService {
         ConsoleResources.pularVariasLinhas();
         ConsoleResources.exibirTitulo("visualização do gerente");
 
-        while(true) {
+        while (true) {
             List<Pessoa> pessoas = buscarPessoasPorNome();
             List<Pessoa> gerentes = filtrar(pessoas);
             if (gerentes.size() > 0) {
@@ -70,10 +70,10 @@ public class GerenteService extends FuncionarioService {
             break;
         }
 
-        Funcionario funcionario = (Funcionario)pessoa;
+        Funcionario funcionario = (Funcionario) pessoa;
         System.out.println("\nNome do gerente: " + funcionario.getNome());
 
-        while(true) {
+        while (true) {
             System.out.println("Opções de edição:");
             System.out.println("01 - Salário base");
             System.out.println("02 - Setor gerenciado");
@@ -82,14 +82,21 @@ public class GerenteService extends FuncionarioService {
             if (opcao == 0) break;
 
             switch (opcao) {
-                case 1: editarSalarioBase(funcionario); break;
-                case 2: editarSetorGerenciado((Gerente)funcionario); break;
-                case 3: editarFuncionariosGerenciados((Gerente)funcionario); break;
-                default: break;
+                case 1:
+                    editarSalarioBase(funcionario);
+                    break;
+                case 2:
+                    editarSetorGerenciado((Gerente) funcionario);
+                    break;
+                case 3:
+                    editarFuncionariosGerenciados((Gerente) funcionario);
+                    break;
+                default:
+                    break;
             }
 
             System.out.println("Edição realizada com sucesso!");
-            ConsoleResources.pausarConsole();
+            MenuService.processaMenu();
         }
     }
 

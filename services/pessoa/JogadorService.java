@@ -52,7 +52,7 @@ public class JogadorService extends PessoaService {
 
     public void criar() {
         try {
-            if (jogoRepository.obterTodos().isEmpty()) {
+            if (JogoRepository.jogos.isEmpty()) {
                 System.out.println("Impossível cadastrar jogadores no momento pois não há jogos cadastrados no sistema.");
                 MenuService.processaMenu();
             }
@@ -78,7 +78,7 @@ public class JogadorService extends PessoaService {
 
     private String getUserName() {
         String username = consoleResources.getStringFromConsole("Informe o nome de usuário do jogador: ");
-        List<Jogador> jogadores = filtrar(pessoaRepository.obterTodos()).stream().map(pessoa -> (Jogador) pessoa).collect(Collectors.toList());
+        List<Jogador> jogadores = filtrar(PessoaRepository.pessoas).stream().map(pessoa -> (Jogador) pessoa).collect(Collectors.toList());
         if (!jogadores.stream().filter(j -> j.getNomeUsuario().equals(username)).collect(Collectors.toList()).isEmpty()) {
             System.out.println("Nome de usuário já está em uso! Tente novamente.");
             getUserName();
@@ -91,7 +91,7 @@ public class JogadorService extends PessoaService {
         ConsoleResources.exibirTitulo("edição de jogador");
 
         String username = consoleResources.getStringFromConsole("Informe o nome de usuário do jogador que deseja editar: ");
-        List<Jogador> jogadores = filtrar(pessoaRepository.obterTodos()).stream().map(j -> (Jogador) j).collect(Collectors.toList());
+        List<Jogador> jogadores = filtrar(PessoaRepository.pessoas).stream().map(j -> (Jogador) j).collect(Collectors.toList());
         Jogador jogador = jogadores.stream().filter(j -> j.getNomeUsuario().equals(username)).findFirst().orElse(null);
 
         if (Objects.isNull(jogador)) {
@@ -139,7 +139,7 @@ public class JogadorService extends PessoaService {
 
     private Jogo getJogo() {
         List<Jogo> jogosEncontrados = jogoRepository.obterPorNome(consoleResources.getStringFromConsole("Informe o jogo do jogador, " +
-                "os disponíveis são: " + jogoRepository.obterTodos().stream().map(Jogo::getNome).collect(Collectors.joining(", ")) + ": "));
+                "os disponíveis são: " + JogoRepository.jogos.stream().map(Jogo::getNome).collect(Collectors.joining(", ")) + ": "));
 
         if (Objects.isNull(jogosEncontrados) || jogosEncontrados.isEmpty()) {
             System.out.println("Jogo não encontrado! Tente novamente.");

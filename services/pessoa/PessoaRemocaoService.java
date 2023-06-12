@@ -2,6 +2,7 @@ package services.pessoa;
 
 import modelos.Pessoa;
 import repositories.PessoaRepository;
+import services.MenuService;
 import util.ConsoleResources;
 
 import java.util.List;
@@ -19,14 +20,14 @@ public class PessoaRemocaoService {
 
     public void remover(String context) {
         String cpfCnpj = consoleResources.getStringFromConsole("Informe o cpf/cnpj do " + context);
-        Pessoa pessoa = filtrar(pessoaRepository.obterTodos(), context, cpfCnpj);
+        Pessoa pessoa = filtrar(PessoaRepository.pessoas, context, cpfCnpj);
         if (Objects.isNull(pessoa)) {
             System.out.println("Cpf/cnpj não existe no sistema! Tente novamente.");
             remover(context);
         }
         pessoaRepository.remover(pessoa);
         System.out.println("Remoção realizada com sucesso!");
-        ConsoleResources.pausarConsole();
+        MenuService.processaMenu();
     }
 
     private Pessoa filtrar(List<Pessoa> pessoas, String context, String cpfCnpj) {
